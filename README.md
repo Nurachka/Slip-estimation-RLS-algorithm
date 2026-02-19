@@ -29,13 +29,6 @@ Reads csv file. Additionally cleans the dataframe by removing unnecessary column
 ### `robot`
 Simulates robot dynamics and kinematic behavior in order to produce x,y,theta coordinates for the designated trajectory.
 
-### `controllers`
-This controller folder is a contribution to the beaverbot project, which runs these controllers in the real world. Link to the project: https://github.com/Nurachka/beaverbot.git
-- `rls_compensator.py` receives slip estimates from the RLS module and recalculates input velocities for the left and right wheels to compensate for surface slip.
-- `rls_online.py` implements the same compensation strategy but applies it in real-time during robot operation.
-- `feedforward.py` implements feedforward controller. This is needed just for comparing the results with other controllers to estimate the improvements. 
-
-
 
 
 ## Testing & Integration
@@ -45,6 +38,16 @@ All classes were individually unit tested in the `tests` folder to verify correc
 1. Estimates surface slip using RLS
 2. Compensates velocity based on slip estimation
 3. Improves robot trajectory
+
+## Integration into the real robot system
+
+
+
+`controllers` folder is a contribution to the beaverbot project, which runs these controllers in the real world. Link to the project: https://github.com/Nurachka/beaverbot.git
+- `rls_compensator.py` receives slip estimates from the RLS module and recalculates input velocities for the left and right wheels to compensate for surface slip.
+- `rls_online.py` implements the same compensation strategy but applies it in real-time during robot operation.
+- `feedforward.py` implements feedforward controller. This is needed just for comparing the results with other controllers to estimate the improvements. 
+
 
 ## Additional Folders
 
