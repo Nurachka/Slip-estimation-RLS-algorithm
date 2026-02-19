@@ -1,0 +1,1222 @@
+... logging to /root/.ros/log/ef5240b6-ba2e-11f0-b90a-4cd577788121/roslaunch-syslab-IdeaPad-5-14ALC05-508.log
+Checking log directory for disk usage. This may take a while.
+Press Ctrl-C to interrupt
+Done checking log file disk usage. Usage is <1GB.
+
+started roslaunch server http://syslab-IdeaPad-5-14ALC05:45837/
+
+SUMMARY
+========
+
+PARAMETERS
+ * /beaverbot_control_node/controller_type: rls_compensator
+ * /beaverbot_control_node/sampling_time: 0.05
+ * /beaverbot_control_node/trajectory_file: /root/catkin_ws/s...
+ * /beaverbot_control_node/trajectory_type: wheel
+ * /rosdistro: noetic
+ * /rosversion: 1.17.4
+
+NODES
+  /
+    beaverbot_control_node (beaverbot_control/beaverbot_control_node)
+
+ROS_MASTER_URI=http://localhost:11311
+
+process[beaverbot_control_node-1]: started with pid [527]
+[INFO] [1762338106.665469]: Yaw: 1.8873535084492552, Yaw previous: None, Ground angular velocity z: -0.14831634169291558
+[INFO] [1762338106.667991]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338106.715768]: Error in RLS: [-0.01113746]
+[INFO] [1762338106.718251]: Yaw: 1.8873535084492552, Yaw previous: 1.8873535084492552, Ground angular velocity z: -0.2227491203757681
+[INFO] [1762338106.720446]: Difference in velocities due to slip compensation: v: 0.0038948408729559403, w: -0.0027630452782402837, slip: 0.01225231140070502
+[INFO] [1762338106.765521]: Error in RLS: [-0.01470965]
+[INFO] [1762338106.768087]: Yaw: 1.8873535084492552, Yaw previous: 1.8873535084492552, Ground angular velocity z: -0.29784232971700414
+[INFO] [1762338106.770204]: Difference in velocities due to slip compensation: v: 0.010846342497478179, w: -0.010299925664819132, slip: 0.03342587874569922
+[INFO] [1762338106.815996]: Error in RLS: [-0.01447431]
+[INFO] [1762338106.818760]: Yaw: 1.8873535084492552, Yaw previous: 1.8873535084492552, Ground angular velocity z: -0.29949713132271655
+[INFO] [1762338106.821106]: Difference in velocities due to slip compensation: v: 0.017846636400410953, w: -0.01707326492271244, slip: 0.053931969398288315
+[INFO] [1762338106.865773]: Error in RLS: [-0.01427724]
+[INFO] [1762338106.868491]: Yaw: 1.8873534282455484, Yaw previous: 1.8873535084492552, Ground angular velocity z: -0.3018242889494218
+[INFO] [1762338106.871060]: Difference in velocities due to slip compensation: v: 0.024911902147604637, w: -0.02407977827401303, slip: 0.07388609316588954
+[INFO] [1762338106.916264]: Error in RLS: [-0.01411556]
+[INFO] [1762338106.919778]: Yaw: 1.8873534282455484, Yaw previous: 1.8873534282455484, Ground angular velocity z: -0.30483425317003643
+[INFO] [1762338106.922062]: Difference in velocities due to slip compensation: v: 0.03205910959382968, w: -0.03140151330486801, slip: 0.09339135343655272
+[INFO] [1762338106.965803]: Error in RLS: [-0.01398627]
+[INFO] [1762338106.968745]: Yaw: 1.8873534282455484, Yaw previous: 1.8873534282455484, Ground angular velocity z: -0.3085404780454614
+[INFO] [1762338106.970876]: Difference in velocities due to slip compensation: v: 0.03930597776458222, w: -0.03912634661841463, slip: 0.11253977613838173
+[INFO] [1762338107.015881]: Error in RLS: [-0.01388695]
+[INFO] [1762338107.018759]: Yaw: 1.8873534282455484, Yaw previous: 1.8873534282455484, Ground angular velocity z: -0.31295942692160544
+[INFO] [1762338107.020808]: Difference in velocities due to slip compensation: v: 0.04667134618285462, w: -0.047349810762571776, slip: 0.1314143680214922
+[INFO] [1762338107.065880]: Error in RLS: [-0.01381531]
+[INFO] [1762338107.068740]: Yaw: 1.8873534282455484, Yaw previous: 1.8873534282455484, Ground angular velocity z: -0.31811057078584454
+[INFO] [1762338107.070863]: Difference in velocities due to slip compensation: v: 0.054175355901145195, w: -0.056176909146257004, slip: 0.15009027060282093
+[INFO] [1762338107.115733]: Error in RLS: [-0.01376923]
+[INFO] [1762338107.118620]: Yaw: 1.8873534282455484, Yaw previous: 1.8873534282455484, Ground angular velocity z: -0.3240163732372936
+[INFO] [1762338107.120766]: Difference in velocities due to slip compensation: v: 0.06183968317275479, w: -0.06572419167359395, slip: 0.16863574795870034
+[INFO] [1762338107.165566]: Error in RLS: [-0.0137467]
+[INFO] [1762338107.168539]: Yaw: 1.8873534282455484, Yaw previous: 1.8873534282455484, Ground angular velocity z: -0.33070225437112405
+[INFO] [1762338107.170669]: Difference in velocities due to slip compensation: v: 0.06968778743794257, w: -0.07612209813941101, slip: 0.18711293379970345
+[INFO] [1762338107.215775]: Error in RLS: [-0.01374578]
+[INFO] [1762338107.218678]: Yaw: 1.8873534282455484, Yaw previous: 1.8873534282455484, Ground angular velocity z: -0.33819652376091225
+[INFO] [1762338107.220706]: Difference in velocities due to slip compensation: v: 0.07510815676742472, w: -0.08454913094022803, slip: 0.2
+[INFO] [1762338107.265585]: Error in RLS: [-0.01661673]
+[INFO] [1762338107.268501]: Yaw: 1.8902055970846714, Yaw previous: 1.8873534282455484, Ground angular velocity z: -0.34653027016777077
+[INFO] [1762338107.270706]: Difference in velocities due to slip compensation: v: 0.07448079556778364, w: -0.08663256754194265, slip: 0.2
+[INFO] [1762338107.315717]: Error in RLS: [-0.01373292]
+[INFO] [1762338107.318903]: Yaw: 1.8902055970846714, Yaw previous: 1.8902055970846714, Ground angular velocity z: -0.35573719253437164
+[INFO] [1762338107.321314]: Difference in velocities due to slip compensation: v: 0.07380719630667759, w: -0.08893429813359288, slip: 0.2
+[INFO] [1762338107.365746]: Error in RLS: [0.00740635]
+[INFO] [1762338107.368454]: Yaw: 1.86901419838488, Yaw previous: 1.8902055970846714, Ground angular velocity z: -0.3658533531675977
+[INFO] [1762338107.370841]: Difference in velocities due to slip compensation: v: 0.07308952801542123, w: -0.0914633382918994, slip: 0.2
+[INFO] [1762338107.416181]: Error in RLS: [-0.0143905]
+[INFO] [1762338107.418903]: Yaw: 1.86901419838488, Yaw previous: 1.86901419838488, Ground angular velocity z: -0.3769168297106112
+[INFO] [1762338107.421255]: Difference in velocities due to slip compensation: v: 0.07233017074204495, w: -0.09422920742765278, slip: 0.2
+[INFO] [1762338107.465787]: Error in RLS: [0.00884186]
+[INFO] [1762338107.468558]: Yaw: 1.8457013780748852, Yaw previous: 1.86901419838488, Ground angular velocity z: -0.3889672375252856
+[INFO] [1762338107.471338]: Difference in velocities due to slip compensation: v: 0.07153172482229125, w: -0.09724180938132138, slip: 0.2
+[INFO] [1762338107.515952]: Error in RLS: [-0.01519971]
+[INFO] [1762338107.518875]: Yaw: 1.8457013780748852, Yaw previous: 1.8457013780748852, Ground angular velocity z: -0.40204508846180154
+[INFO] [1762338107.520889]: Difference in velocities due to slip compensation: v: 0.07069702095988589, w: -0.1005112721154503, slip: 0.2
+[INFO] [1762338107.565549]: Error in RLS: [0.00834096]
+[INFO] [1762338107.568524]: Yaw: 1.822059148365705, Yaw previous: 1.8457013780748852, Ground angular velocity z: -0.41619094578687094
+[INFO] [1762338107.571313]: Difference in velocities due to slip compensation: v: 0.06982913107217553, w: -0.10404773644671766, slip: 0.2
+[INFO] [1762338107.615791]: Error in RLS: [-0.01610988]
+[INFO] [1762338107.618772]: Yaw: 1.822059148365705, Yaw previous: 1.822059148365705, Ground angular velocity z: -0.4314443284993576
+[INFO] [1762338107.620720]: Difference in velocities due to slip compensation: v: 0.06893137981839981, w: -0.10786108212483941, slip: 0.2
+[INFO] [1762338107.665776]: Error in RLS: [0.00926585]
+[INFO] [1762338107.668846]: Yaw: 1.796570769942334, Yaw previous: 1.822059148365705, Ground angular velocity z: -0.4478423118011616
+[INFO] [1762338107.671531]: Difference in velocities due to slip compensation: v: 0.06800735667578939, w: -0.11196057795029041, slip: 0.2
+[INFO] [1762338107.715747]: Error in RLS: [-0.01715951]
+[INFO] [1762338107.718695]: Yaw: 1.796570769942334, Yaw previous: 1.796570769942334, Ground angular velocity z: -0.4654177648072599
+[INFO] [1762338107.721009]: Difference in velocities due to slip compensation: v: 0.06706092836034466, w: -0.11635444120181498, slip: 0.2
+[INFO] [1762338107.765762]: Error in RLS: [0.01360376]
+[INFO] [1762338107.768797]: Yaw: 1.7656968728812936, Yaw previous: 1.796570769942334, Ground angular velocity z: -0.4841971627355008
+[INFO] [1762338107.770915]: Difference in velocities due to slip compensation: v: 0.06609625130125363, w: -0.12104929068387521, slip: 0.2
+[INFO] [1762338107.815725]: Error in RLS: [-0.01846613]
+[INFO] [1762338107.818464]: Yaw: 1.7656968728812936, Yaw previous: 1.7656968728812936, Ground angular velocity z: -0.5041979103764301
+[INFO] [1762338107.820676]: Difference in velocities due to slip compensation: v: 0.06511778376707567, w: -0.12604947759410745, slip: 0.2
+[INFO] [1762338107.865754]: Error in RLS: [0.01453063]
+[INFO] [1762338107.868645]: Yaw: 1.7326082382707568, Yaw previous: 1.7656968728812936, Ground angular velocity z: -0.5254251187716483
+[INFO] [1762338107.871332]: Difference in velocities due to slip compensation: v: 0.06413029710494067, w: -0.13135627969291208, slip: 0.2
+[INFO] [1762338107.916126]: Error in RLS: [-0.01991503]
+[INFO] [1762338107.918994]: Yaw: 1.7326082382707568, Yaw previous: 1.7326082382707568, Ground angular velocity z: -0.5478677905985663
+[INFO] [1762338107.920878]: Difference in velocities due to slip compensation: v: 0.06313888538883566, w: -0.13696694764964157, slip: 0.2
+[INFO] [1762338107.965751]: Error in RLS: [0.01015539]
+[INFO] [1762338107.968706]: Yaw: 1.7024875305921299, Yaw previous: 1.7326082382707568, Ground angular velocity z: -0.5714943953601088
+[INFO] [1762338107.971359]: Difference in velocities due to slip compensation: v: 0.0621489725790611, w: -0.14287359884002715, slip: 0.2
+[INFO] [1762338108.015685]: Error in RLS: [-0.02126057]
+[INFO] [1762338108.018370]: Yaw: 1.7024875305921299, Yaw previous: 1.7024875305921299, Ground angular velocity z: -0.5962478572838995
+[INFO] [1762338108.020767]: Difference in velocities due to slip compensation: v: 0.06116631607457429, w: -0.14906196432097485, slip: 0.2
+[INFO] [1762338108.065574]: Error in RLS: [0.01213357]
+[INFO] [1762338108.068352]: Yaw: 1.6691131045507959, Yaw previous: 1.7024875305921299, Ground angular velocity z: -0.6220400412191924
+[INFO] [1762338108.071322]: Difference in velocities due to slip compensation: v: 0.060197005300240636, w: -0.15551001030479805, slip: 0.2
+[INFO] [1762338108.115763]: Error in RLS: [-0.0227104]
+[INFO] [1762338108.118516]: Yaw: 1.6691131045507959, Yaw previous: 1.6691131045507959, Ground angular velocity z: -0.6487459085603001
+[INFO] [1762338108.120784]: Difference in velocities due to slip compensation: v: 0.05924745372565543, w: -0.16218647714007495, slip: 0.2
+[INFO] [1762338108.165586]: Error in RLS: [0.01357134]
+[INFO] [1762338108.168449]: Yaw: 1.6329530328548767, Yaw previous: 1.6691131045507959, Ground angular velocity z: -0.6761976281851747
+[INFO] [1762338108.171458]: Difference in velocities due to slip compensation: v: 0.05832438248364197, w: -0.16904940704629368, slip: 0.2
+[INFO] [1762338108.215824]: Error in RLS: [-0.02419248]
+[INFO] [1762338108.218462]: Yaw: 1.6329530328548767, Yaw previous: 1.6329530328548767, Ground angular velocity z: -0.7041790645998398
+[INFO] [1762338108.220685]: Difference in velocities due to slip compensation: v: 0.05743479357812248, w: -0.1760447661499599, slip: 0.2
+[INFO] [1762338108.265569]: Error in RLS: [0.01951792]
+[INFO] [1762338108.268332]: Yaw: 1.5895010422085383, Yaw previous: 1.6329530328548767, Ground angular velocity z: -0.7324212186236085
+[INFO] [1762338108.270980]: Difference in velocities due to slip compensation: v: 0.05658593058823641, w: -0.18310530465590213, slip: 0.2
+[INFO] [1762338108.315800]: Error in RLS: [-0.02587185]
+[INFO] [1762338108.318806]: Yaw: 1.5895010422085383, Yaw previous: 1.5895010422085383, Ground angular velocity z: -0.7605993477538269
+[INFO] [1762338108.320758]: Difference in velocities due to slip compensation: v: 0.05578522484521775, w: -0.19014983693845666, slip: 0.2
+[INFO] [1762338108.365853]: Error in RLS: [0.02741572]
+[INFO] [1762338108.368648]: Yaw: 1.5366465992628706, Yaw previous: 1.5895010422085383, Ground angular velocity z: -0.7883326155348868
+[INFO] [1762338108.371299]: Difference in velocities due to slip compensation: v: 0.055040225345237226, w: -0.19708315388372166, slip: 0.2
+[INFO] [1762338108.415658]: Error in RLS: [-0.0277869]
+[INFO] [1762338108.418455]: Yaw: 1.5366465992628706, Yaw previous: 1.5366465992628706, Ground angular velocity z: -0.8151871724743683
+[INFO] [1762338108.420259]: Difference in velocities due to slip compensation: v: 0.0543585112292817, w: -0.2037967931185921, slip: 0.2
+[INFO] [1762338108.465750]: Error in RLS: [0.03444884]
+[INFO] [1762338108.468631]: Yaw: 1.4750584070699944, Yaw previous: 1.5366465992628706, Ground angular velocity z: -0.8406835084755482
+[INFO] [1762338108.471584]: Difference in velocities due to slip compensation: v: 0.053747586560026483, w: -0.21017087711888705, slip: 0.2
+[INFO] [1762338108.515807]: Error in RLS: [-0.02978934]
+[INFO] [1762338108.518481]: Yaw: 1.4750584070699944, Yaw previous: 1.4750584070699944, Ground angular velocity z: -0.8643086929257002
+[INFO] [1762338108.520764]: Difference in velocities due to slip compensation: v: 0.05321475837266193, w: -0.21607717323142506, slip: 0.2
+[INFO] [1762338108.565610]: Error in RLS: [0.04161647]
+[INFO] [1762338108.568245]: Yaw: 1.404548486042093, Yaw previous: 1.4750584070699944, Ground angular velocity z: -0.8855337038501366
+[INFO] [1762338108.570326]: Difference in velocities due to slip compensation: v: 0.05276700053451083, w: -0.22138342596253413, slip: 0.2
+[INFO] [1762338108.615578]: Error in RLS: [-0.03174212]
+[INFO] [1762338108.618175]: Yaw: 1.404548486042093, Yaw previous: 1.404548486042093, Ground angular velocity z: -0.9038354462244542
+[INFO] [1762338108.620561]: Difference in velocities due to slip compensation: v: 0.052410807706964324, w: -0.22595886155611344, slip: 0.2
+[INFO] [1762338108.665572]: Error in RLS: [0.0477059]
+[INFO] [1762338108.668244]: Yaw: 1.3262660722382416, Yaw previous: 1.404548486042093, Ground angular velocity z: -0.9187223264231356
+[INFO] [1762338108.670483]: Difference in velocities due to slip compensation: v: 0.05215204547175789, w: -0.22968058160578375, slip: 0.2
+[INFO] [1762338108.715719]: Error in RLS: [-0.03342038]
+[INFO] [1762338108.718450]: Yaw: 1.3262660722382416, Yaw previous: 1.3262660722382416, Ground angular velocity z: -0.9297614968257342
+[INFO] [1762338108.720873]: Difference in velocities due to slip compensation: v: 0.05199580420091682, w: -0.23244037420643338, slip: 0.2
+[INFO] [1762338108.765559]: Error in RLS: [0.05270214]
+[INFO] [1762338108.768197]: Yaw: 1.2415779323767833, Yaw previous: 1.3262660722382416, Ground angular velocity z: -0.9366052694192031
+[INFO] [1762338108.770594]: Difference in velocities due to slip compensation: v: 0.05194626522126544, w: -0.23415131735480066, slip: 0.2
+[INFO] [1762338108.815650]: Error in RLS: [-0.03461547]
+[INFO] [1762338108.818729]: Yaw: 1.2415779323767833, Yaw previous: 1.2415779323767833, Ground angular velocity z: -0.9390138895039097
+[INFO] [1762338108.820930]: Difference in velocities due to slip compensation: v: 0.0520065879815485, w: -0.23475347237597743, slip: 0.2
+[INFO] [1762338108.865659]: Error in RLS: [0.05048209]
+[INFO] [1762338108.868625]: Yaw: 1.1581555015052842, Yaw previous: 1.2415779323767833, Ground angular velocity z: -0.9368719916856314
+[INFO] [1762338108.870883]: Difference in velocities due to slip compensation: v: 0.05217882610231034, w: -0.23421799792140785, slip: 0.2
+[INFO] [1762338108.915793]: Error in RLS: [-0.03491017]
+[INFO] [1762338108.918515]: Yaw: 1.1581555015052842, Yaw previous: 1.1581555015052842, Ground angular velocity z: -0.9301966721446088
+[INFO] [1762338108.920573]: Difference in velocities due to slip compensation: v: 0.05246387836562183, w: -0.2325491680361521, slip: 0.2
+[INFO] [1762338108.965750]: Error in RLS: [0.0517389]
+[INFO] [1762338108.969096]: Yaw: 1.0733550351677135, Yaw previous: 1.1581555015052842, Ground angular velocity z: -0.919136126124956
+[INFO] [1762338108.971805]: Difference in velocities due to slip compensation: v: 0.05286147806362651, w: -0.22978403153123894, slip: 0.2
+[INFO] [1762338109.015748]: Error in RLS: [-0.03449974]
+[INFO] [1762338109.018466]: Yaw: 1.0733550351677135, Yaw previous: 1.0733550351677135, Ground angular velocity z: -0.9039590288685891
+[INFO] [1762338109.020612]: Difference in velocities due to slip compensation: v: 0.05337022102209066, w: -0.2259897572171473, slip: 0.2
+[INFO] [1762338109.065822]: Error in RLS: [0.05886352]
+[INFO] [1762338109.069078]: Yaw: 0.9819415904819859, Yaw previous: 1.0733550351677135, Ground angular velocity z: -0.8850360307404913
+[INFO] [1762338109.072052]: Difference in velocities due to slip compensation: v: 0.05398762949793773, w: -0.22125900768512274, slip: 0.2
+[INFO] [1762338109.115524]: Error in RLS: [-0.03366463]
+[INFO] [1762338109.118439]: Yaw: 0.9819415904819859, Yaw previous: 0.9819415904819859, Ground angular velocity z: -0.8628156527845151
+[INFO] [1762338109.120809]: Difference in velocities due to slip compensation: v: 0.05471024646779982, w: -0.2157039131961288, slip: 0.2
+[INFO] [1762338109.165744]: Error in RLS: [0.0672133]
+[INFO] [1762338109.168875]: Yaw: 0.883053290592021, Yaw previous: 0.9819415904819859, Ground angular velocity z: -0.8377973468021704
+[INFO] [1762338109.171782]: Difference in velocities due to slip compensation: v: 0.054937508428978044, w: -0.2072005599102389, slip: 0.19827844494167185
+[INFO] [1762338109.215577]: Error in RLS: [-0.03248995]
+[INFO] [1762338109.218221]: Yaw: 0.883053290592021, Yaw previous: 0.883053290592021, Ground angular velocity z: -0.8105044816154866
+[INFO] [1762338109.220860]: Difference in velocities due to slip compensation: v: 0.056453099887982305, w: -0.20262612040387162, slip: 0.2
+[INFO] [1762338109.265661]: Error in RLS: [0.07245081]
+[INFO] [1762338109.268313]: Yaw: 0.7800879654508215, Yaw previous: 0.883053290592021, Ground angular velocity z: -0.7814596061460348
+[INFO] [1762338109.270838]: Difference in velocities due to slip compensation: v: 0.048909408430798995, w: -0.16628509642227474, slip: 0.17545346966504374
+[INFO] [1762338109.315708]: Error in RLS: [-0.03096847]
+[INFO] [1762338109.318270]: Yaw: 0.7800879654508215, Yaw previous: 0.7800879654508215, Ground angular velocity z: -0.7511636681006033
+[INFO] [1762338109.320805]: Difference in velocities due to slip compensation: v: 0.0560096206743112, w: -0.17962368234048864, slip: 0.19298036469379026
+[INFO] [1762338109.365798]: Error in RLS: [0.07846443]
+[INFO] [1762338109.368487]: Yaw: 0.6725675966998708, Yaw previous: 0.7800879654508215, Ground angular velocity z: -0.7200801052516682
+[INFO] [1762338109.371001]: Difference in velocities due to slip compensation: v: 0.04256664684948808, w: -0.1282965342970679, slip: 0.15122591584477227
+[INFO] [1762338109.415724]: Error in RLS: [-0.02922431]
+[INFO] [1762338109.418322]: Yaw: 0.6725675966998708, Yaw previous: 0.6725675966998708, Ground angular velocity z: -0.6886240216640367
+[INFO] [1762338109.420996]: Difference in velocities due to slip compensation: v: 0.04848671324052595, w: -0.1369078824365918, slip: 0.16584202470738602
+[INFO] [1762338109.466159]: Error in RLS: [0.08026896]
+[INFO] [1762338109.468937]: Yaw: 0.5648900325296271, Yaw previous: 0.6725675966998708, Ground angular velocity z: -0.6571561097215687
+[INFO] [1762338109.470907]: Difference in velocities due to slip compensation: v: 0.03660639302546753, w: -0.09656936298042773, slip: 0.12812272701125588
+[INFO] [1762338109.515696]: Error in RLS: [-0.02728891]
+[INFO] [1762338109.518356]: Yaw: 0.5648900325296271, Yaw previous: 0.5648900325296271, Ground angular velocity z: -0.625980619635591
+[INFO] [1762338109.520171]: Difference in velocities due to slip compensation: v: 0.041498902865160336, w: -0.10204687770698895, slip: 0.14016898823118198
+[INFO] [1762338109.565772]: Error in RLS: [0.07244631]
+[INFO] [1762338109.568407]: Yaw: 0.46684884978482977, Yaw previous: 0.5648900325296271, Ground angular velocity z: -0.5953465040690912
+[INFO] [1762338109.570284]: Difference in velocities due to slip compensation: v: 0.032205144668496166, w: -0.07367924690609484, slip: 0.11012916438373038
+[INFO] [1762338109.615569]: Error in RLS: [-0.02515891]
+[INFO] [1762338109.618429]: Yaw: 0.46684884978482977, Yaw previous: 0.46684884978482977, Ground angular velocity z: -0.5654508406961194
+[INFO] [1762338109.620238]: Difference in velocities due to slip compensation: v: 0.036256837294336486, w: -0.07705460414781118, slip: 0.11992832864868305
+[INFO] [1762338109.665748]: Error in RLS: [0.06807178]
+[INFO] [1762338109.668565]: Yaw: 0.3751716273486885, Yaw previous: 0.46684884978482977, Ground angular velocity z: -0.5364437128486226
+[INFO] [1762338109.670506]: Difference in velocities due to slip compensation: v: 0.028565494844760175, w: -0.05632615270414343, slip: 0.0950219570484045
+[INFO] [1762338109.715741]: Error in RLS: [-0.02300607]
+[INFO] [1762338109.718514]: Yaw: 0.3751716273486885, Yaw previous: 0.3751716273486885, Ground angular velocity z: -0.5084338625354654
+[INFO] [1762338109.720392]: Difference in velocities due to slip compensation: v: 0.03191760310310027, w: -0.058337984486886096, slip: 0.10293027925324139
+[INFO] [1762338109.765729]: Error in RLS: [0.08064097]
+[INFO] [1762338109.768606]: Yaw: 0.27293394948749317, Yaw previous: 0.3751716273486885, Ground angular velocity z: -0.48149458466773193
+[INFO] [1762338109.770780]: Difference in velocities due to slip compensation: v: 0.023685972210866824, w: -0.04010184296621072, slip: 0.07688289421022325
+[INFO] [1762338109.815761]: Error in RLS: [-0.02103181]
+[INFO] [1762338109.818808]: Yaw: 0.27293394948749317, Yaw previous: 0.27293394948749317, Ground angular velocity z: -0.455669481254482
+[INFO] [1762338109.820969]: Difference in velocities due to slip compensation: v: 0.026403878976714923, w: -0.04138876425711524, slip: 0.08326743320496739
+[INFO] [1762338109.865716]: Error in RLS: [0.08385159]
+[INFO] [1762338109.868527]: Yaw: 0.16932778529317805, Yaw previous: 0.27293394948749317, Ground angular velocity z: -0.43097782516670863
+[INFO] [1762338109.870495]: Difference in velocities due to slip compensation: v: 0.018739171097873486, w: -0.027187686005953893, slip: 0.059340315547470435
+[INFO] [1762338109.915748]: Error in RLS: [-0.01916215]
+[INFO] [1762338109.918664]: Yaw: 0.16932778529317805, Yaw previous: 0.16932778529317805, Ground angular velocity z: -0.4074193885694911
+[INFO] [1762338109.920706]: Difference in velocities due to slip compensation: v: 0.020915334521737772, w: -0.028081585438089418, slip: 0.06448110822732771
+[INFO] [1762338109.966074]: Error in RLS: [0.0752725]
+[INFO] [1762338109.968933]: Yaw: 0.07604754242056266, Yaw previous: 0.16932778529317805, Ground angular velocity z: -0.384978670637288
+[INFO] [1762338109.970974]: Difference in velocities due to slip compensation: v: 0.014768064326742547, w: -0.018348169781260137, slip: 0.045492062373581506
+[INFO] [1762338110.015528]: Error in RLS: [-0.01735432]
+[INFO] [1762338110.018252]: Yaw: 0.07604754242056266, Yaw previous: 0.07604754242056266, Ground angular velocity z: -0.36362851527261547
+[INFO] [1762338110.020340]: Difference in velocities due to slip compensation: v: 0.016509084922352257, w: -0.01898103622206959, slip: 0.04960941552012785
+[INFO] [1762338110.065550]: Error in RLS: [0.06971764]
+[INFO] [1762338110.068505]: Yaw: -0.00998512717770339, Yaw previous: 0.07604754242056266, Ground angular velocity z: -0.34333314629853423
+[INFO] [1762338110.070777]: Difference in velocities due to slip compensation: v: 0.011374549901509934, w: -0.012103233234592448, slip: 0.03405175702748917
+[INFO] [1762338110.115740]: Error in RLS: [-0.01565081]
+[INFO] [1762338110.118751]: Yaw: -0.00998512717770339, Yaw previous: -0.00998512717770339, Ground angular velocity z: -0.3240506693668148
+[INFO] [1762338110.120907]: Difference in velocities due to slip compensation: v: 0.012760858983517587, w: -0.012568313678989307, slip: 0.03733691298472946
+[INFO] [1762338110.165763]: Error in RLS: [0.06780037]
+[INFO] [1762338110.168483]: Yaw: -0.0925014952868648, Yaw previous: -0.00998512717770339, Ground angular velocity z: -0.3057351006511885
+[INFO] [1762338110.170456]: Difference in velocities due to slip compensation: v: 0.008227914586354579, w: -0.007502123799214833, slip: 0.02395029458065799
+[INFO] [1762338110.215757]: Error in RLS: [-0.01407161]
+[INFO] [1762338110.218648]: Yaw: -0.0925014952868648, Yaw previous: -0.0925014952868648, Ground angular velocity z: -0.2883379856714576
+[INFO] [1762338110.220695]: Difference in velocities due to slip compensation: v: 0.009320119348709355, w: -0.007868277375130905, slip: 0.026563507787454626
+[INFO] [1762338110.265947]: Error in RLS: [0.06418439]
+[INFO] [1762338110.268852]: Yaw: -0.16991535993719564, Yaw previous: -0.0925014952868648, Ground angular velocity z: -0.27180966998455336
+[INFO] [1762338110.271038]: Difference in velocities due to slip compensation: v: 0.005421554465677547, w: -0.004238407006351197, slip: 0.015353872602745362
+[INFO] [1762338110.315658]: Error in RLS: [-0.01260841]
+[INFO] [1762338110.318556]: Yaw: -0.16991535993719564, Yaw previous: -0.16991535993719564, Ground angular velocity z: -0.25610027896511534
+[INFO] [1762338110.320599]: Difference in velocities due to slip compensation: v: 0.0062727768606763434, w: -0.0045414920591151375, slip: 0.017424267957007224
+[INFO] [1762338110.365983]: Error in RLS: [0.05887042]
+[INFO] [1762338110.369034]: Yaw: -0.24063370066902534, Yaw previous: -0.16991535993719564, Ground angular velocity z: -0.24116045789147966
+[INFO] [1762338110.371244]: Difference in velocities due to slip compensation: v: 0.0030241364695726136, w: -0.0020277454650039495, slip: 0.008338173632672198
+[INFO] [1762338110.415871]: Error in RLS: [-0.01125248]
+[INFO] [1762338110.418924]: Yaw: -0.24063370066902534, Yaw previous: -0.24063370066902534, Ground angular velocity z: -0.226941917002002
+[INFO] [1762338110.420968]: Difference in velocities due to slip compensation: v: 0.003680341467540982, w: -0.0022853510284579215, slip: 0.009969804413296209
+[INFO] [1762338110.466066]: Error in RLS: [0.05662975]
+[INFO] [1762338110.468797]: Yaw: -0.30782696302891743, Yaw previous: -0.24063370066902534, Ground angular velocity z: -0.21339781969612215
+[INFO] [1762338110.470852]: Difference in velocities due to slip compensation: v: 0.0008405481061327658, w: -0.00048330018243777917, slip: 0.0022596673456366
+[INFO] [1762338110.515712]: Error in RLS: [-0.0100015]
+[INFO] [1762338110.518512]: Yaw: -0.30782696302891743, Yaw previous: -0.30782696302891743, Ground angular velocity z: -0.20048304598398678
+[INFO] [1762338110.520398]: Difference in velocities due to slip compensation: v: 0.0013370948427754992, w: -0.000711690778610885, slip: 0.0035373230436472614
+[INFO] [1762338110.565729]: Error in RLS: [0.04464514]
+[INFO] [1762338110.568425]: Yaw: -0.36184653989225124, Yaw previous: -0.30782696302891743, Ground angular velocity z: -0.18815435782263012
+[INFO] [1762338110.570326]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338110.615897]: Error in RLS: [-0.00883448]
+[INFO] [1762338110.618685]: Yaw: -0.36184653989225124, Yaw previous: -0.36184653989225124, Ground angular velocity z: -0.1763704881891716
+[INFO] [1762338110.621094]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338110.665753]: Error in RLS: [0.04100399]
+[INFO] [1762338110.668520]: Yaw: -0.4111118926591466, Yaw previous: -0.36184653989225124, Ground angular velocity z: -0.16509217163279163
+[INFO] [1762338110.671021]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338110.716228]: Error in RLS: [-0.0077536]
+[INFO] [1762338110.718968]: Yaw: -0.4111118926591466, Yaw previous: -0.4111118926591466, Ground angular velocity z: -0.15428213057815346
+[INFO] [1762338110.721414]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338110.765918]: Error in RLS: [0.04725101]
+[INFO] [1762338110.804481]: Yaw: -0.46558952202035897, Yaw previous: -0.4111118926591466, Ground angular velocity z: -0.1439050287615306
+[INFO] [1762338110.807100]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338110.815565]: Error in RLS: [-0.00675445]
+[INFO] [1762338110.818558]: Yaw: -0.46558952202035897, Yaw previous: -0.46558952202035897, Ground angular velocity z: -0.13392740079419044
+[INFO] [1762338110.821515]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338110.866281]: Error in RLS: [0.04205806]
+[INFO] [1762338110.869029]: Yaw: -0.5139138097017248, Yaw previous: -0.46558952202035897, Ground angular velocity z: -0.12431756489871333
+[INFO] [1762338110.871522]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338110.915721]: Error in RLS: [-0.00581793]
+[INFO] [1762338110.918655]: Yaw: -0.5139138097017248, Yaw previous: -0.5139138097017248, Ground angular velocity z: -0.11504552428184454
+[INFO] [1762338110.921245]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338110.965865]: Error in RLS: [0.03528168]
+[INFO] [1762338110.968589]: Yaw: -0.5545579229500017, Yaw previous: -0.5139138097017248, Ground angular velocity z: -0.10608286133160562
+[INFO] [1762338110.971043]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338111.015576]: Error in RLS: [-0.00493519]
+[INFO] [1762338111.018472]: Yaw: -0.5545579229500017, Yaw previous: -0.5545579229500017, Ground angular velocity z: -0.09740262780663905
+[INFO] [1762338111.021476]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338111.065842]: Error in RLS: [0.03281712]
+[INFO] [1762338111.068970]: Yaw: -0.5918820880243847, Yaw previous: -0.5545579229500017, Ground angular velocity z: -0.08897923337246447
+[INFO] [1762338111.071396]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338111.115903]: Error in RLS: [-0.00409962]
+[INFO] [1762338111.119075]: Yaw: -0.5918820880243847, Yaw previous: -0.5918820880243847, Ground angular velocity z: -0.08078833419511852
+[INFO] [1762338111.121462]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338111.165648]: Error in RLS: [0.02840679]
+[INFO] [1762338111.168429]: Yaw: -0.6239827042679824, Yaw previous: -0.5918820880243847, Ground angular velocity z: -0.07280672279549295
+[INFO] [1762338111.171022]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338111.215601]: Error in RLS: [-0.00330263]
+[INFO] [1762338111.218331]: Yaw: -0.6239827042679824, Yaw previous: -0.6239827042679824, Ground angular velocity z: -0.06501221996975995
+[INFO] [1762338111.220673]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338111.265618]: Error in RLS: [0.02660064]
+[INFO] [1762338111.268359]: Yaw: -0.6534980478634251, Yaw previous: -0.6239827042679824, Ground angular velocity z: -0.057383569271567986
+[INFO] [1762338111.270535]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338111.315618]: Error in RLS: [-0.00253701]
+[INFO] [1762338111.318517]: Yaw: -0.6534980478634251, Yaw previous: -0.6534980478634251, Ground angular velocity z: -0.049900334311179365
+[INFO] [1762338111.320825]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338111.365863]: Error in RLS: [0.02526578]
+[INFO] [1762338111.368502]: Yaw: -0.6809266049473979, Yaw previous: -0.6534980478634251, Ground angular velocity z: -0.04254279894111214
+[INFO] [1762338111.370320]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338111.415762]: Error in RLS: [-0.00179535]
+[INFO] [1762338111.418575]: Yaw: -0.6809266049473979, Yaw previous: -0.6809266049473979, Ground angular velocity z: -0.03529187025665414
+[INFO] [1762338111.420647]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338111.466077]: Error in RLS: [0.02574364]
+[INFO] [1762338111.469059]: Yaw: -0.7081011534916768, Yaw previous: -0.6809266049473979, Ground angular velocity z: -0.028128984231417967
+[INFO] [1762338111.471501]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338111.515665]: Error in RLS: [-0.00107057]
+[INFO] [1762338111.518396]: Yaw: -0.7081011534916768, Yaw previous: -0.7081011534916768, Ground angular velocity z: -0.02103601372698858
+[INFO] [1762338111.520746]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338111.565777]: Error in RLS: [0.02505615]
+[INFO] [1762338111.568574]: Yaw: -0.7338695375755138, Yaw previous: -0.7081011534916768, Ground angular velocity z: -0.013995178555444413
+[INFO] [1762338111.571002]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338111.615547]: Error in RLS: [-0.00035576]
+[INFO] [1762338111.618402]: Yaw: -0.7338695375755138, Yaw previous: -0.7338695375755138, Ground angular velocity z: -0.006988957229069818
+[INFO] [1762338111.620900]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338111.665657]: Error in RLS: [0.01707261]
+[INFO] [1762338111.668538]: Yaw: -0.7509421510963796, Yaw previous: -0.7338695375755138, Ground angular velocity z: 0.0
+[INFO] [1762338111.671025]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338111.715770]: Error in RLS: [0.00035576]
+[INFO] [1762338111.718623]: Yaw: -0.7509421510963796, Yaw previous: -0.7509421510963796, Ground angular velocity z: 0.006988957229069818
+[INFO] [1762338111.720625]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338111.766040]: Error in RLS: [0.0143296]
+[INFO] [1762338111.768990]: Yaw: -0.764559362160119, Yaw previous: -0.7509421510963796, Ground angular velocity z: 0.013995178555444413
+[INFO] [1762338111.771029]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338111.815728]: Error in RLS: [0.00107066]
+[INFO] [1762338111.818629]: Yaw: -0.764559362160119, Yaw previous: -0.764559362160119, Ground angular velocity z: 0.02103601372698858
+[INFO] [1762338111.820699]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338111.865774]: Error in RLS: [0.01612111]
+[INFO] [1762338111.868800]: Yaw: -0.7792488328113287, Yaw previous: -0.764559362160119, Ground angular velocity z: 0.028128984231417967
+[INFO] [1762338111.870670]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338111.915740]: Error in RLS: [0.0017957]
+[INFO] [1762338111.918624]: Yaw: -0.7792488328113287, Yaw previous: -0.7792488328113287, Ground angular velocity z: 0.03529187025665414
+[INFO] [1762338111.920701]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338111.966014]: Error in RLS: [0.01999443]
+[INFO] [1762338111.968967]: Yaw: -0.7970787163151085, Yaw previous: -0.7792488328113287, Ground angular velocity z: 0.04254279894111214
+[INFO] [1762338111.971076]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338112.015719]: Error in RLS: [0.00253755]
+[INFO] [1762338112.018473]: Yaw: -0.7970787163151085, Yaw previous: -0.7970787163151085, Ground angular velocity z: 0.049900334311183556
+[INFO] [1762338112.020496]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338112.066210]: Error in RLS: [0.01902306]
+[INFO] [1762338112.069175]: Yaw: -0.8131839114491992, Yaw previous: -0.7970787163151085, Ground angular velocity z: 0.057383569271563795
+[INFO] [1762338112.071306]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338112.115797]: Error in RLS: [0.00330352]
+[INFO] [1762338112.118636]: Yaw: -0.8131839114491992, Yaw previous: -0.8131839114491992, Ground angular velocity z: 0.06501221996974738
+[INFO] [1762338112.120589]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338112.165867]: Error in RLS: [0.01376554]
+[INFO] [1762338112.168863]: Yaw: -0.8232503515935226, Yaw previous: -0.8131839114491992, Ground angular velocity z: 0.07280672279550132
+[INFO] [1762338112.171123]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338112.215708]: Error in RLS: [0.00410206]
+[INFO] [1762338112.218611]: Yaw: -0.8232503515935226, Yaw previous: -0.8232503515935226, Ground angular velocity z: 0.08078833419512689
+[INFO] [1762338112.220443]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338112.265711]: Error in RLS: [0.01547501]
+[INFO] [1762338112.268653]: Yaw: -0.8342083357881971, Yaw previous: -0.8232503515935226, Ground angular velocity z: 0.08897923337245608
+[INFO] [1762338112.270678]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338112.315765]: Error in RLS: [0.0049404]
+[INFO] [1762338112.318633]: Yaw: -0.8342083357881971, Yaw previous: -0.8342083357881971, Ground angular velocity z: 0.09740262780663905
+[INFO] [1762338112.320563]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338112.365795]: Error in RLS: [0.01369466]
+[INFO] [1762338112.368792]: Yaw: -0.8425239263855286, Yaw previous: -0.8342083357881971, Ground angular velocity z: 0.10608286133161819
+[INFO] [1762338112.370970]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338112.415712]: Error in RLS: [0.00582826]
+[INFO] [1762338112.418823]: Yaw: -0.8425239263855286, Yaw previous: -0.8425239263855286, Ground angular velocity z: 0.11504552428185712
+[INFO] [1762338112.420828]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338112.465993]: Error in RLS: [0.01261547]
+[INFO] [1762338112.469078]: Yaw: -0.8488440423002261, Yaw previous: -0.8425239263855286, Ground angular velocity z: 0.12431756489869657
+[INFO] [1762338112.471188]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338112.515774]: Error in RLS: [0.00677536]
+[INFO] [1762338112.518624]: Yaw: -0.8488440423002261, Yaw previous: -0.8488440423002261, Ground angular velocity z: 0.13392740079416948
+[INFO] [1762338112.520617]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338112.565804]: Error in RLS: [0.01330529]
+[INFO] [1762338112.568933]: Yaw: -0.8548733190258324, Yaw previous: -0.8488440423002261, Ground angular velocity z: 0.14390502876154737
+[INFO] [1762338112.571159]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338112.615558]: Error in RLS: [0.00779139]
+[INFO] [1762338112.618453]: Yaw: -0.8548733190258324, Yaw previous: -0.8548733190258324, Ground angular velocity z: 0.15428213057814927
+[INFO] [1762338112.620291]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338112.665863]: Error in RLS: [0.01089542]
+[INFO] [1762338112.668907]: Yaw: -0.8574376757597855, Yaw previous: -0.8548733190258324, Ground angular velocity z: 0.16509217163277906
+[INFO] [1762338112.671038]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338112.715519]: Error in RLS: [0.00889022]
+[INFO] [1762338112.718520]: Yaw: -0.8574376757597855, Yaw previous: -0.8574376757597855, Ground angular velocity z: 0.17637048818918416
+[INFO] [1762338112.720406]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338112.765593]: Error in RLS: [0.0078518]
+[INFO] [1762338112.768436]: Yaw: -0.8558145418210845, Yaw previous: -0.8574376757597855, Ground angular velocity z: 0.18815435782262593
+[INFO] [1762338112.770503]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338112.815585]: Error in RLS: [0.01008648]
+[INFO] [1762338112.818427]: Yaw: -0.8558145418210845, Yaw previous: -0.8558145418210845, Ground angular velocity z: 0.20048304598399097
+[INFO] [1762338112.820780]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338112.865767]: Error in RLS: [0.01505972]
+[INFO] [1762338112.868595]: Yaw: -0.8601515510067057, Yaw previous: -0.8558145418210845, Ground angular velocity z: 0.2133978196961431
+[INFO] [1762338112.870863]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338112.915736]: Error in RLS: [0.01138044]
+[INFO] [1762338112.918512]: Yaw: -0.8601515510067057, Yaw previous: -0.8601515510067057, Ground angular velocity z: 0.226941917002002
+[INFO] [1762338112.920708]: Difference in velocities due to slip compensation: v: 0.0, w: 0.0, slip: 0.0
+[INFO] [1762338112.965898]: Error in RLS: [0.01534432]
+[INFO] [1762338112.968665]: Yaw: -0.8634218713007189, Yaw previous: -0.8601515510067057, Ground angular velocity z: 0.2411604578914587
+[INFO] [1762338112.970970]: Difference in velocities due to slip compensation: v: 0.0003539870736960493, w: 0.00023735558582732574, slip: 0.0009832549119159902
+[INFO] [1762338113.015742]: Error in RLS: [0.01279242]
+[INFO] [1762338113.018393]: Yaw: -0.8634218713007189, Yaw previous: -0.8634218713007189, Ground angular velocity z: 0.25610027896511534
+[INFO] [1762338113.020641]: Difference in velocities due to slip compensation: v: 0.001072443797086986, w: 0.0007764495846888653, slip: 0.003022654442355572
+[INFO] [1762338113.065999]: Error in RLS: [0.00496897]
+[INFO] [1762338113.068783]: Yaw: -0.8548414392206847, Yaw previous: -0.8634218713007189, Ground angular velocity z: 0.2718096699845701
+[INFO] [1762338113.071125]: Difference in velocities due to slip compensation: v: 0.0013477846312042185, w: 0.0010536571863499766, slip: 0.0038614833194127595
+[INFO] [1762338113.115792]: Error in RLS: [0.01436123]
+[INFO] [1762338113.118672]: Yaw: -0.8548414392206847, Yaw previous: -0.8548414392206847, Ground angular velocity z: 0.2883379856714492
+[INFO] [1762338113.120759]: Difference in velocities due to slip compensation: v: 0.002209166146403152, w: 0.001865033199393018, slip: 0.00642664989030689
+[INFO] [1762338113.165550]: Error in RLS: [0.00264914]
+[INFO] [1762338113.168434]: Yaw: -0.8423020668498933, Yaw previous: -0.8548414392206847, Ground angular velocity z: 0.3057351006511843
+[INFO] [1762338113.170616]: Difference in velocities due to slip compensation: v: 0.002338894866711627, w: 0.002132579119442757, slip: 0.006926934068011368
+[INFO] [1762338113.215753]: Error in RLS: [0.0160903]
+[INFO] [1762338113.218632]: Yaw: -0.8423020668498933, Yaw previous: -0.8423020668498933, Ground angular velocity z: 0.3240506693668274
+[INFO] [1762338113.220747]: Difference in velocities due to slip compensation: v: 0.003369439651582873, w: 0.003318599047150206, slip: 0.010137173422624483
+[INFO] [1762338113.265554]: Error in RLS: [0.00474981]
+[INFO] [1762338113.268502]: Yaw: -0.8300592436040293, Yaw previous: -0.8423020668498933, Ground angular velocity z: 0.3433331462985133
+[INFO] [1762338113.270614]: Difference in velocities due to slip compensation: v: 0.0036341578021509835, w: 0.003866971429340338, slip: 0.011137586745783901
+[INFO] [1762338113.315750]: Error in RLS: [0.01797893]
+[INFO] [1762338113.318620]: Yaw: -0.8300592436040293, Yaw previous: -0.8300592436040293, Ground angular velocity z: 0.36362851527261125
+[INFO] [1762338113.320636]: Difference in velocities due to slip compensation: v: 0.004859357253873764, w: 0.0055869623595474205, slip: 0.015131983077680197
+[INFO] [1762338113.365744]: Error in RLS: [0.00480589]
+[INFO] [1762338113.368601]: Yaw: -0.8159074722626833, Yaw previous: -0.8300592436040293, Ground angular velocity z: 0.38497867063730895
+[INFO] [1762338113.370788]: Difference in velocities due to slip compensation: v: 0.005120762087885422, w: 0.006362148086518582, slip: 0.016257307651334877
+[INFO] [1762338113.415673]: Error in RLS: [0.02003979]
+[INFO] [1762338113.418317]: Yaw: -0.8159074722626833, Yaw previous: -0.8159074722626833, Ground angular velocity z: 0.40741938856949944
+[INFO] [1762338113.420147]: Difference in velocities due to slip compensation: v: 0.006571909059390091, w: 0.008823651639461527, slip: 0.021198316337089757
+[INFO] [1762338113.465760]: Error in RLS: [0.00111884]
+[INFO] [1762338113.468608]: Yaw: -0.7959342214156377, Yaw previous: -0.8159074722626833, Ground angular velocity z: 0.4309778251667212
+[INFO] [1762338113.470753]: Difference in velocities due to slip compensation: v: 0.006523387503179989, w: 0.009464442701617115, slip: 0.021488497794326968
+[INFO] [1762338113.515811]: Error in RLS: [0.02229389]
+[INFO] [1762338113.518795]: Yaw: -0.7959342214156377, Yaw previous: -0.7959342214156377, Ground angular velocity z: 0.4556694812544736
+[INFO] [1762338113.520853]: Difference in velocities due to slip compensation: v: 0.008239775783121628, w: 0.012916061981645077, slip: 0.027563936122409847
+[INFO] [1762338113.565555]: Error in RLS: [0.00516509]
+[INFO] [1762338113.568529]: Yaw: -0.777688180854303, Yaw previous: -0.7959342214156377, Ground angular velocity z: 0.4814945846677068
+[INFO] [1762338113.570618]: Difference in velocities due to slip compensation: v: 0.008506082356921019, w: 0.014401333240540937, slip: 0.029041040106334473
+[INFO] [1762338113.615753]: Error in RLS: [0.02468342]
+[INFO] [1762338113.618627]: Yaw: -0.777688180854303, Yaw previous: -0.777688180854303, Ground angular velocity z: 0.5084338625354529
+[INFO] [1762338113.620740]: Difference in velocities due to slip compensation: v: 0.010519366670026231, w: 0.019226965371601956, slip: 0.03643811394502214
+[INFO] [1762338113.665798]: Error in RLS: [0.00671751]
+[INFO] [1762338113.668787]: Yaw: -0.7585608549655332, Yaw previous: -0.777688180854303, Ground angular velocity z: 0.5364437128486309
+[INFO] [1762338113.670858]: Difference in velocities due to slip compensation: v: 0.01090651595402864, w: 0.02150573922963195, slip: 0.03854424294087383
+[INFO] [1762338113.715641]: Error in RLS: [0.0271828]
+[INFO] [1762338113.718538]: Yaw: -0.7585608549655332, Yaw previous: -0.7585608549655332, Ground angular velocity z: 0.5654508406961236
+[INFO] [1762338113.720593]: Difference in velocities due to slip compensation: v: 0.013252009919162921, w: 0.028163746611276186, slip: 0.0474444988608269
+[INFO] [1762338113.765731]: Error in RLS: [0.00441022]
+[INFO] [1762338113.768648]: Yaw: -0.7346160420983989, Yaw previous: -0.7585608549655332, Ground angular velocity z: 0.5953465040690871
+[INFO] [1762338113.770909]: Difference in velocities due to slip compensation: v: 0.013393487441819785, w: 0.030641752375819675, slip: 0.04894940449816008
+[INFO] [1762338113.815540]: Error in RLS: [0.02976696]
+[INFO] [1762338113.818525]: Yaw: -0.7346160420983989, Yaw previous: -0.7346160420983989, Ground angular velocity z: 0.6259806196355951
+[INFO] [1762338113.820360]: Difference in velocities due to slip compensation: v: 0.016107957429771946, w: 0.039609884803131545, slip: 0.0595108922663093
+[INFO] [1762338113.865724]: Error in RLS: [0.00416795]
+[INFO] [1762338113.868494]: Yaw: -0.7078815878389202, Yaw previous: -0.7346160420983989, Ground angular velocity z: 0.6571561097215813
+[INFO] [1762338113.870581]: Difference in velocities due to slip compensation: v: 0.01619527370317958, w: 0.04272388333157262, slip: 0.06104458443681776
+[INFO] [1762338113.915550]: Error in RLS: [0.03232936]
+[INFO] [1762338113.918407]: Yaw: -0.7078815878389202, Yaw previous: -0.7078815878389202, Ground angular velocity z: 0.6886240216640367
+[INFO] [1762338113.920427]: Difference in velocities due to slip compensation: v: 0.019303811952073313, w: 0.05450656150278277, slip: 0.07334721882997389
+[INFO] [1762338113.965755]: Error in RLS: [0.00528789]
+[INFO] [1762338113.968562]: Yaw: -0.6798062618855027, Yaw previous: -0.7078815878389202, Ground angular velocity z: 0.7200801052516599
+[INFO] [1762338113.970541]: Difference in velocities due to slip compensation: v: 0.019488920219754013, w: 0.058739908037094835, slip: 0.07542167257496563
+[INFO] [1762338114.015557]: Error in RLS: [0.03472548]
+[INFO] [1762338114.018264]: Yaw: -0.6798062618855027, Yaw previous: -0.6798062618855027, Ground angular velocity z: 0.7511636681006033
+[INFO] [1762338114.020388]: Difference in velocities due to slip compensation: v: 0.023000483353531886, w: 0.07376289047905282, slip: 0.08941752415640054
+[INFO] [1762338114.066106]: Error in RLS: [0.00117906]
+[INFO] [1762338114.068927]: Yaw: -0.6454061459861604, Yaw previous: -0.6798062618855027, Ground angular velocity z: 0.7814596061460307
+[INFO] [1762338114.071183]: Difference in velocities due to slip compensation: v: 0.02270581318760362, w: 0.07719656516780182, slip: 0.08990393098751406
+[INFO] [1762338114.115560]: Error in RLS: [0.03688185]
+[INFO] [1762338114.118462]: Yaw: -0.6454061459861604, Yaw previous: -0.6454061459861604, Ground angular velocity z: 0.8105044816155076
+[INFO] [1762338114.120627]: Difference in velocities due to slip compensation: v: 0.026609197232804693, w: 0.09550792450801493, slip: 0.1054156917305984
+[INFO] [1762338114.165738]: Error in RLS: [0.00443264]
+[INFO] [1762338114.168522]: Yaw: -0.6123647679110928, Yaw previous: -0.6454061459861604, Ground angular velocity z: 0.8377973468021747
+[INFO] [1762338114.170631]: Difference in velocities due to slip compensation: v: 0.026702304865138804, w: 0.10070956396035413, slip: 0.10730828170303879
+[INFO] [1762338114.215567]: Error in RLS: [0.03851142]
+[INFO] [1762338114.218415]: Yaw: -0.6123647679110928, Yaw previous: -0.6123647679110928, Ground angular velocity z: 0.8628156527844816
+[INFO] [1762338114.220383]: Difference in velocities due to slip compensation: v: 0.030956716492667624, w: 0.12205181512207974, slip: 0.12392714664594785
+[INFO] [1762338114.265739]: Error in RLS: [-0.00512485]
+[INFO] [1762338114.268539]: Yaw: -0.5684721182639105, Yaw previous: -0.6123647679110928, Ground angular velocity z: 0.8850360307404788
+[INFO] [1762338114.270642]: Difference in velocities due to slip compensation: v: 0.029923408491668635, w: 0.12263593958456842, slip: 0.12170224358330559
+[INFO] [1762338114.315558]: Error in RLS: [0.03969726]
+[INFO] [1762338114.318454]: Yaw: -0.5684721182639105, Yaw previous: -0.5684721182639105, Ground angular velocity z: 0.9039590288686017
+[INFO] [1762338114.320442]: Difference in velocities due to slip compensation: v: 0.03445260235415662, w: 0.1458853850032229, slip: 0.13895905248016507
+[INFO] [1762338114.365717]: Error in RLS: [-0.01849697]
+[INFO] [1762338114.368507]: Yaw: -0.510404455782258, Yaw previous: -0.5684721182639105, Ground angular velocity z: 0.9191361261249728
+[INFO] [1762338114.370729]: Difference in velocities due to slip compensation: v: 0.0318599257537959, w: 0.1384921960597002, slip: 0.13094599790371167
+[INFO] [1762338114.415670]: Error in RLS: [0.04041956]
+[INFO] [1762338114.418501]: Yaw: -0.510404455782258, Yaw previous: -0.510404455782258, Ground angular velocity z: 0.9301966721446088
+[INFO] [1762338114.420521]: Difference in velocities due to slip compensation: v: 0.036544208486897795, w: 0.16198431272927782, slip: 0.14831270180736755
+[INFO] [1762338114.465710]: Error in RLS: [-0.01949615]
+[INFO] [1762338114.468543]: Yaw: -0.45101220242648976, Yaw previous: -0.510404455782258, Ground angular velocity z: 0.9368719916856356
+[INFO] [1762338114.470631]: Difference in velocities due to slip compensation: v: 0.0339891808527828, w: 0.1525691259270201, slip: 0.1400434805153602
+[INFO] [1762338114.515548]: Error in RLS: [0.04037556]
+[INFO] [1762338114.518401]: Yaw: -0.45101220242648976, Yaw previous: -0.45101220242648976, Ground angular velocity z: 0.9390138895039307
+[INFO] [1762338114.520380]: Difference in velocities due to slip compensation: v: 0.03870525248165199, w: 0.17471233495419314, slip: 0.1568718874687522
+[INFO] [1762338114.565745]: Error in RLS: [-0.0229368]
+[INFO] [1762338114.568565]: Yaw: -0.38859149485372857, Yaw previous: -0.45101220242648976, Ground angular velocity z: 0.9366052694191904
+[INFO] [1762338114.570616]: Difference in velocities due to slip compensation: v: 0.035956376320271516, w: 0.16207580750675032, slip: 0.14751852098903076
+[INFO] [1762338114.615743]: Error in RLS: [0.03963022]
+[INFO] [1762338114.618576]: Yaw: -0.38859149485372857, Yaw previous: -0.38859149485372857, Ground angular velocity z: 0.9297614968257133
+[INFO] [1762338114.620659]: Difference in velocities due to slip compensation: v: 0.04058195996654368, w: 0.18141629128773884, slip: 0.1632648647483729
+[INFO] [1762338114.665772]: Error in RLS: [-0.0346524]
+[INFO] [1762338114.668504]: Yaw: -0.31550273392018147, Yaw previous: -0.38859149485372857, Ground angular velocity z: 0.9187223264231439
+[INFO] [1762338114.670587]: Difference in velocities due to slip compensation: v: 0.036784588669133506, w: 0.1620014257011546, slip: 0.149900865399433
+[INFO] [1762338114.715619]: Error in RLS: [0.03841749]
+[INFO] [1762338114.718436]: Yaw: -0.31550273392018147, Yaw previous: -0.31550273392018147, Ground angular velocity z: 0.90383544622445
+[INFO] [1762338114.720475]: Difference in velocities due to slip compensation: v: 0.04119552986416514, w: 0.17760640288836327, slip: 0.16423111703515716
+[INFO] [1762338114.765733]: Error in RLS: [-0.04545898]
+[INFO] [1762338114.768498]: Yaw: -0.23303868020998442, Yaw previous: -0.31550273392018147, Ground angular velocity z: 0.8855337038501366
+[INFO] [1762338114.770559]: Difference in velocities due to slip compensation: v: 0.03663014685998106, w: 0.15368141685577996, slip: 0.1478821985878992
+[INFO] [1762338114.815835]: Error in RLS: [0.03682464]
+[INFO] [1762338114.818651]: Yaw: -0.23303868020998442, Yaw previous: -0.23303868020998442, Ground angular velocity z: 0.8643086929256792
+[INFO] [1762338114.821043]: Difference in velocities due to slip compensation: v: 0.04073032226008061, w: 0.16538443784955825, slip: 0.16061526770120646
+[INFO] [1762338114.865817]: Error in RLS: [-0.0541845]
+[INFO] [1762338114.868608]: Yaw: -0.14357133521433108, Yaw previous: -0.23303868020998442, Ground angular velocity z: 0.8406835084755565
+[INFO] [1762338114.871096]: Difference in velocities due to slip compensation: v: 0.03576987831058964, w: 0.13987207947610036, slip: 0.1426457420616895
+[INFO] [1762338114.915848]: Error in RLS: [0.03494521]
+[INFO] [1762338114.918558]: Yaw: -0.14357133521433108, Yaw previous: -0.14357133521433108, Ground angular velocity z: 0.815187172474406
+[INFO] [1762338114.921052]: Difference in velocities due to slip compensation: v: 0.03950061087407131, w: 0.14809268392959818, slip: 0.1537379640455052
+[INFO] [1762338114.965891]: Error in RLS: [-0.05581373]
+[INFO] [1762338114.968706]: Yaw: -0.0544008088188046, Yaw previous: -0.14357133521433108, Ground angular velocity z: 0.7883326155348741
+[INFO] [1762338114.971413]: Difference in velocities due to slip compensation: v: 0.03489411435616646, w: 0.12494574769918798, slip: 0.13681014762764704
+[INFO] [1762338115.015564]: Error in RLS: [0.03282708]
+[INFO] [1762338115.018211]: Yaw: -0.0544008088188046, Yaw previous: -0.0544008088188046, Ground angular velocity z: 0.7605993477538185
+[INFO] [1762338115.020841]: Difference in velocities due to slip compensation: v: 0.038243195417807296, w: 0.13035597495355367, slip: 0.14631033861208345
+[INFO] [1762338115.066186]: Error in RLS: [-0.05040809]
+[INFO] [1762338115.068868]: Yaw: 0.027270298640003077, Yaw previous: -0.0544008088188046, Ground angular velocity z: 0.732421218623617
+[INFO] [1762338115.071250]: Difference in velocities due to slip compensation: v: 0.03454252763528792, w: 0.11177548872120391, slip: 0.13240455423329198
+[INFO] [1762338115.115852]: Error in RLS: [0.03054713]
+[INFO] [1762338115.118654]: Yaw: 0.027270298640003077, Yaw previous: 0.027270298640003077, Ground angular velocity z: 0.7041790645998232
+[INFO] [1762338115.121125]: Difference in velocities due to slip compensation: v: 0.03753350724498744, w: 0.11504485511459073, slip: 0.14043151371202153
+[INFO] [1762338115.165778]: Error in RLS: [-0.05063192]
+[INFO] [1762338115.168402]: Yaw: 0.10696412536956856, Yaw previous: 0.027270298640003077, Ground angular velocity z: 0.6761976281851789
+[INFO] [1762338115.170732]: Difference in velocities due to slip compensation: v: 0.03417298734168894, w: 0.0990481682122103, slip: 0.1277635669519173
+[INFO] [1762338115.215721]: Error in RLS: [0.02829299]
+[INFO] [1762338115.218607]: Yaw: 0.10696412536956856, Yaw previous: 0.10696412536956856, Ground angular velocity z: 0.6487459085603128
+[INFO] [1762338115.220643]: Difference in velocities due to slip compensation: v: 0.036829374600957476, w: 0.10081828241025437, slip: 0.13450253310488414
+[INFO] [1762338115.265764]: Error in RLS: [-0.05958923]
+[INFO] [1762338115.268822]: Yaw: 0.1934720593941286, Yaw previous: 0.10696412536956856, Ground angular velocity z: 0.6220400412191379
+[INFO] [1762338115.270998]: Difference in velocities due to slip compensation: v: 0.03314275501367536, w: 0.08561937837271516, slip: 0.12098952688582407
+[INFO] [1762338115.315725]: Error in RLS: [0.02620541]
+[INFO] [1762338115.318767]: Yaw: 0.1934720593941286, Yaw previous: 0.1934720593941286, Ground angular velocity z: 0.5962478572838869
+[INFO] [1762338115.320823]: Difference in velocities due to slip compensation: v: 0.035480144385187595, w: 0.08646491003315693, slip: 0.12664903041574968
+[INFO] [1762338115.365761]: Error in RLS: [-0.06075602]
+[INFO] [1762338115.368660]: Yaw: 0.27918383561804916, Yaw previous: 0.1934720593941286, Ground angular velocity z: 0.5714943953601549
+[INFO] [1762338115.371357]: Difference in velocities due to slip compensation: v: 0.03203275608566686, w: 0.07363975545858537, slip: 0.11414642267058586
+[INFO] [1762338115.415744]: Error in RLS: [0.02426653]
+[INFO] [1762338115.418434]: Yaw: 0.27918383561804916, Yaw previous: 0.27918383561804916, Ground angular velocity z: 0.547867790598562
+[INFO] [1762338115.420722]: Difference in velocities due to slip compensation: v: 0.034083667903654136, w: 0.07393757315666749, slip: 0.11890790505591814
+[INFO] [1762338115.465887]: Error in RLS: [-0.05922297]
+[INFO] [1762338115.468706]: Yaw: 0.3615542062490267, Yaw previous: 0.27918383561804916, Ground angular velocity z: 0.5254251187716568
+[INFO] [1762338115.470919]: Difference in velocities due to slip compensation: v: 0.031000035291807948, w: 0.063496498380751, slip: 0.10781825039429425
+[INFO] [1762338115.515752]: Error in RLS: [0.02249181]
+[INFO] [1762338115.518622]: Yaw: 0.3615542062490267, Yaw previous: 0.3615542062490267, Ground angular velocity z: 0.5041979103764699
+[INFO] [1762338115.521190]: Difference in velocities due to slip compensation: v: 0.03279987679646157, w: 0.06349121693290538, slip: 0.11184152360611328
+[INFO] [1762338115.566401]: Error in RLS: [-0.06161772]
+[INFO] [1762338115.569046]: Yaw: 0.44467411879779206, Yaw previous: 0.3615542062490267, Ground angular velocity z: 0.48419716273546515
+[INFO] [1762338115.571385]: Difference in velocities due to slip compensation: v: 0.02980123624356623, w: 0.05457826181917785, slip: 0.10130057781364624
+[INFO] [1762338115.615568]: Error in RLS: [0.02091353]
+[INFO] [1762338115.618362]: Yaw: 0.44467411879779206, Yaw previous: 0.44467411879779206, Ground angular velocity z: 0.4654177648072159
+[INFO] [1762338115.620609]: Difference in velocities due to slip compensation: v: 0.03137833516672661, w: 0.054443157042937174, slip: 0.10472638883718625
+[INFO] [1762338115.666062]: Error in RLS: [-0.06288698]
+[INFO] [1762338115.668766]: Yaw: 0.527608165113632, Yaw previous: 0.44467411879779206, Ground angular velocity z: 0.44784231180120765
+[INFO] [1762338115.670872]: Difference in velocities due to slip compensation: v: 0.02850538111796519, w: 0.04692843687302417, slip: 0.09484885070261682
+[INFO] [1762338115.715861]: Error in RLS: [0.01952612]
+[INFO] [1762338115.718611]: Yaw: 0.527608165113632, Yaw previous: 0.527608165113632, Ground angular velocity z: 0.4314443284994037
+[INFO] [1762338115.720914]: Difference in velocities due to slip compensation: v: 0.02988703443298052, w: 0.046766043040726846, slip: 0.09779387027954145
+[INFO] [1762338115.765562]: Error in RLS: [-0.06202971]
+[INFO] [1762338115.803811]: Yaw: 0.6084123804324246, Yaw previous: 0.527608165113632, Ground angular velocity z: 0.41619094578683746
+[INFO] [1762338115.806471]: Difference in velocities due to slip compensation: v: 0.027219229237806786, w: 0.040557560240733925, slip: 0.08879626250662695
+[INFO] [1762338115.815511]: Error in RLS: [0.01831725]
+[INFO] [1762338115.818107]: Yaw: 0.6084123804324246, Yaw previous: 0.6084123804324246, Ground angular velocity z: 0.40204508846176173
+[INFO] [1762338115.820326]: Difference in velocities due to slip compensation: v: 0.028431708482368534, w: 0.04042188976533595, slip: 0.09135572088859766
+[INFO] [1762338115.865723]: Error in RLS: [-0.06251567]
+[INFO] [1762338115.868434]: Yaw: 0.6885996925532609, Yaw previous: 0.6084123804324246, Ground angular velocity z: 0.38896723752531914
+[INFO] [1762338115.870683]: Difference in velocities due to slip compensation: v: 0.025873149454414823, w: 0.035172531818453145, slip: 0.0829267481162448
+[INFO] [1762338115.915756]: Error in RLS: [0.01728302]
+[INFO] [1762338115.918565]: Yaw: 0.6885996925532609, Yaw previous: 0.6885996925532609, Ground angular velocity z: 0.3769168297106133
+[INFO] [1762338115.920957]: Difference in velocities due to slip compensation: v: 0.026938748813664426, w: 0.03509485632015363, slip: 0.0851792740595541
+[INFO] [1762338115.965815]: Error in RLS: [-0.06304075]
+[INFO] [1762338115.968597]: Yaw: 0.7683749522211203, Yaw previous: 0.6885996925532609, Ground angular velocity z: 0.3658533531675642
+[INFO] [1762338115.970841]: Difference in velocities due to slip compensation: v: 0.02446599469185251, w: 0.030616445473233722, slip: 0.07722264237577463
+[INFO] [1762338116.015510]: Error in RLS: [0.01641331]
+[INFO] [1762338116.018272]: Yaw: 0.7683749522211203, Yaw previous: 0.7683749522211203, Ground angular velocity z: 0.3557371925343926
+[INFO] [1762338116.020447]: Difference in velocities due to slip compensation: v: 0.02540460604405842, w: 0.030611389145593415, slip: 0.07923256509052984
+[INFO] [1762338116.066022]: Error in RLS: [-0.0602408]
+[INFO] [1762338116.068629]: Yaw: 0.8445694366291576, Yaw previous: 0.7683749522211203, Ground angular velocity z: 0.3465302701678043
+[INFO] [1762338116.070793]: Difference in velocities due to slip compensation: v: 0.02313597592485661, w: 0.0269106818969857, slip: 0.07206141090899106
+[INFO] [1762338116.115732]: Error in RLS: [0.01569128]
+[INFO] [1762338116.118679]: Yaw: 0.8445694366291576, Yaw previous: 0.8445694366291576, Ground angular velocity z: 0.3381965237608955
+[INFO] [1762338116.120955]: Difference in velocities due to slip compensation: v: 0.02396690622557568, w: 0.026979507684805004, slip: 0.07388082831722409
+[INFO] [1762338116.165705]: Error in RLS: [-0.05937654]
+[INFO] [1762338116.168441]: Yaw: 0.9192594661207849, Yaw previous: 0.8445694366291576, Ground angular velocity z: 0.3307022543710801
+[INFO] [1762338116.170651]: Difference in velocities due to slip compensation: v: 0.02179691944081863, w: 0.02380944067550106, slip: 0.06716122770610596
+[INFO] [1762338116.215568]: Error in RLS: [0.01511275]
+[INFO] [1762338116.218409]: Yaw: 0.9192594661207849, Yaw previous: 0.9192594661207849, Ground angular velocity z: 0.32401637323732924
+[INFO] [1762338116.220581]: Difference in velocities due to slip compensation: v: 0.02253639680946462, w: 0.023952038360218364, slip: 0.06883394458207527
+[INFO] [1762338116.265848]: Error in RLS: [-0.04958031]
+[INFO] [1762338116.268584]: Yaw: 0.9836504682247691, Yaw previous: 0.9192594661207849, Ground angular velocity z: 0.3181105707858592
+[INFO] [1762338116.270648]: Difference in velocities due to slip compensation: v: 0.020785647268367125, w: 0.02155359016509173, slip: 0.06345559126623362
+[INFO] [1762338116.315716]: Error in RLS: [0.01465502]
+[INFO] [1762338116.318668]: Yaw: 0.9836504682247691, Yaw previous: 0.9836504682247691, Ground angular velocity z: 0.312959426921574
+[INFO] [1762338116.320893]: Difference in velocities due to slip compensation: v: 0.021450785766654323, w: 0.021762617319416033, slip: 0.06501698257957454
+[INFO] [1762338116.365741]: Error in RLS: [-0.04447778]
+[INFO] [1762338116.368491]: Yaw: 1.0425522570253758, Yaw previous: 0.9836504682247691, Ground angular velocity z: 0.30854047804547396
+[INFO] [1762338116.370632]: Difference in velocities due to slip compensation: v: 0.01990824208276809, w: 0.019817259984195368, slip: 0.060352651054030405
+[INFO] [1762338116.415715]: Error in RLS: [0.01432183]
+[INFO] [1762338116.418598]: Yaw: 1.0425522570253758, Yaw previous: 1.0425522570253758, Ground angular velocity z: 0.3048342531700448
+[INFO] [1762338116.420619]: Difference in velocities due to slip compensation: v: 0.02051226751689106, w: 0.020091519992453233, slip: 0.061834183841136245
+[INFO] [1762338116.465796]: Error in RLS: [-0.04756612]
+[INFO] [1762338116.468533]: Yaw: 1.1042764374638923, Yaw previous: 1.0425522570253758, Ground angular velocity z: 0.30182428894941343
+[INFO] [1762338116.470655]: Difference in velocities due to slip compensation: v: 0.018863726571727135, w: 0.018233627869016666, slip: 0.05696977612761461
+[INFO] [1762338116.515736]: Error in RLS: [0.01412174]
+[INFO] [1762338116.518664]: Yaw: 1.1042764374638923, Yaw previous: 1.1042764374638923, Ground angular velocity z: 0.2994971313227103
+[INFO] [1762338116.520703]: Difference in velocities due to slip compensation: v: 0.019417081224236854, w: 0.018575655620998888, slip: 0.05840064407737689
+[INFO] [1762338116.566002]: Error in RLS: [-0.03994467]
+[INFO] [1762338116.568941]: Yaw: 1.1582435102040876, Yaw previous: 1.1042764374638923, Ground angular velocity z: 0.29784232971700414
+[INFO] [1762338116.570971]: Difference in velocities due to slip compensation: v: 0.01803734056302697, w: 0.01712865576883643, slip: 0.05438169405482101
+[INFO] [1762338116.615752]: Error in RLS: [0.01403545]
+[INFO] [1762338116.618547]: Yaw: 1.1582435102040876, Yaw previous: 1.1582435102040876, Ground angular velocity z: 0.2968524282992603
+[INFO] [1762338116.620561]: Difference in velocities due to slip compensation: v: 0.018551593450420234, w: 0.01753897097689816, slip: 0.05578705720728736
+[INFO] [1762338116.665563]: Error in RLS: [-0.03499236]
+[INFO] [1762338116.668118]: Yaw: 1.2072349109485696, Yaw previous: 1.1582435102040876, Ground angular velocity z: 0.29652295753992713
+[INFO] [1762338116.670337]: Difference in velocities due to slip compensation: v: 0.017331745217641303, w: 0.01636146499510116, slip: 0.05229236042669863
+[INFO] [1762338116.715802]: Error in RLS: [0.01406647]
+[INFO] [1762338116.718531]: Yaw: 1.2072349109485696, Yaw previous: 1.2072349109485696, Ground angular velocity z: 0.29685242829925396
+[INFO] [1762338116.720979]: Difference in velocities due to slip compensation: v: 0.017817001162611312, w: 0.016844475765466216, slip: 0.05369665925039199
+[INFO] [1762338116.765859]: Error in RLS: [-0.03528775]
+[INFO] [1762338116.768667]: Yaw: 1.2566151162424068, Yaw previous: 1.2072349109485696, Ground angular velocity z: 0.2978423297169413
+[INFO] [1762338116.770755]: Difference in velocities due to slip compensation: v: 0.016565676527797613, w: 0.0157311311959204, slip: 0.050167291422318155
+[INFO] [1762338116.815578]: Error in RLS: [0.01422361]
+[INFO] [1762338116.818436]: Yaw: 1.2566151162424068, Yaw previous: 1.2566151162424068, Ground angular velocity z: 0.29949713132269773
+[INFO] [1762338116.820628]: Difference in velocities due to slip compensation: v: 0.01703146326162125, w: 0.01629341674044482, slip: 0.05159564413937739
+[INFO] [1762338116.865713]: Error in RLS: [-0.03661089]
+[INFO] [1762338116.868551]: Yaw: 1.3075385781236335, Yaw previous: 1.2566151162424068, Ground angular velocity z: 0.30182428894945956
+[INFO] [1762338116.870857]: Difference in velocities due to slip compensation: v: 0.015708166535964907, w: 0.0151834719418939, slip: 0.047896215219467984
+[INFO] [1762338116.915712]: Error in RLS: [0.01451169]
+[INFO] [1762338116.918822]: Yaw: 1.3075385781236335, Yaw previous: 1.3075385781236335, Ground angular velocity z: 0.304834253170093
+[INFO] [1762338116.921186]: Difference in velocities due to slip compensation: v: 0.01616447637955737, w: 0.015832910724279392, slip: 0.04937490490761545
+[INFO] [1762338116.965701]: Error in RLS: [-0.03586691]
+[INFO] [1762338116.968477]: Yaw: 1.3580707991958834, Yaw previous: 1.3075385781236335, Ground angular velocity z: 0.3085404780454635
+[INFO] [1762338116.970572]: Difference in velocities due to slip compensation: v: 0.014837127580239806, w: 0.014769320839772615, slip: 0.04568163690273805
+[INFO] [1762338117.015747]: Error in RLS: [0.01493315]
+[INFO] [1762338117.018694]: Yaw: 1.3580707991958834, Yaw previous: 1.3580707991958834, Ground angular velocity z: 0.3129594269215615
+[INFO] [1762338117.020805]: Difference in velocities due to slip compensation: v: 0.01529448789552662, w: 0.015516824921359862, slip: 0.04723880290980687
+[INFO] [1762338117.065833]: Error in RLS: [-0.03634281]
+[INFO] [1762338117.068510]: Yaw: 1.409567784024878, Yaw previous: 1.3580707991958834, Ground angular velocity z: 0.31811057078584454
+[INFO] [1762338117.070477]: Difference in velocities due to slip compensation: v: 0.013915877497180484, w: 0.01443001107876507, slip: 0.04339323338479059
+[INFO] [1762338117.115727]: Error in RLS: [0.01549781]
+[INFO] [1762338117.118678]: Yaw: 1.409567784024878, Yaw previous: 1.409567784024878, Ground angular velocity z: 0.3240163732372915
+[INFO] [1762338117.120952]: Difference in velocities due to slip compensation: v: 0.01438568696346304, w: 0.015289335242899882, slip: 0.045060648438198916
+[INFO] [1762338117.165550]: Error in RLS: [-0.03206831]
+[INFO] [1762338117.168139]: Yaw: 1.4574261213308297, Yaw previous: 1.409567784024878, Ground angular velocity z: 0.3307022543711387
+[INFO] [1762338117.169989]: Difference in velocities due to slip compensation: v: 0.013123105708633065, w: 0.014334769080393717, slip: 0.04154559686667167
+[INFO] [1762338117.215749]: Error in RLS: [0.0162073]
+[INFO] [1762338117.218640]: Yaw: 1.4574261213308297, Yaw previous: 1.4574261213308297, Ground angular velocity z: 0.33819652376094367
+[INFO] [1762338117.220749]: Difference in velocities due to slip compensation: v: 0.013616846817568029, w: 0.015328462501572326, slip: 0.04335892255771114
+[INFO] [1762338117.265609]: Error in RLS: [-0.0254359]
+[INFO] [1762338117.268357]: Yaw: 1.4994372765943424, Yaw previous: 1.4574261213308297, Ground angular velocity z: 0.34653027016773097
+[INFO] [1762338117.270387]: Difference in velocities due to slip compensation: v: 0.012558591661293306, w: 0.014607564702210862, slip: 0.04044872425917806
+[INFO] [1762338117.315733]: Error in RLS: [0.0170674]
+[INFO] [1762338117.318465]: Yaw: 1.4994372765943424, Yaw previous: 1.4994372765943424, Ground angular velocity z: 0.35573719253432345
+[INFO] [1762338117.320448]: Difference in velocities due to slip compensation: v: 0.013087779278651346, w: 0.015770175843527634, slip: 0.04244916032859989
+[INFO] [1762338117.365771]: Error in RLS: [-0.02852263]
+[INFO] [1762338117.368489]: Yaw: 1.5454760694597027, Yaw previous: 1.4994372765943424, Ground angular velocity z: 0.36585335316759354
+[INFO] [1762338117.370702]: Difference in velocities due to slip compensation: v: 0.011870570127528846, w: 0.01485468576377752, slip: 0.03901857655928122
+[INFO] [1762338117.415757]: Error in RLS: [0.0181105]
+[INFO] [1762338117.418700]: Yaw: 1.5454760694597027, Yaw previous: 1.5454760694597027, Ground angular velocity z: 0.3769168297106552
+[INFO] [1762338117.420671]: Difference in velocities due to slip compensation: v: 0.012450309206252508, w: 0.016219825789137554, slip: 0.0412574751355032
+[INFO] [1762338117.465761]: Error in RLS: [-0.03506407]
+[INFO] [1762338117.468859]: Yaw: 1.5991861123146744, Yaw previous: 1.5454760694597027, Ground angular velocity z: 0.3889672375253212
+[INFO] [1762338117.471073]: Difference in velocities due to slip compensation: v: 0.01093027457051221, w: 0.014858857086305077, slip: 0.036795188039037856
+[INFO] [1762338117.515726]: Error in RLS: [0.01936259]
+[INFO] [1762338117.518579]: Yaw: 1.5991861123146744, Yaw previous: 1.5991861123146744, Ground angular velocity z: 0.4020450884618078
+[INFO] [1762338117.521047]: Difference in velocities due to slip compensation: v: 0.01157905517497082, w: 0.01646215851431254, slip: 0.03933542043359606
+[INFO] [1762338117.565728]: Error in RLS: [-0.02796549]
+[INFO] [1762338117.568611]: Yaw: 1.6471425977724996, Yaw previous: 1.5991861123146744, Ground angular velocity z: 0.41619094578683535
+[INFO] [1762338117.570776]: Difference in velocities due to slip compensation: v: 0.010295163785229322, w: 0.015340137729826231, slip: 0.03554816400435261
+[INFO] [1762338117.615733]: Error in RLS: [0.02080536]
+[INFO] [1762338117.618388]: Yaw: 1.6471425977724996, Yaw previous: 1.6471425977724996, Ground angular velocity z: 0.4314443284993073
+[INFO] [1762338117.620841]: Difference in velocities due to slip compensation: v: 0.011028621016218432, w: 0.017257147619674063, slip: 0.03846019801169094
+[INFO] [1762338117.665589]: Error in RLS: [-0.02009631]
+[INFO] [1762338117.668297]: Yaw: 1.6887698225976777, Yaw previous: 1.6471425977724996, Ground angular velocity z: 0.44784231180120976
+[INFO] [1762338117.670272]: Difference in velocities due to slip compensation: v: 0.010027100482151274, w: 0.016507625351465327, slip: 0.035549967881308674
+[INFO] [1762338117.715739]: Error in RLS: [0.02244361]
+[INFO] [1762338117.718472]: Yaw: 1.6887698225976777, Yaw previous: 1.6887698225976777, Ground angular velocity z: 0.46541776480728714
+[INFO] [1762338117.720287]: Difference in velocities due to slip compensation: v: 0.01086163081259911, w: 0.018845533675727333, slip: 0.038915882609237895
+[INFO] [1762338117.765820]: Error in RLS: [-0.01577174]
+[INFO] [1762338117.768966]: Yaw: 1.7278092721592353, Yaw previous: 1.6887698225976777, Ground angular velocity z: 0.4841971627354421
+[INFO] [1762338117.771462]: Difference in velocities due to slip compensation: v: 0.010005479583093113, w: 0.018324128564645603, slip: 0.03646438246872818
+[INFO] [1762338117.815765]: Error in RLS: [0.02429063]
+[INFO] [1762338117.818468]: Yaw: 1.7278092721592353, Yaw previous: 1.7278092721592353, Ground angular velocity z: 0.504197910376428
+[INFO] [1762338117.820915]: Difference in velocities due to slip compensation: v: 0.010960408667559873, w: 0.021216228606699028, slip: 0.04038001080016685
+[INFO] [1762338117.865783]: Error in RLS: [-0.01900377]
+[INFO] [1762338117.868619]: Yaw: 1.772023468354579, Yaw previous: 1.7278092721592353, Ground angular velocity z: 0.5254251187717112
+[INFO] [1762338117.871148]: Difference in velocities due to slip compensation: v: 0.009911751449701744, w: 0.02030196107688842, slip: 0.03720167429206683
+[INFO] [1762338117.915772]: Error in RLS: [0.02637431]
+[INFO] [1762338117.918488]: Yaw: 1.772023468354579, Yaw previous: 1.772023468354579, Ground angular velocity z: 0.5478677905985998
+[INFO] [1762338117.920945]: Difference in velocities due to slip compensation: v: 0.011011641352831059, w: 0.023887512353466422, slip: 0.041779258067448366
+[INFO] [1762338117.965864]: Error in RLS: [-0.01760341]
+[INFO] [1762338117.968742]: Yaw: 1.8170077719284032, Yaw previous: 1.772023468354579, Ground angular velocity z: 0.571494395360113
+[INFO] [1762338117.971303]: Difference in velocities due to slip compensation: v: 0.009983387808980615, w: 0.02295070192946802, slip: 0.03860861504975567
+[INFO] [1762338118.015729]: Error in RLS: [0.02866138]
+[INFO] [1762338118.018499]: Yaw: 1.8170077719284032, Yaw previous: 1.8170077719284032, Ground angular velocity z: 0.5962478572838785
+[INFO] [1762338118.020920]: Difference in velocities due to slip compensation: v: 0.011251257311658047, w: 0.027419250064229184, slip: 0.043964560165467834
+[INFO] [1762338118.065856]: Error in RLS: [-0.02079746]
+[INFO] [1762338118.068641]: Yaw: 1.8675398519246524, Yaw previous: 1.8170077719284032, Ground angular velocity z: 0.6220400412191464
+[INFO] [1762338118.071213]: Difference in velocities due to slip compensation: v: 0.010015712275900035, w: 0.025874103063209253, slip: 0.039934462446205715
+[INFO] [1762338118.115801]: Error in RLS: [0.03114193]
+[INFO] [1762338118.118553]: Yaw: 1.8675398519246524, Yaw previous: 1.8675398519246524, Ground angular velocity z: 0.6487459085602656
+[INFO] [1762338118.121332]: Difference in velocities due to slip compensation: v: 0.011475933939568889, w: 0.03141470528285095, slip: 0.04618718673718582
+[INFO] [1762338118.165926]: Error in RLS: [-0.02411609]
+[INFO] [1762338118.168584]: Yaw: 1.9239042429237783, Yaw previous: 1.8675398519246524, Ground angular velocity z: 0.6761976281851527
+[INFO] [1762338118.170793]: Difference in velocities due to slip compensation: v: 0.010018713732889872, w: 0.029038586330281113, slip: 0.041175687993041346
+[INFO] [1762338118.215851]: Error in RLS: [0.0337592]
+[INFO] [1762338118.218505]: Yaw: 1.9239042429237783, Yaw previous: 1.9239042429237783, Ground angular velocity z: 0.704179064599888
+[INFO] [1762338118.221081]: Difference in velocities due to slip compensation: v: 0.01169156131873067, w: 0.03583608558607165, slip: 0.048426151244425675
+[INFO] [1762338118.265776]: Error in RLS: [-0.01799193]
+[INFO] [1762338118.268456]: Yaw: 1.9767438171881686, Yaw previous: 1.9239042429237783, Ground angular velocity z: 0.7324212186236746
+[INFO] [1762338118.270798]: Difference in velocities due to slip compensation: v: 0.010526428883723737, w: 0.03406226508350063, slip: 0.04443965957199107
+[INFO] [1762338118.315583]: Error in RLS: [0.03633993]
+[INFO] [1762338118.318249]: Yaw: 1.9767438171881686, Yaw previous: 1.9767438171881686, Ground angular velocity z: 0.7605993477538028
+[INFO] [1762338118.320851]: Difference in velocities due to slip compensation: v: 0.012420885425463157, w: 0.04233790120656855, slip: 0.052728779567004586
+[INFO] [1762338118.365844]: Error in RLS: [-0.01646614]
+[INFO] [1762338118.368470]: Yaw: 2.0305481957673255, Yaw previous: 1.9767438171881686, Ground angular velocity z: 0.788332615534849
+[INFO] [1762338118.370647]: Difference in velocities due to slip compensation: v: 0.01131253587723638, w: 0.040506924437970215, slip: 0.04887185333761782
+[INFO] [1762338118.415750]: Error in RLS: [0.03876737]
+[INFO] [1762338118.418617]: Yaw: 2.0305481957673255, Yaw previous: 2.0305481957673255, Ground angular velocity z: 0.8151871724743757
+[INFO] [1762338118.420846]: Difference in velocities due to slip compensation: v: 0.013429326609233266, w: 0.05034820922817396, slip: 0.05817001857178464
+[INFO] [1762338118.465792]: Error in RLS: [-0.01593875]
+[INFO] [1762338118.468763]: Yaw: 2.086075989402959, Yaw previous: 2.0305481957673255, Ground angular velocity z: 0.8406835084755272
+[INFO] [1762338118.470909]: Difference in velocities due to slip compensation: v: 0.012336623139812208, w: 0.04824028522813295, slip: 0.05426818988289427
+[INFO] [1762338118.515637]: Error in RLS: [0.04087021]
+[INFO] [1762338118.518194]: Yaw: 2.086075989402959, Yaw previous: 2.086075989402959, Ground angular velocity z: 0.8643086929256981
+[INFO] [1762338118.520329]: Difference in velocities due to slip compensation: v: 0.014662334591786286, w: 0.059536036777236734, slip: 0.06444376945937741
+[INFO] [1762338118.565912]: Error in RLS: [-0.0159077]
+[INFO] [1762338118.568732]: Yaw: 2.143407018258271, Yaw previous: 2.086075989402959, Ground angular velocity z: 0.885533703850169
+[INFO] [1762338118.570899]: Difference in velocities due to slip compensation: v: 0.013575484359162393, w: 0.056955809617540654, slip: 0.06043123960921602
+[INFO] [1762338118.615724]: Error in RLS: [0.04246078]
+[INFO] [1762338118.618585]: Yaw: 2.143407018258271, Yaw previous: 2.143407018258271, Ground angular velocity z: 0.9038354462244469
+[INFO] [1762338118.620897]: Difference in velocities due to slip compensation: v: 0.0160798584746443, w: 0.06932513872384327, slip: 0.07123710084037872
+[INFO] [1762338118.666133]: Error in RLS: [-0.02060404]
+[INFO] [1762338118.669103]: Yaw: 2.206674821718882, Yaw previous: 2.143407018258271, Ground angular velocity z: 0.9187223264231292
+[INFO] [1762338118.671257]: Difference in velocities due to slip compensation: v: 0.014733826453406262, w: 0.0648886117214651, slip: 0.06596979476851471
+[INFO] [1762338118.715762]: Error in RLS: [0.04342127]
+[INFO] [1762338118.718723]: Yaw: 2.206674821718882, Yaw previous: 2.206674821718882, Ground angular velocity z: 0.9297614968257247
+[INFO] [1762338118.721337]: Difference in velocities due to slip compensation: v: 0.017367819831784315, w: 0.07764054432643264, slip: 0.07707006850773873
+[INFO] [1762338118.765812]: Error in RLS: [-0.02658151]
+[INFO] [1762338118.768763]: Yaw: 2.2764773829203433, Yaw previous: 2.206674821718882, Ground angular velocity z: 0.9366052694192045
+[INFO] [1762338118.771294]: Difference in velocities due to slip compensation: v: 0.015713342525563806, w: 0.07082895828479507, slip: 0.07030628535047731
+[INFO] [1762338118.815781]: Error in RLS: [0.04364977]
+[INFO] [1762338118.818420]: Yaw: 2.2764773829203433, Yaw previous: 2.2764773829203433, Ground angular velocity z: 0.9390138895039218
+[INFO] [1762338118.820816]: Difference in velocities due to slip compensation: v: 0.01841165845512935, w: 0.08310871607411874, slip: 0.08130992859424954
+[INFO] [1762338118.865722]: Error in RLS: [-0.03259236]
+[INFO] [1762338118.868515]: Yaw: 2.3521044878861592, Yaw previous: 2.2764773829203433, Ground angular velocity z: 0.9368719916856524
+[INFO] [1762338118.871075]: Difference in velocities due to slip compensation: v: 0.01648656465871698, w: 0.07400415945340233, slip: 0.0732079388459353
+[INFO] [1762338118.915432]: Error in RLS: [0.04310494]
+[INFO] [1762338118.917988]: Yaw: 2.3521044878861592, Yaw previous: 2.3521044878861592, Ground angular velocity z: 0.9301966721446014
+[INFO] [1762338118.920420]: Difference in velocities due to slip compensation: v: 0.019175912172916254, w: 0.0849983371619748, slip: 0.08372611801946558
+[INFO] [1762338118.965611]: Error in RLS: [-0.03368798]
+[INFO] [1762338118.968661]: Yaw: 2.4279014871543385, Yaw previous: 2.3521044878861592, Ground angular velocity z: 0.9191361261249273
+[INFO] [1762338118.970836]: Difference in velocities due to slip compensation: v: 0.017315541297877296, w: 0.07526908125388632, slip: 0.075692565460604
+[INFO] [1762338119.015587]: Error in RLS: [0.0417768]
+[INFO] [1762338119.018155]: Yaw: 2.4279014871543385, Yaw previous: 2.4279014871543385, Ground angular velocity z: 0.9039590288686019
+[INFO] [1762338119.020241]: Difference in velocities due to slip compensation: v: 0.019930477661721402, w: 0.08439320133469141, slip: 0.08538777852237217
+[INFO] [1762338119.065733]: Error in RLS: [-0.03498344]
+[INFO] [1762338119.068683]: Yaw: 2.5033581677449512, Yaw previous: 2.4279014871543385, Ground angular velocity z: 0.8850360307404962
+[INFO] [1762338119.071042]: Difference in velocities due to slip compensation: v: 0.01814680030480531, w: 0.07437153780302186, slip: 0.0775181896010323
+[INFO] [1762338119.115803]: Error in RLS: [0.03979659]
+[INFO] [1762338119.118603]: Yaw: 2.5033581677449512, Yaw previous: 2.5033581677449512, Ground angular velocity z: 0.8628156527845346
+[INFO] [1762338119.120929]: Difference in velocities due to slip compensation: v: 0.020634119508316257, w: 0.08135332246986149, slip: 0.08616394374528323
+[INFO] [1762338119.166123]: Error in RLS: [-0.03974547]
+[INFO] [1762338119.168856]: Yaw: 2.5813841130311017, Yaw previous: 2.5033581677449512, Ground angular velocity z: 0.8377973468021718
+[INFO] [1762338119.170918]: Difference in velocities due to slip compensation: v: 0.01875395395327803, w: 0.07073181639960147, slip: 0.0778531050674626
+[INFO] [1762338119.215562]: Error in RLS: [0.03737021]
+[INFO] [1762338119.218118]: Yaw: 2.5813841130311017, Yaw previous: 2.5813841130311017, Ground angular velocity z: 0.8105044816154521
+[INFO] [1762338119.220083]: Difference in velocities due to slip compensation: v: 0.021071879957268558, w: 0.07563292881753969, slip: 0.08535124228711129
+[INFO] [1762338119.265751]: Error in RLS: [-0.04666327]
+[INFO] [1762338119.268572]: Yaw: 2.6637854356239146, Yaw previous: 2.5813841130311017, Ground angular velocity z: 0.781459606146042
+[INFO] [1762338119.270523]: Difference in velocities due to slip compensation: v: 0.01901096812127978, w: 0.06463461261447412, slip: 0.07639174359229219
+[INFO] [1762338119.315827]: Error in RLS: [0.03468905]
+[INFO] [1762338119.318633]: Yaw: 2.6637854356239146, Yaw previous: 2.6637854356239146, Ground angular velocity z: 0.7511636681006149
+[INFO] [1762338119.320782]: Difference in velocities due to slip compensation: v: 0.02113066332919733, w: 0.06776634999116127, slip: 0.0827498668922487
+[INFO] [1762338119.365740]: Error in RLS: [-0.04860103]
+[INFO] [1762338119.368570]: Yaw: 2.7454111445499603, Yaw previous: 2.6637854356239146, Ground angular velocity z: 0.7200801052516724
+[INFO] [1762338119.371059]: Difference in velocities due to slip compensation: v: 0.01916581688558444, w: 0.057766069572904644, slip: 0.07426413016163806
+[INFO] [1762338119.415557]: Error in RLS: [0.0318742]
+[INFO] [1762338119.418366]: Yaw: 2.7454111445499603, Yaw previous: 2.7454111445499603, Ground angular velocity z: 0.6886240216640415
+[INFO] [1762338119.420699]: Difference in velocities due to slip compensation: v: 0.02107904884631126, w: 0.05951914964848393, slip: 0.07955582825686279
+[INFO] [1762338119.465573]: Error in RLS: [-0.04560919]
+[INFO] [1762338119.468289]: Yaw: 2.8212641097298783, Yaw previous: 2.7454111445499603, Ground angular velocity z: 0.6571561097215729
+[INFO] [1762338119.470610]: Difference in velocities due to slip compensation: v: 0.019433565336697267, w: 0.0512666468859051, slip: 0.07236730667915409
+[INFO] [1762338119.515326]: Error in RLS: [0.029034]
+[INFO] [1762338119.517774]: Yaw: 2.8212641097298783, Yaw previous: 2.8212641097298783, Ground angular velocity z: 0.6259806196356055
+[INFO] [1762338119.519858]: Difference in velocities due to slip compensation: v: 0.021148841718360012, w: 0.0520055499175589, slip: 0.07670591562632305
+[INFO] [1762338119.565855]: Error in RLS: [-0.04236409]
+[INFO] [1762338119.568695]: Yaw: 2.8911121904591957, Yaw previous: 2.8212641097298783, Ground angular velocity z: 0.5953465040690776
+[INFO] [1762338119.571129]: Difference in velocities due to slip compensation: v: 0.019800811038486077, w: 0.04530049035527872, slip: 0.07071053286682907
+[INFO] [1762338119.615791]: Error in RLS: [0.02627338]
+[INFO] [1762338119.618550]: Yaw: 2.8911121904591957, Yaw previous: 2.8911121904591957, Ground angular velocity z: 0.5654508406961021
+[INFO] [1762338119.620986]: Difference in velocities due to slip compensation: v: 0.02133310777330777, w: 0.045338046486794514, slip: 0.07422866957502189
+[INFO] [1762338119.666070]: Error in RLS: [-0.04989707]
+[INFO] [1762338119.668773]: Yaw: 2.965840472168455, Yaw previous: 2.8911121904591957, Ground angular velocity z: 0.5364437128486189
+[INFO] [1762338119.671118]: Difference in velocities due to slip compensation: v: 0.019821743848144613, w: 0.03908500717108265, slip: 0.06791148002091843
+[INFO] [1762338119.715729]: Error in RLS: [0.02369527]
+[INFO] [1762338119.718569]: Yaw: 2.965840472168455, Yaw previous: 2.965840472168455, Ground angular velocity z: 0.508433862535465
+[INFO] [1762338119.720824]: Difference in velocities due to slip compensation: v: 0.021177835219873042, w: 0.03870817675537641, slip: 0.07074612070669359
+[INFO] [1762338119.765716]: Error in RLS: [-0.05733143]
+[INFO] [1762338119.768520]: Yaw: 3.0455434337316123, Yaw previous: 2.965840472168455, Ground angular velocity z: 0.48149458466772943
+[INFO] [1762338119.770932]: Difference in velocities due to slip compensation: v: 0.019532891341960013, w: 0.0330704154466579, slip: 0.06426868411047469
+[INFO] [1762338119.815588]: Error in RLS: [0.02131921]
+[INFO] [1762338119.818151]: Yaw: 3.0455434337316123, Yaw previous: 3.0455434337316123, Ground angular velocity z: 0.45566948125446627
+[INFO] [1762338119.820395]: Difference in velocities due to slip compensation: v: 0.02072243605809687, w: 0.03248295531115286, slip: 0.06654264708722067
+[INFO] [1762338119.865710]: Error in RLS: [-0.05127598]
+[INFO] [1762338119.868555]: Yaw: 3.1169343825499856, Yaw previous: 3.0455434337316123, Ground angular velocity z: 0.4309778251667076
+[INFO] [1762338119.870528]: Difference in velocities due to slip compensation: v: 0.019425745359319457, w: 0.028183800793660008, slip: 0.061381002244496524
+[INFO] [1762338119.915553]: Error in RLS: [0.01912058]
+[INFO] [1762338119.918671]: Yaw: 3.1169343825499856, Yaw previous: 3.1169343825499856, Ground angular velocity z: 0.40741938856950993
+[INFO] [1762338119.921057]: Difference in velocities due to slip compensation: v: 0.02047072599466432, w: 0.027484640056865295, slip: 0.06319702336093393
+[INFO] [1762338119.965620]: Error in RLS: [-0.04769105]
+[INFO] [1762338119.968472]: Yaw: -3.10052741261122, Yaw previous: 3.1169343825499856, Ground angular velocity z: 0.3849786706373058
+[INFO] [1762338119.970403]: Difference in velocities due to slip compensation: v: 0.0194016009866938, w: 0.024104978218947304, slip: 0.05892432583492849
+[INFO] [1762338120.015587]: Error in RLS: [0.0171101]
+[INFO] [1762338120.018851]: Yaw: -3.10052741261122, Yaw previous: -3.10052741261122, Ground angular velocity z: 0.3636285152726039
+[INFO] [1762338120.021060]: Difference in velocities due to slip compensation: v: 0.020320076583971947, w: 0.023362658287218896, slip: 0.06037000294428518
+[INFO] [1762338120.065924]: Error in RLS: [-0.04541455]
+[INFO] [1762338120.068798]: Yaw: -3.0389825551864416, Yaw previous: -3.10052741261122, Ground angular velocity z: 0.34333314629852274
+[INFO] [1762338120.070780]: Difference in velocities due to slip compensation: v: 0.01941347423060974, w: 0.020657152022835024, slip: 0.05675193025226553
+[INFO] [1762338120.115756]: Error in RLS: [0.01528301]
+[INFO] [1762338120.118605]: Yaw: -3.0389825551864416, Yaw previous: -3.0389825551864416, Ground angular velocity z: 0.32405066936683474
+[INFO] [1762338120.120748]: Difference in velocities due to slip compensation: v: 0.020220649076890473, w: 0.019915544926826345, slip: 0.05789971252764806
+[INFO] [1762338120.166081]: Error in RLS: [-0.04238355]
+[INFO] [1762338120.168953]: Yaw: -2.9821973532296564, Yaw previous: -3.0389825551864416, Ground angular velocity z: 0.3057351006511822
+[INFO] [1762338120.170982]: Difference in velocities due to slip compensation: v: 0.019477968818725377, w: 0.01775980194029514, slip: 0.05489978914048893
+[INFO] [1762338120.215740]: Error in RLS: [0.01362541]
+[INFO] [1762338120.218605]: Yaw: -2.9821973532296564, Yaw previous: -2.9821973532296564, Ground angular velocity z: 0.2883379856714304
+[INFO] [1762338120.220657]: Difference in velocities due to slip compensation: v: 0.020187545418840935, w: 0.017042829703728113, slip: 0.055808449141741635
+[INFO] [1762338120.266235]: Error in RLS: [-0.0437894]
+[INFO] [1762338120.269275]: Yaw: -2.9255759336066394, Yaw previous: -2.9821973532296564, Ground angular velocity z: 0.2718096699845701
+[INFO] [1762338120.271362]: Difference in velocities due to slip compensation: v: 0.0194810814106523, w: 0.015229719163559752, slip: 0.05305794166005653
+[INFO] [1762338120.315574]: Error in RLS: [0.01212561]
+[INFO] [1762338120.318160]: Yaw: -2.9255759336066394, Yaw previous: -2.9255759336066394, Ground angular velocity z: 0.25610027896512794
+[INFO] [1762338120.320537]: Difference in velocities due to slip compensation: v: 0.020102841952506556, w: 0.014554462739667207, slip: 0.05377501479557251
+[INFO] [1762338120.365583]: Error in RLS: [-0.03874511]
+[INFO] [1762338120.368341]: Yaw: -2.875421218179022, Yaw previous: -2.9255759336066394, Ground angular velocity z: 0.24116045789146814
+[INFO] [1762338120.370693]: Difference in velocities due to slip compensation: v: 0.019575798236765085, w: 0.013125973810315411, slip: 0.05161885249822922
+[INFO] [1762338120.415778]: Error in RLS: [0.01076137]
+[INFO] [1762338120.418710]: Yaw: -2.875421218179022, Yaw previous: -2.875421218179022, Ground angular velocity z: 0.22694191700200722
+[INFO] [1762338120.420727]: Difference in velocities due to slip compensation: v: 0.020120852424591995, w: 0.01249427836725056, slip: 0.052182078603370485
+[INFO] [1762338120.465764]: Error in RLS: [-0.03718017]
+[INFO] [1762338120.468696]: Yaw: -2.8281279358136793, Yaw previous: -2.875421218179022, Ground angular velocity z: 0.21339781969612215
+[INFO] [1762338120.470765]: Difference in velocities due to slip compensation: v: 0.019678907509122434, w: 0.01131502113911484, slip: 0.05035324682407086
+[INFO] [1762338120.515727]: Error in RLS: [0.0095194]
+[INFO] [1762338120.518742]: Yaw: -2.8281279358136793, Yaw previous: -2.8281279358136793, Ground angular velocity z: 0.20048304598398572
+[INFO] [1762338120.521129]: Difference in velocities due to slip compensation: v: 0.020155380461745698, w: 0.010728033610721832, slip: 0.0507929490787502
+[INFO] [1762338120.565540]: Error in RLS: [-0.03201943]
+[INFO] [1762338120.568198]: Yaw: -2.787178630090712, Yaw previous: -2.8281279358136793, Ground angular velocity z: 0.1881543578226448
+[INFO] [1762338120.570755]: Difference in velocities due to slip compensation: v: 0.01985485423701938, w: 0.00977899294165771, slip: 0.04940548373428205
+[INFO] [1762338120.615665]: Error in RLS: [0.00838284]
+[INFO] [1762338120.618408]: Yaw: -2.787178630090712, Yaw previous: -2.787178630090712, Ground angular velocity z: 0.17637048818917891
+[INFO] [1762338120.620661]: Difference in velocities due to slip compensation: v: 0.020270591192614373, w: 0.009233004881202156, slip: 0.049745857302917126
+[INFO] [1762338120.666041]: Error in RLS: [-0.02927861]
+[INFO] [1762338120.668894]: Yaw: -2.750056046090286, Yaw previous: -2.787178630090712, Ground angular velocity z: 0.16509217163276754
+[INFO] [1762338120.671513]: Difference in velocities due to slip compensation: v: 0.020050341444233677, w: 0.008439433752030545, slip: 0.04863341022701016
+[INFO] [1762338120.715732]: Error in RLS: [0.00733894]
+[INFO] [1762338120.718576]: Yaw: -2.750056046090286, Yaw previous: -2.750056046090286, Ground angular velocity z: 0.1542821305781524
+[INFO] [1762338120.721446]: Difference in velocities due to slip compensation: v: 0.02041124025006763, w: 0.007931248837589722, slip: 0.04889392518765339
+[INFO] [1762338120.765574]: Error in RLS: [-0.02949676]
+[INFO] [1762338120.803926]: Yaw: -2.71371583555442, Yaw previous: -2.750056046090286, Ground angular velocity z: 0.14390502876154423
+[INFO] [1762338120.806551]: Difference in velocities due to slip compensation: v: 0.02021596159045197, w: 0.007242620394215166, slip: 0.04791751929103158
+[INFO] [1762338120.815602]: Error in RLS: [0.0063755]
+[INFO] [1762338120.818235]: Yaw: -2.71371583555442, Yaw previous: -2.71371583555442, Ground angular velocity z: 0.13392740079416843
+[INFO] [1762338120.820616]: Difference in velocities due to slip compensation: v: 0.020526464947311585, w: 0.006769473769798889, slip: 0.0481138887468405
+[INFO] [1762338120.865880]: Error in RLS: [-0.02553412]
+[INFO] [1762338120.868678]: Yaw: -2.682264906191901, Yaw previous: -2.71371583555442, Ground angular velocity z: 0.12431756489870495
+[INFO] [1762338120.871263]: Difference in velocities due to slip compensation: v: 0.02040889967339915, w: 0.006183668227090197, slip: 0.04738398311630913
+[INFO] [1762338120.915735]: Error in RLS: [0.00547971]
+[INFO] [1762338120.918403]: Yaw: -2.682264906191901, Yaw previous: -2.682264906191901, Ground angular velocity z: 0.11504552428185921
+[INFO] [1762338120.920809]: Difference in velocities due to slip compensation: v: 0.02067344783858649, w: 0.0057408455323501445, slip: 0.04752891854586382
+[INFO] [1762338120.965721]: Error in RLS: [-0.0200656]
+[INFO] [1762338120.968400]: Yaw: -2.657147265584479, Yaw previous: -2.682264906191901, Ground angular velocity z: 0.1060828613316161
+[INFO] [1762338120.970743]: Difference in velocities due to slip compensation: v: 0.020635771916148793, w: 0.005236414627871069, slip: 0.04703960372304946
+[INFO] [1762338121.015184]: Error in RLS: [0.00464104]
+[INFO] [1762338121.017429]: Yaw: -2.657147265584479, Yaw previous: -2.657147265584479, Ground angular velocity z: 0.0974026278066422
+[INFO] [1762338121.019162]: Difference in velocities due to slip compensation: v: 0.020858179197098647, w: 0.004819090298967599, slip: 0.047143507155581056
+[INFO] [1762338121.065661]: Error in RLS: [-0.02172396]
+[INFO] [1762338121.068139]: Yaw: -2.6311840811133225, Yaw previous: -2.657147265584479, Ground angular velocity z: 0.08897923337245399
+[INFO] [1762338121.070147]: Difference in velocities due to slip compensation: v: 0.020813147918389563, w: 0.004358817201948514, slip: 0.04669925261053074
+[INFO] [1762338121.115738]: Error in RLS: [0.00385078]
+[INFO] [1762338121.118577]: Yaw: -2.6311840811133225, Yaw previous: -2.6311840811133225, Ground angular velocity z: 0.08078833419511643
+[INFO] [1762338121.121113]: Difference in velocities due to slip compensation: v: 0.020996017542544043, w: 0.0039639264991852, slip: 0.046770746487612244
+[INFO] [1762338121.165620]: Error in RLS: [-0.01984909]
+[INFO] [1762338121.168554]: Yaw: -2.6078649152429065, Yaw previous: -2.6311840811133225, Ground angular velocity z: 0.07280672279550657
+[INFO] [1762338121.170760]: Difference in velocities due to slip compensation: v: 0.02097589038820774, w: 0.0035457040364167275, slip: 0.04643865537138704
+[INFO] [1762338121.215691]: Error in RLS: [0.00309966]
+[INFO] [1762338121.218613]: Yaw: -2.6078649152429065, Yaw previous: -2.6078649152429065, Ground angular velocity z: 0.06501221996975995
+[INFO] [1762338121.220914]: Difference in velocities due to slip compensation: v: 0.021121837669942745, w: 0.0031694209092723025, slip: 0.04648496088405203
+[INFO] [1762338121.265734]: Error in RLS: [-0.01769278]
+[INFO] [1762338121.268717]: Yaw: -2.587436328524973, Yaw previous: -2.6078649152429065, Ground angular velocity z: 0.0573835692715617
+[INFO] [1762338121.271065]: Difference in velocities due to slip compensation: v: 0.021121583858338844, w: 0.002782795035636332, slip: 0.04625167346705399
+[INFO] [1762338121.315817]: Error in RLS: [0.00237962]
+[INFO] [1762338121.318558]: Yaw: -2.587436328524973, Yaw previous: -2.587436328524973, Ground angular velocity z: 0.049900334311175173
+[INFO] [1762338121.320876]: Difference in velocities due to slip compensation: v: 0.02123295330651026, w: 0.0024213950822019117, slip: 0.046278957333325786
+[INFO] [1762338121.365875]: Error in RLS: [-0.01293601]
+[INFO] [1762338121.368787]: Yaw: -2.5724716207814984, Yaw previous: -2.587436328524973, Ground angular velocity z: 0.04254279894111214
+[INFO] [1762338121.370988]: Difference in velocities due to slip compensation: v: 0.021257389109108626, w: 0.002058460012299028, slip: 0.04615250915785176
+[INFO] [1762338121.415683]: Error in RLS: [0.00168315]
+[INFO] [1762338121.418540]: Yaw: -2.5724716207814984, Yaw previous: -2.5724716207814984, Ground angular velocity z: 0.03529187025665414
+[INFO] [1762338121.421090]: Difference in velocities due to slip compensation: v: 0.02133636346095036, w: 0.0017081487007811827, slip: 0.046166157448357864
+[INFO] [1762338121.465734]: Error in RLS: [-0.00964039]
+[INFO] [1762338121.468652]: Yaw: -2.561489712328759, Yaw previous: -2.5724716207814984, Ground angular velocity z: 0.028128984231417967
+[INFO] [1762338121.470959]: Difference in velocities due to slip compensation: v: 0.021365465608755407, w: 0.0013595342998797555, slip: 0.04610385219714617
+[INFO] [1762338121.515685]: Error in RLS: [0.00100331]
+[INFO] [1762338121.518739]: Yaw: -2.561489712328759, Yaw previous: -2.561489712328759, Ground angular velocity z: 0.021036013726991723
+[INFO] [1762338121.521285]: Difference in velocities due to slip compensation: v: 0.021414033506107766, w: 0.0010168278894712689, slip: 0.0461087014161559
+[INFO] [1762338121.565723]: Error in RLS: [-0.01077227]
+[INFO] [1762338121.568354]: Yaw: -2.5500499477793044, Yaw previous: -2.561489712328759, Ground angular velocity z: 0.013995178555445461
+[INFO] [1762338121.570547]: Difference in velocities due to slip compensation: v: 0.02143020199904705, w: 0.0006759589113367031, slip: 0.0460740629598205
+[INFO] [1762338121.615695]: Error in RLS: [0.00033335]
+[INFO] [1762338121.618291]: Yaw: -2.5500499477793044, Yaw previous: -2.5500499477793044, Ground angular velocity z: 0.006988957229067724
+[INFO] [1762338121.620588]: Difference in velocities due to slip compensation: v: 0.021450302635734886, w: 0.00033756664395288936, slip: 0.04607459824105045
+[INFO] [1762338121.665583]: Error in RLS: [-0.01418717]
+[INFO] [1762338121.668503]: Yaw: -2.5358627778196676, Yaw previous: -2.5500499477793044, Ground angular velocity z: -1.047380211910525e-15
+[INFO] [1762338121.670724]: Difference in velocities due to slip compensation: v: 0.021456919169069, w: -5.0588465702266835e-17, slip: 0.04607459824105045
+[INFO] [1762338121.715568]: Error in RLS: [-0.00033335]
+[INFO] [1762338121.718441]: Yaw: -2.5358627778196676, Yaw previous: -2.5358627778196676, Ground angular velocity z: -0.006988957229067724
+[INFO] [1762338121.720590]: Difference in velocities due to slip compensation: v: 0.0214505638754644, w: -0.000337570755121858, slip: 0.046075133521679676
+[INFO] [1762338121.766149]: Error in RLS: [-0.00850839]
+[INFO] [1762338121.769005]: Yaw: -2.5280219087920046, Yaw previous: -2.5358627778196676, Ground angular velocity z: -0.013995178555443365
+[INFO] [1762338121.771105]: Difference in velocities due to slip compensation: v: 0.021444064293696885, w: -0.0006763961606728666, slip: 0.04610249232005535
+[INFO] [1762338121.815902]: Error in RLS: [-0.00100331]
+[INFO] [1762338121.818553]: Yaw: -2.5280219087920046, Yaw previous: -2.5280219087920046, Ground angular velocity z: -0.021036013726991723
+[INFO] [1762338121.821015]: Difference in velocities due to slip compensation: v: 0.021413371396164116, w: -0.0010167964497214549, slip: 0.04610734149406263
+[INFO] [1762338121.865836]: Error in RLS: [-0.00380019]
+[INFO] [1762338121.868572]: Yaw: -2.525563321050347, Yaw previous: -2.5280219087920046, Ground angular velocity z: -0.02812898423142216
+[INFO] [1762338121.870891]: Difference in velocities due to slip compensation: v: 0.021379092770649477, w: -0.0013604014279053958, slip: 0.04613190127530169
+[INFO] [1762338121.915744]: Error in RLS: [-0.00168319]
+[INFO] [1762338121.918388]: Yaw: -2.525563321050347, Yaw previous: -2.525563321050347, Ground angular velocity z: -0.03529187025665309
+[INFO] [1762338121.920681]: Difference in velocities due to slip compensation: v: 0.021326378287714554, w: -0.0017073493067924633, slip: 0.04614554920178055
+[INFO] [1762338121.965725]: Error in RLS: [-0.00738638]
+[INFO] [1762338121.968596]: Yaw: -2.5202059204409797, Yaw previous: -2.525563321050347, Ground angular velocity z: -0.0425427989411069
+[INFO] [1762338121.970861]: Difference in velocities due to slip compensation: v: 0.021288891760097406, w: -0.002061510572600782, slip: 0.046217744318343135
+[INFO] [1762338122.015736]: Error in RLS: [-0.0023797]
+[INFO] [1762338122.018663]: Yaw: -2.5202059204409797, Yaw previous: -2.5202059204409797, Ground angular velocity z: -0.04990033431117832
+[INFO] [1762338122.021101]: Difference in velocities due to slip compensation: v: 0.021216630421222182, w: -0.0024195336287531136, slip: 0.04624502553276679
+[INFO] [1762338122.065943]: Error in RLS: [-0.00798717]
+[INFO] [1762338122.068772]: Yaw: -2.5149552482159114, Yaw previous: -2.5202059204409797, Ground angular velocity z: -0.057383569271567986
+[INFO] [1762338122.070878]: Difference in velocities due to slip compensation: v: 0.021168821424458473, w: -0.0027890186439311973, slip: 0.04635031898325263
+[INFO] [1762338122.115739]: Error in RLS: [-0.00309994]
+[INFO] [1762338122.118596]: Yaw: -2.5149552482159114, Yaw previous: -2.5149552482159114, Ground angular velocity z: -0.06501221996975366
+[INFO] [1762338122.120519]: Difference in velocities due to slip compensation: v: 0.021079742234637933, w: -0.003163104311496606, slip: 0.046396615562069685
+[INFO] [1762338122.166276]: Error in RLS: [-0.00721054]
+[INFO] [1762338122.169343]: Yaw: -2.5112161492148193, Yaw previous: -2.5149552482159114, Ground angular velocity z: -0.07280672279550028
+[INFO] [1762338122.171777]: Difference in velocities due to slip compensation: v: 0.0210131018886332, w: -0.0035519941611652506, slip: 0.04651720592923341
+[INFO] [1762338122.215735]: Error in RLS: [-0.00385151]
+[INFO] [1762338122.218377]: Yaw: -2.5112161492148193, Yaw previous: -2.5112161492148193, Ground angular velocity z: -0.08078833419512062
+[INFO] [1762338122.220652]: Difference in velocities due to slip compensation: v: 0.020910289471290977, w: -0.003947741535885688, slip: 0.046588675506023525
+[INFO] [1762338122.265922]: Error in RLS: [-0.00758476]
+[INFO] [1762338122.268611]: Yaw: -2.507873076152507, Yaw previous: -2.5112161492148193, Ground angular velocity z: -0.08897923337246028
+[INFO] [1762338122.270977]: Difference in velocities due to slip compensation: v: 0.020833917461922535, w: -0.0043631668872527035, slip: 0.04674367570485407
+[INFO] [1762338122.315559]: Error in RLS: [-0.00464248]
+[INFO] [1762338122.318071]: Yaw: -2.507873076152507, Yaw previous: -2.507873076152507, Ground angular velocity z: -0.0974026278066464
+[INFO] [1762338122.320287]: Difference in velocities due to slip compensation: v: 0.02072078525982357, w: -0.00478734669450441, slip: 0.04684751824114109
+[INFO] [1762338122.365705]: Error in RLS: [0.00111219]
+[INFO] [1762338122.368528]: Yaw: -2.5140409212062416, Yaw previous: -2.507873076152507, Ground angular velocity z: -0.1060828613316119
+[INFO] [1762338122.370800]: Difference in velocities due to slip compensation: v: 0.02053489870271402, w: -0.005210817622217936, slip: 0.046820427460032434
+[INFO] [1762338122.415749]: Error in RLS: [-0.00548295]
+[INFO] [1762338122.418452]: Yaw: -2.5140409212062416, Yaw previous: -2.5140409212062416, Ground angular velocity z: -0.11504552428185083
+[INFO] [1762338122.420773]: Difference in velocities due to slip compensation: v: 0.020416186137204917, w: -0.005669406084970061, slip: 0.04696524338573714
+[INFO] [1762338122.465582]: Error in RLS: [-0.00307386]
+[INFO] [1762338122.468302]: Yaw: -2.5168910139904925, Yaw previous: -2.5140409212062416, Ground angular velocity z: -0.12431756489870285
+[INFO] [1762338122.470563]: Difference in velocities due to slip compensation: v: 0.020259282839820425, w: -0.006138336000715949, slip: 0.04705295780716414
+[INFO] [1762338122.515779]: Error in RLS: [-0.00638129]
+[INFO] [1762338122.518433]: Yaw: -2.5168910139904925, Yaw previous: -2.5168910139904925, Ground angular velocity z: -0.13392740079417262
+[INFO] [1762338122.520783]: Difference in velocities due to slip compensation: v: 0.02013922457069428, w: -0.006641764805842443, slip: 0.04724908750430635
+[INFO] [1762338122.565758]: Error in RLS: [-0.00731397]
+[INFO] [1762338122.568401]: Yaw: -2.5164323306239056, Yaw previous: -2.5168910139904925, Ground angular velocity z: -0.1439050287615453
+[INFO] [1762338122.570663]: Difference in velocities due to slip compensation: v: 0.020026856231888046, w: -0.007174871040791592, slip: 0.04749057320119166
+[INFO] [1762338122.615779]: Error in RLS: [-0.00734776]
+[INFO] [1762338122.618402]: Yaw: -2.5164323306239056, Yaw previous: -2.5164323306239056, Ground angular velocity z: -0.15428213057815449
+[INFO] [1762338122.620689]: Difference in velocities due to slip compensation: v: 0.019910013343082067, w: -0.007736485791606629, slip: 0.047750597832228764
+[INFO] [1762338122.665777]: Error in RLS: [-0.00833584]
+[INFO] [1762338122.668345]: Yaw: -2.5159569330906653, Yaw previous: -2.5164323306239056, Ground angular velocity z: -0.1650921716327686
+[INFO] [1762338122.670534]: Difference in velocities due to slip compensation: v: 0.01980466962701649, w: -0.008336027481772729, slip: 0.04806615950770009
+[INFO] [1762338122.715760]: Error in RLS: [-0.00839465]
+[INFO] [1762338122.718206]: Yaw: -2.5159569330906653, Yaw previous: -2.5159569330906653, Ground angular velocity z: -0.17637048818918521
+[INFO] [1762338122.720461]: Difference in velocities due to slip compensation: v: 0.01969665124001252, w: -0.008971582294483804, slip: 0.04840553615847461
+[INFO] [1762338122.765712]: Error in RLS: [-0.00552437]
+[INFO] [1762338122.768395]: Yaw: -2.519384897016654, Yaw previous: -2.5159569330906653, Ground angular velocity z: -0.18815435782263643
+[INFO] [1762338122.770693]: Difference in velocities due to slip compensation: v: 0.019533058277046378, w: -0.009620500696704753, slip: 0.048643699046124894
+[INFO] [1762338122.815737]: Error in RLS: [-0.00953654]
+[INFO] [1762338122.818251]: Yaw: -2.519384897016654, Yaw previous: -2.519384897016654, Ground angular velocity z: -0.20048304598397945
+[INFO] [1762338122.820434]: Difference in velocities due to slip compensation: v: 0.0194412285160101, w: -0.01034791446131847, slip: 0.04908156961132542
+[INFO] [1762338122.865837]: Error in RLS: [-0.00186838]
+[INFO] [1762338122.868545]: Yaw: -2.5276627110051932, Yaw previous: -2.519384897016654, Ground angular velocity z: -0.21339781969612426
+[INFO] [1762338122.870817]: Difference in velocities due to slip compensation: v: 0.019193724653755573, w: -0.011036049643250112, slip: 0.049172835079370744
+[INFO] [1762338122.915708]: Error in RLS: [-0.01078913]
+[INFO] [1762338122.918365]: Yaw: -2.5276627110051932, Yaw previous: -2.5276627110051932, Ground angular velocity z: -0.22694191700200514
+[INFO] [1762338122.921041]: Difference in velocities due to slip compensation: v: 0.01912708070422392, w: -0.011877184208127667, slip: 0.04973297423842638
+[INFO] [1762338122.965822]: Error in RLS: [-0.0029951]
+[INFO] [1762338122.968508]: Yaw: -2.536125957039182, Yaw previous: -2.5276627110051932, Ground angular velocity z: -0.24116045789149745
+[INFO] [1762338122.970902]: Difference in velocities due to slip compensation: v: 0.018888953481706328, w: -0.012665430329146271, slip: 0.049898103057701426
+[INFO] [1762338123.015573]: Error in RLS: [-0.01216607]
+[INFO] [1762338123.018449]: Yaw: -2.536125957039182, Yaw previous: -2.536125957039182, Ground angular velocity z: -0.25610027896511534
+[INFO] [1762338123.021130]: Difference in velocities due to slip compensation: v: 0.01885653478000293, w: -0.013652136026496009, slip: 0.050609875084604995
+[INFO] [1762338123.065759]: Error in RLS: [-0.00558621]
+[INFO] [1762338123.068424]: Yaw: -2.543442412951792, Yaw previous: -2.536125957039182, Ground angular velocity z: -0.27180966998454603
+[INFO] [1762338123.070511]: Difference in velocities due to slip compensation: v: 0.01866805577217323, w: -0.014594120354344542, slip: 0.050956449763028155
+[INFO] [1762338123.115755]: Error in RLS: [-0.01368227]
+[INFO] [1762338123.118435]: Yaw: -2.543442412951792, Yaw previous: -2.543442412951792, Ground angular velocity z: -0.2883379856714429
+[INFO] [1762338123.120710]: Difference in velocities due to slip compensation: v: 0.018679663968348414, w: -0.01576983854799613, slip: 0.051856076338952936
+[INFO] [1762338123.166368]: Error in RLS: [-0.00583239]
+[INFO] [1762338123.168964]: Yaw: -2.5521040702675126, Yaw previous: -2.543442412951792, Ground angular velocity z: -0.30573510065118636
+[INFO] [1762338123.171242]: Difference in velocities due to slip compensation: v: 0.018490597048046842, w: -0.016859527006502895, slip: 0.05226226837352306
+[INFO] [1762338123.215752]: Error in RLS: [-0.01535575]
+[INFO] [1762338123.218252]: Yaw: -2.5521040702675126, Yaw previous: -2.5521040702675126, Ground angular velocity z: -0.32405066936682847
+[INFO] [1762338123.220515]: Difference in velocities due to slip compensation: v: 0.018558489979672965, w: -0.018278465718819248, slip: 0.05339442029743143
+[INFO] [1762338123.265738]: Error in RLS: [-0.00278848]
+[INFO] [1762338123.268340]: Yaw: -2.5655656432119063, Yaw previous: -2.5521040702675126, Ground angular velocity z: -0.3433331462985164
+[INFO] [1762338123.270630]: Difference in velocities due to slip compensation: v: 0.018278515543431906, w: -0.01944948492202725, slip: 0.0536119517535653
+[INFO] [1762338123.315732]: Error in RLS: [-0.01720668]
+[INFO] [1762338123.318565]: Yaw: -2.5655656432119063, Yaw previous: -2.5655656432119063, Ground angular velocity z: -0.36362851527262907
+[INFO] [1762338123.320771]: Difference in velocities due to slip compensation: v: 0.018418523391829367, w: -0.021176380235590042, slip: 0.05503147304719705
+[INFO] [1762338123.365798]: Error in RLS: [-0.00159]
+[INFO] [1762338123.368611]: Yaw: -2.582165280866127, Yaw previous: -2.5655656432119063, Ground angular velocity z: -0.38497867063730895
+[INFO] [1762338123.370558]: Difference in velocities due to slip compensation: v: 0.018093298612317565, w: -0.022479514410071455, slip: 0.05517011373193416
+[INFO] [1762338123.415741]: Error in RLS: [-0.0192471]
+[INFO] [1762338123.418593]: Yaw: -2.582165280866127, Yaw previous: -2.582165280866127, Ground angular velocity z: -0.4074193885694764
+[INFO] [1762338123.420706]: Difference in velocities due to slip compensation: v: 0.018322562888754612, w: -0.024600448760240257, slip: 0.05694286843931488
+[INFO] [1762338123.465719]: Error in RLS: [-0.00373256]
+[INFO] [1762338123.468668]: Yaw: -2.5987545567401007, Yaw previous: -2.582165280866127, Ground angular velocity z: -0.4309778251667133
+[INFO] [1762338123.470795]: Difference in velocities due to slip compensation: v: 0.018057623099109132, w: -0.026198863560626173, slip: 0.05730577303395977
+[INFO] [1762338123.515701]: Error in RLS: [-0.02147785]
+[INFO] [1762338123.518616]: Yaw: -2.5987545567401007, Yaw previous: -2.5987545567401007, Ground angular velocity z: -0.4556694812544919
+[INFO] [1762338123.521089]: Difference in velocities due to slip compensation: v: 0.018393278353681153, w: -0.02883194027541819, slip: 0.05950847406056231
+[INFO] [1762338123.565748]: Error in RLS: [-0.00357719]
+[INFO] [1762338123.568661]: Yaw: -2.617819447242176, Yaw previous: -2.5987545567401007, Ground angular velocity z: -0.48149458466772777
+[INFO] [1762338123.571218]: Difference in velocities due to slip compensation: v: 0.01811896738589941, w: -0.030676553123958894, slip: 0.05989512266588487
+[INFO] [1762338123.615700]: Error in RLS: [-0.02389906]
+[INFO] [1762338123.618489]: Yaw: -2.617819447242176, Yaw previous: -2.617819447242176, Ground angular velocity z: -0.5084338625354465
+[INFO] [1762338123.621471]: Difference in velocities due to slip compensation: v: 0.018581179538164017, w: -0.03396209170669717, slip: 0.06261494290485695
+[INFO] [1762338123.665731]: Error in RLS: [-0.00111803]
+[INFO] [1762338123.668678]: Yaw: -2.641844132239366, Yaw previous: -2.617819447242176, Ground angular velocity z: -0.5364437128486127
+[INFO] [1762338123.670767]: Difference in velocities due to slip compensation: v: 0.0182139833825547, w: -0.03591478512561552, slip: 0.06274875843152526
+[INFO] [1762338123.715673]: Error in RLS: [-0.02649848]
+[INFO] [1762338123.718198]: Yaw: -2.641844132239366, Yaw previous: -2.641844132239366, Ground angular velocity z: -0.5654508406961435
+[INFO] [1762338123.720651]: Difference in velocities due to slip compensation: v: 0.018825481498012553, w: -0.04000873029672425, slip: 0.06607993698260572
+[INFO] [1762338123.765731]: Error in RLS: [-0.00230078]
+[INFO] [1762338123.768608]: Yaw: -2.6673436590673716, Yaw previous: -2.641844132239366, Ground angular velocity z: -0.5953465040690923
+[INFO] [1762338123.770636]: Difference in velocities due to slip compensation: v: 0.018502903942953175, w: -0.04233112572930664, slip: 0.0663832691491618
+[INFO] [1762338123.815597]: Error in RLS: [-0.0292213]
+[INFO] [1762338123.818439]: Yaw: -2.6673436590673716, Yaw previous: -2.6673436590673716, Ground angular velocity z: -0.6259806196355745
+[INFO] [1762338123.820683]: Difference in velocities due to slip compensation: v: 0.019283413074188516, w: -0.0474184125336754, slip: 0.07041651423365482
+[INFO] [1762338123.866085]: Error in RLS: [-0.00579598]
+[INFO] [1762338123.868804]: Yaw: -2.6920917545977927, Yaw previous: -2.6673436590673716, Ground angular velocity z: -0.6571561097215616
+[INFO] [1762338123.870612]: Difference in velocities due to slip compensation: v: 0.01911118685566121, w: -0.05041619749771975, slip: 0.07125236104258023
+[INFO] [1762338123.915778]: Error in RLS: [-0.0319779]
+[INFO] [1762338123.918432]: Yaw: -2.6920917545977927, Yaw previous: -2.6920917545977927, Ground angular velocity z: -0.6886240216640311
+[INFO] [1762338123.920831]: Difference in velocities due to slip compensation: v: 0.020076476466137944, w: -0.05668826975612773, slip: 0.07605975429186979
+[INFO] [1762338123.965759]: Error in RLS: [-0.0081618]
+[INFO] [1762338123.968534]: Yaw: -2.7171955018618505, Yaw previous: -2.6920917545977927, Ground angular velocity z: -0.7200801052516763
+[INFO] [1762338123.970791]: Difference in velocities due to slip compensation: v: 0.02002492676619086, w: -0.06035544008761451, slip: 0.07733558581237508
+[INFO] [1762338124.015556]: Error in RLS: [-0.0346536]
+[INFO] [1762338124.018202]: Yaw: -2.7171955018618505, Yaw previous: -2.7171955018618505, Ground angular velocity z: -0.7511636681006102
+[INFO] [1762338124.020774]: Difference in velocities due to slip compensation: v: 0.02118694292185258, w: -0.06794683947764035, slip: 0.08295198126383369
+[INFO] [1762338124.065801]: Error in RLS: [-0.00573492]
+[INFO] [1762338124.068654]: Yaw: -2.747292377627182, Yaw previous: -2.7171955018618505, Ground angular velocity z: -0.7814596061460307
+[INFO] [1762338124.070952]: Difference in velocities due to slip compensation: v: 0.021054065099328, w: -0.07158085442959417, slip: 0.08391261345480847
+[INFO] [1762338124.115847]: Error in RLS: [-0.03712465]
+[INFO] [1762338124.118530]: Yaw: -2.747292377627182, Yaw previous: -2.747292377627182, Ground angular velocity z: -0.8105044816154874
+[INFO] [1762338124.121327]: Difference in velocities due to slip compensation: v: 0.022419631878294488, w: -0.08047039112813881, slip: 0.0903172396774132
+[INFO] [1762338124.165796]: Error in RLS: [0.0052491]
+[INFO] [1762338124.168559]: Yaw: -2.790647971894411, Yaw previous: -2.747292377627182, Ground angular velocity z: -0.8377973468021884
+[INFO] [1762338124.170848]: Difference in velocities due to slip compensation: v: 0.02180537438247654, w: -0.08224045666254665, slip: 0.08938812769740603
+[INFO] [1762338124.215731]: Error in RLS: [-0.03928451]
+[INFO] [1762338124.218293]: Yaw: -2.790647971894411, Yaw previous: -2.790647971894411, Ground angular velocity z: -0.8628156527845194
+[INFO] [1762338124.220628]: Difference in velocities due to slip compensation: v: 0.023371951980920846, w: -0.09214766568971156, slip: 0.0964934086022677
+[INFO] [1762338124.266092]: Error in RLS: [0.01290275]
+[INFO] [1762338124.268797]: Yaw: -2.8435325123859867, Yaw previous: -2.790647971894411, Ground angular velocity z: -0.8850360307404705
+[INFO] [1762338124.271071]: Difference in velocities due to slip compensation: v: 0.022436804230051233, w: -0.09195338053795987, slip: 0.09411911682608216
+[INFO] [1762338124.315773]: Error in RLS: [-0.04094396]
+[INFO] [1762338124.318385]: Yaw: -2.8435325123859867, Yaw previous: -2.8435325123859867, Ground angular velocity z: -0.9039590288686038
+[INFO] [1762338124.320662]: Difference in velocities due to slip compensation: v: 0.024182132909131016, w: -0.10239632215248962, slip: 0.10174966730051542
+[INFO] [1762338124.365717]: Error in RLS: [0.01598765]
+[INFO] [1762338124.368475]: Yaw: -2.900800882868442, Yaw previous: -2.8435325123859867, Ground angular velocity z: -0.9191361261249567
+[INFO] [1762338124.370793]: Difference in velocities due to slip compensation: v: 0.02316716037366201, w: -0.10070553652289749, slip: 0.09874624680603035
+[INFO] [1762338124.415581]: Error in RLS: [-0.04191716]
+[INFO] [1762338124.418469]: Yaw: -2.900800882868442, Yaw previous: -2.900800882868442, Ground angular velocity z: -0.9301966721445828
+[INFO] [1762338124.420511]: Difference in velocities due to slip compensation: v: 0.02505185116271616, w: -0.11104377577758939, slip: 0.10664566095101351
+[INFO] [1762338124.465591]: Error in RLS: [0.02301063]
+[INFO] [1762338124.468578]: Yaw: -2.965659446744342, Yaw previous: -2.900800882868442, Ground angular velocity z: -0.93687199168564
+[INFO] [1762338124.470632]: Difference in velocities due to slip compensation: v: 0.023789058203459085, w: -0.1067832682537756, slip: 0.1023166100460936
+[INFO] [1762338124.515699]: Error in RLS: [-0.04214686]
+[INFO] [1762338124.518495]: Yaw: -2.965659446744342, Yaw previous: -2.965659446744342, Ground angular velocity z: -0.9390138895039171
+[INFO] [1762338124.520379]: Difference in velocities due to slip compensation: v: 0.025762134415361126, w: -0.11628816164537703, slip: 0.11019419655133954
+[INFO] [1762338124.565610]: Error in RLS: [0.02924097]
+[INFO] [1762338124.568632]: Yaw: -3.036570259953267, Yaw previous: -2.965659446744342, Ground angular velocity z: -0.9366052694191779
+[INFO] [1762338124.570550]: Difference in velocities due to slip compensation: v: 0.02432256349680262, w: -0.10963560633210878, slip: 0.104790023858876
+[INFO] [1762338124.615712]: Error in RLS: [-0.04161659]
+[INFO] [1762338124.618531]: Yaw: -3.036570259953267, Yaw previous: -3.036570259953267, Ground angular velocity z: -0.9297614968257347
+[INFO] [1762338124.620449]: Difference in velocities due to slip compensation: v: 0.02632727360860526, w: -0.11769259892150064, slip: 0.11236062697099941
+[INFO] [1762338124.665829]: Error in RLS: [0.0333414]
+[INFO] [1762338124.668864]: Yaw: -3.1106863629084693, Yaw previous: -3.036570259953267, Ground angular velocity z: -0.9187223264231655
+[INFO] [1762338124.670839]: Difference in velocities due to slip compensation: v: 0.02484306055903482, w: -0.10941025508111701, slip: 0.10641648465321134
+[INFO] [1762338124.715692]: Error in RLS: [-0.04038262]
+[INFO] [1762338124.718473]: Yaw: -3.1106863629084693, Yaw previous: -3.1106863629084693, Ground angular velocity z: -0.9038354462244573
+[INFO] [1762338124.720630]: Difference in velocities due to slip compensation: v: 0.02682590710554303, w: -0.1156546081806169, slip: 0.11344358650767546
+[INFO] [1762338124.766121]: Error in RLS: [0.03467963]
+[INFO] [1762338124.769115]: Yaw: 3.0985655380865285, Yaw previous: -3.1106863629084693, Ground angular velocity z: -0.8855337038501397
+[INFO] [1762338124.771230]: Difference in velocities due to slip compensation: v: 0.02544273056717994, w: -0.10674472306077065, slip: 0.10757537417504949
+[INFO] [1762338124.815555]: Error in RLS: [-0.03856652]
+[INFO] [1762338124.818410]: Yaw: 3.0985655380865285, Yaw previous: 3.0985655380865285, Ground angular velocity z: -0.8643086929257086
+[INFO] [1762338124.820498]: Difference in velocities due to slip compensation: v: 0.027360999095946414, w: -0.11109864109571888, slip: 0.11389973934036295
+[INFO] [1762338124.866199]: Error in RLS: [0.037718]
+[INFO] [1762338124.869207]: Yaw: 3.0236010430785183, Yaw previous: 3.0985655380865285, Ground angular velocity z: -0.840683508475523
+[INFO] [1762338124.871390]: Difference in velocities due to slip compensation: v: 0.026009594253876445, w: -0.1017061339440527, slip: 0.10792365425719583
+[INFO] [1762338124.915771]: Error in RLS: [-0.03636046]
+[INFO] [1762338124.918513]: Yaw: 3.0236010430785183, Yaw previous: 3.0236010430785183, Ground angular velocity z: -0.8151871724743117
+[INFO] [1762338124.920571]: Difference in velocities due to slip compensation: v: 0.027831554254862417, w: -0.10434394497528399, slip: 0.11347516467380843
+[INFO] [1762338124.965879]: Error in RLS: [0.04267694]
+[INFO] [1762338124.968791]: Yaw: 2.9459802844245466, Yaw previous: 3.0236010430785183, Ground angular velocity z: -0.7883326155348993
+[INFO] [1762338124.970803]: Difference in velocities due to slip compensation: v: 0.02643795405172439, w: -0.09466667939791773, slip: 0.10721036805031701
+[INFO] [1762338125.015718]: Error in RLS: [-0.03395276]
+[INFO] [1762338125.018606]: Yaw: 2.9459802844245466, Yaw previous: 2.9459802844245466, Ground angular velocity z: -0.7605993477539055
+[INFO] [1762338125.020657]: Difference in velocities due to slip compensation: v: 0.028142026656446273, w: -0.09592507325530919, slip: 0.11199338968325483
+[INFO] [1762338125.065553]: Error in RLS: [0.04427871]
+[INFO] [1762338125.068599]: Yaw: 2.8691818256142767, Yaw previous: 2.9459802844245466, Ground angular velocity z: -0.7324212186236442
+[INFO] [1762338125.070633]: Difference in velocities due to slip compensation: v: 0.026841848621907582, w: -0.08685701230588216, slip: 0.10601650211959986
+[INFO] [1762338125.115722]: Error in RLS: [-0.03147622]
+[INFO] [1762338125.118627]: Yaw: 2.8691818256142767, Yaw previous: 2.8691818256142767, Ground angular velocity z: -0.7041790645997791
+[INFO] [1762338125.120568]: Difference in velocities due to slip compensation: v: 0.028418762471275394, w: -0.08710703185033053, slip: 0.11008285402853993
+[INFO] [1762338125.166055]: Error in RLS: [0.11980254]
+[INFO] [1762338125.169051]: Yaw: 2.7192912941640714, Yaw previous: 2.8691818256142767, Ground angular velocity z: -0.6761976281851757
+[INFO] [1762338125.171173]: Difference in velocities due to slip compensation: v: 0.02457039692580759, w: -0.07121568809348, slip: 0.09528287299998925
+[INFO] [1762338125.215727]: Error in RLS: [-0.02934658]
+[INFO] [1762338125.218703]: Yaw: 2.7192912941640714, Yaw previous: 2.7192912941640714, Ground angular velocity z: -0.6487459085603421
+[INFO] [1762338125.220628]: Difference in velocities due to slip compensation: v: 0.02596632578698782, w: -0.07108131470364953, slip: 0.09874774446753724
+[INFO] [1762338125.265711]: Error in RLS: [-0.02803075]
+[INFO] [1762338125.268677]: Yaw: 2.7192912941640714, Yaw previous: 2.7192912941640714, Ground angular velocity z: -0.6220400412191212
+[INFO] [1762338125.270592]: Difference in velocities due to slip compensation: v: 0.027323182923325973, w: -0.07058537940173504, slip: 0.10190988852020998
+[INFO] [1762338125.315544]: Error in RLS: [-0.02677422]
+[INFO] [1762338125.318270]: Yaw: 2.7192912941640714, Yaw previous: 2.7192912941640714, Ground angular velocity z: -0.596247857283867
+[INFO] [1762338125.320260]: Difference in velocities due to slip compensation: v: 0.02864137197223421, w: -0.06979886056606133, slip: 0.10479574284425529
+[INFO] [1762338125.366182]: Error in RLS: [0.1198437]
+[INFO] [1762338125.369052]: Yaw: 2.573867383088411, Yaw previous: 2.7192912941640714, Ground angular velocity z: -0.5714943953601298
+[INFO] [1762338125.371023]: Difference in velocities due to slip compensation: v: 0.025324221013215187, w: -0.058217576957942274, slip: 0.09245111974548277
+[INFO] [1762338125.415624]: Error in RLS: [-0.02486084]
+[INFO] [1762338125.418503]: Yaw: 2.573867383088411, Yaw previous: 2.573867383088411, Ground angular velocity z: -0.5478677905985977
+[INFO] [1762338125.420791]: Difference in velocities due to slip compensation: v: 0.026480351218262976, w: -0.05744372674176779, slip: 0.09489944449457298
+[INFO] [1762338125.465864]: Error in RLS: [0.04472384]
+[INFO] [1762338125.468778]: Yaw: 2.5053654158481895, Yaw previous: 2.573867383088411, Ground angular velocity z: -0.5254251187716797
+[INFO] [1762338125.470890]: Difference in velocities due to slip compensation: v: 0.025582848877573006, w: -0.05240062816183522, slip: 0.09068586583398547
+[INFO] [1762338125.515672]: Error in RLS: [-0.02292371]
+[INFO] [1762338125.518610]: Yaw: 2.5053654158481895, Yaw previous: 2.5053654158481895, Ground angular velocity z: -0.5041979103764113
+[INFO] [1762338125.520658]: Difference in velocities due to slip compensation: v: 0.026629635242596927, w: -0.05154738716012541, slip: 0.09275361822874705
+[INFO] [1762338125.565690]: Error in RLS: [0.04351154]
+[INFO] [1762338125.568791]: Yaw: 2.439889572829088, Yaw previous: 2.5053654158481895, Ground angular velocity z: -0.484197162735484
+[INFO] [1762338125.570838]: Difference in velocities due to slip compensation: v: 0.02582662767552124, w: -0.0472991266422878, slip: 0.08899239296225636
+[INFO] [1762338125.615509]: Error in RLS: [-0.02119996]
+[INFO] [1762338125.618155]: Yaw: 2.439889572829088, Yaw previous: 2.439889572829088, Ground angular velocity z: -0.4654177648072431
+[INFO] [1762338125.619917]: Difference in velocities due to slip compensation: v: 0.026772900918987264, w: -0.046452472429868774, slip: 0.0907504852804144
+[INFO] [1762338125.665730]: Error in RLS: [0.04545622]
+[INFO] [1762338125.668719]: Yaw: 2.3740733339261437, Yaw previous: 2.439889572829088, Ground angular velocity z: -0.44784231180119927
+[INFO] [1762338125.670825]: Difference in velocities due to slip compensation: v: 0.025964074159504635, w: -0.042744680736537255, slip: 0.08712966586297997
+[INFO] [1762338125.715559]: Error in RLS: [-0.01969264]
+[INFO] [1762338125.718248]: Yaw: 2.3740733339261437, Yaw previous: 2.3740733339261437, Ground angular velocity z: -0.4314443284994037
+[INFO] [1762338125.720201]: Difference in velocities due to slip compensation: v: 0.02681685749728374, w: -0.041961952255492097, slip: 0.08863835137248154
+[INFO] [1762338125.765736]: Error in RLS: [0.04220551]
+[INFO] [1762338125.804331]: Yaw: 2.31290279849724, Yaw previous: 2.3740733339261437, Ground angular velocity z: -0.4161909457868207
+[INFO] [1762338125.807151]: Difference in velocities due to slip compensation: v: 0.026122362109688102, w: -0.03892319160244073, slip: 0.08552402222818567
+[INFO] [1762338125.815594]: Error in RLS: [-0.01838303]
+[INFO] [1762338125.818473]: Yaw: 2.31290279849724, Yaw previous: 2.31290279849724, Ground angular velocity z: -0.40204508846176173
+[INFO] [1762338125.820607]: Difference in velocities due to slip compensation: v: 0.02689014029599779, w: -0.03823021354813505, slip: 0.0868325190479926
+[INFO] [1762338125.865665]: Error in RLS: [0.02809072]
+[INFO] [1762338125.868566]: Yaw: 2.267052468071495, Yaw previous: 2.31290279849724, Ground angular velocity z: -0.3889672375253233
+[INFO] [1762338125.870708]: Difference in velocities due to slip compensation: v: 0.026546148052924545, w: -0.03608742100353568, slip: 0.08490065990203834
+[INFO] [1762338125.915843]: Error in RLS: [-0.01724582]
+[INFO] [1762338125.918505]: Yaw: 2.267052468071495, Yaw previous: 2.267052468071495, Ground angular velocity z: -0.376916829710651
+[INFO] [1762338125.921203]: Difference in velocities due to slip compensation: v: 0.027239533824196638, w: -0.035486708473384476, slip: 0.08604850634804326
+[INFO] [1762338125.965890]: Error in RLS: [0.03066675]
+[INFO] [1762338125.968611]: Yaw: 2.2196671073235175, Yaw previous: 2.267052468071495, Ground angular velocity z: -0.3658533531675642
+[INFO] [1762338125.970890]: Difference in velocities due to slip compensation: v: 0.02683439973896945, w: -0.033580238480502456, slip: 0.08406964056766002
+[INFO] [1762338126.015677]: Error in RLS: [-0.01629152]
+[INFO] [1762338126.018275]: Yaw: 2.2196671073235175, Yaw previous: 2.2196671073235175, Ground angular velocity z: -0.3557371925343214
+[INFO] [1762338126.021179]: Difference in velocities due to slip compensation: v: 0.027457608981126536, w: -0.0330851638506402, slip: 0.08509069323648542
+[INFO] [1762338126.065763]: Error in RLS: [0.03908792]
+[INFO] [1762338126.068552]: Yaw: 2.1647270010398767, Yaw previous: 2.2196671073235175, Ground angular velocity z: -0.3465302701678043
+[INFO] [1762338126.071013]: Difference in velocities due to slip compensation: v: 0.026861947912203088, w: -0.031244557728903166, slip: 0.0827068280405547
+[INFO] [1762338126.115540]: Error in RLS: [-0.01551127]
+[INFO] [1762338126.118129]: Yaw: 2.1647270010398767, Yaw previous: 2.1647270010398767, Ground angular velocity z: -0.3381965237609541
+[INFO] [1762338126.120701]: Difference in velocities due to slip compensation: v: 0.027417853527062885, w: -0.03086423349647882, slip: 0.08362913934777934
+[INFO] [1762338126.165507]: Error in RLS: [0.03344767]
+[INFO] [1762338126.168243]: Yaw: 2.116127033349553, Yaw previous: 2.1647270010398767, Ground angular velocity z: -0.330702254371101
+[INFO] [1762338126.170502]: Difference in velocities due to slip compensation: v: 0.026930287260634067, w: -0.029416775092794778, slip: 0.08168625561550338
+[INFO] [1762338126.215751]: Error in RLS: [-0.01487743]
+[INFO] [1762338126.218466]: Yaw: 2.116127033349553, Yaw previous: 2.116127033349553, Ground angular velocity z: -0.32401637323730614
+[INFO] [1762338126.220911]: Difference in velocities due to slip compensation: v: 0.02742467647915886, w: -0.02914737917507143, slip: 0.08253219356735393
+[INFO] [1762338126.266009]: Error in RLS: [0.02616909]
+[INFO] [1762338126.268799]: Yaw: 2.07536513058216, Yaw previous: 2.116127033349553, Ground angular velocity z: -0.31811057078583826
+[INFO] [1762338126.271114]: Difference in velocities due to slip compensation: v: 0.027065438805039588, w: -0.028065393784004355, slip: 0.0810726239150611
+[INFO] [1762338126.315562]: Error in RLS: [-0.01437935]
+[INFO] [1762338126.318174]: Yaw: 2.07536513058216, Yaw previous: 2.07536513058216, Ground angular velocity z: -0.31295942692157197
+[INFO] [1762338126.320474]: Difference in velocities due to slip compensation: v: 0.027503534539856267, w: -0.02790335531916438, slip: 0.08186096216118265
+[INFO] [1762338126.365579]: Error in RLS: [0.02659295]
+[INFO] [1762338126.368340]: Yaw: 2.034608022764786, Yaw previous: 2.07536513058216, Ground angular velocity z: -0.3085404780454635
+[INFO] [1762338126.370757]: Difference in velocities due to slip compensation: v: 0.027108420919294163, w: -0.026984533485436668, slip: 0.08042480458405862
+[INFO] [1762338126.415783]: Error in RLS: [-0.0140159]
+[INFO] [1762338126.418378]: Yaw: 2.034608022764786, Yaw previous: 2.034608022764786, Ground angular velocity z: -0.30483425317003854
+[INFO] [1762338126.420743]: Difference in velocities due to slip compensation: v: 0.027493933525955527, w: -0.026929978104714036, slip: 0.08117203594022104
+[INFO] [1762338126.465848]: Error in RLS: [0.02036637]
+[INFO] [1762338126.468818]: Yaw: 2.000375426889388, Yaw previous: 2.034608022764786, Ground angular velocity z: -0.30182428894942603
+[INFO] [1762338126.470987]: Difference in velocities due to slip compensation: v: 0.027188649184596292, w: -0.02628047589685828, slip: 0.08009781847932201
+[INFO] [1762338126.515698]: Error in RLS: [-0.0137754]
+[INFO] [1762338126.518459]: Yaw: 2.000375426889388, Yaw previous: 2.000375426889388, Ground angular velocity z: -0.29949713132272704
+[INFO] [1762338126.521249]: Difference in velocities due to slip compensation: v: 0.027525828588050805, w: -0.02633301610213573, slip: 0.08081823094104028
+[INFO] [1762338126.565755]: Error in RLS: [0.01935179]
+[INFO] [1762338126.568456]: Yaw: 1.9707458436730887, Yaw previous: 2.000375426889388, Ground angular velocity z: -0.22362925083045476
+[INFO] [1762338126.570952]: Difference in velocities due to slip compensation: v: 0.027296612512345164, w: -0.01946263865919362, slip: 0.08006288774197216
+
