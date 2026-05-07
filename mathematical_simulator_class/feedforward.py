@@ -9,7 +9,7 @@ class Feedforward:
         self.df = df
         assert isinstance(self.df, pd.DataFrame), "Input must be a pandas DataFrame"
         assert 'right_vel' in self.df.columns, "DataFrame must contain 'right_vel' column"
-        assert 'left_vel' in self.df.columns, "DataFrame must contain 'left_vel'' column"
+        assert 'left_vel' in self.df.columns, "DataFrame must contain 'left_vel' column"
         
     def vel_at_timestep(self, timestamp):
         if timestamp < len(self.df):
@@ -22,5 +22,11 @@ class Feedforward:
             # extract the row at the current time index
             x = self.df['x'].iloc[timestamp]
             y = self.df['y'].iloc[timestamp]
+        return x, y
+    def theta_at_timestep(self, timestamp):
+        if timestamp < len(self.df):
+            # extract the row at the current time index
+            theta = self.df['theta'].iloc[timestamp]
+        return theta
             
-            return x, y
+            

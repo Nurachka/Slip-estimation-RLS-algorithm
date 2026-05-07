@@ -1,8 +1,8 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-# define the true parameters that we want to estimate
 import math
+from .config import WHEEL_BASE
 
 class RecursiveLeastSquares:
     def __init__(self, s0, P0, R):
@@ -34,8 +34,7 @@ class RecursiveLeastSquares:
         self.theta_diff = []
         self.angular_vel_z = []
 
-        # the distance between the wheels
-        self.L = 0.5
+        self.L = WHEEL_BASE
 
         # this variable is used to track the current time step k of the estimator 
         # after every time step arrives, this variables increases for one 
@@ -80,24 +79,16 @@ class RecursiveLeastSquares:
         
     #writing method to estimate slip from experiment data
     def predict_exp(self, measurement_value, C_matrix):
-         L_matrix = self.R + np.matmul(C_matrix, np.matmul(self.estimationErrorCovarianceMatrices[self.previousTimeStep], C_matrix.T))
-         L_matrix_inverse = np.linalg.inv(L_matrix)
-         #Calculating the Kalman gain matrix
-         gain_matrix = np.matmul(self.estimationErrorCovarianceMatrices[self.previousTimeStep], np.matmul(C_matrix.T, L_matrix_inverse))
-         #Calculating the estimation error(correction term (yk -Cxk))
-         error = measurement_value - np.matmul(C_matrix, self.estimates[self.previousTimeStep])
-         #Calculating the new estimate
-         estimate = self.estimates[self.previousTimeStep] + np.matmul(gain_matrix, error)
-
-         ImKc = np.eye(np.size(self.s0), np.size(self.s0)) - np.matmul(gain_matrix, C_matrix)
-         estimationErrorCovarianceMatrix = np.matmul(ImKc, self.estimationErrorCovarianceMatrices[self.previousTimeStep])
-
-            #Storing the results
-         self.estimates.append(estimate)
-         self.estimationErrorCovarianceMatrices.append(estimationErrorCovarianceMatrix)
-         self.gainMatrices.append(gain_matrix)
-         self.errors.append(error)
-
-
-         self.previousTimeStep = self.previousTimeStep + 1
+        L_matrix = self.R + np.matmul(C_matrix, np.matmul(self.estimationErrorCovarianceMatrices[self.previousTimeStep], C_matrix.T))
+        L_matrix_inverse = np.linalg.inv(L_matrix)
+        gain_matrix = np.matmul(self.estimationErrorCovarianceMatrices[self.previousTimeStep], np.matmul(C_matrix.T, L_matrix_inverse))
+        error = measurement_value - np.matmul(C_matrix, self.estimates[self.previousTimeStep])
+        estimate = self.estimates[self.previousTimeStep] + np.matmul(gain_matrix, error)
+        ImKc = np.eye(np.size(self.s0), np.size(self.s0)) - np.matmul(gain_matrix, C_matrix)
+        estimationErrorCovarianceMatrix = np.matmul(ImKc, self.estimationErrorCovarianceMatrices[self.previousTimeStep])
+        self.estimates.append(estimate)
+        self.estimationErrorCovarianceMatrices.append(estimationErrorCovarianceMatrix)
+        self.gainMatrices.append(gain_matrix)
+        self.errors.append(error)
+        self.previousTimeStep = self.previousTimeStep + 1
 

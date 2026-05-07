@@ -1,6 +1,6 @@
 import sys
 sys.path.append("..")
-from mathematical_simulator.feedforward import Feedforward
+from mathematical_simulator_class.feedforward import Feedforward
 import pandas as pd
 
 df = pd.DataFrame({

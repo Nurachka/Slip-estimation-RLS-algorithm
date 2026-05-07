@@ -1,7 +1,7 @@
 import os
 import sys
 sys.path.append("..")
-from mathematical_simulator.file_reader import Analysis
+from mathematical_simulator_class.file_reader import Analysis
 
 file_reader_test = Analysis()
 current_dir = os.path.dirname(os.path.abspath(__file__))

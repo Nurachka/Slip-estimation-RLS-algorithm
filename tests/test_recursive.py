@@ -3,10 +3,10 @@ import os
 sys.path.append("..")
 import pandas as pd
 import numpy as np
-from mathematical_simulator.recursive_least_square import RecursiveLeastSquares
+from mathematical_simulator_class.recursive_least_square import RecursiveLeastSquares
 
 
-RLS = RecursiveLeastSquares(x0=np.random.rand(1,1), P0=100*np.eye(1,1),R= 0.0004*np.eye(1,1), forgettingFactor=1)
+RLS = RecursiveLeastSquares(s0=np.random.rand(1,1), P0=100*np.eye(1,1), R=0.0004*np.eye(1,1))
 
 #getting the file path of the current script
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -24,7 +24,7 @@ estimated_slip  = []
 
 for timestep in np.arange(np.size(df['time'])):
     C_matrix=np.array([0.05*df['angular_vel_z'][timestep]])
-    RLS.predict(0.05*df['angular_vel_z'][timestep]-df['theta_diff'][timestep], C_matrix)
+    RLS.predict_exp(0.05*df['angular_vel_z'][timestep]-df['theta_diff'][timestep], C_matrix)
 
 #Add the calculated by rls slip to the list
 # extract the estimates in order to plot the results

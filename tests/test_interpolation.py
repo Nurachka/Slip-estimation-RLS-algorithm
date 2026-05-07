@@ -1,7 +1,7 @@
 import sys
 sys.path.append("..")
-from mathematical_simulator.interpolation import InterpolationOfTime
-from mathematical_simulator.file_reader import Analysis
+from mathematical_simulator_class.interpolation import InterpolationOfTime
+from mathematical_simulator_class.file_reader import Analysis
 import pandas as pd
 import os
 import numpy as np
@@ -11,14 +11,14 @@ analysis = Analysis()
 interpolation = InterpolationOfTime()
 
 #the path to the vel data file
-current_dir = sys.path[0]
-data_dir = f"{current_dir}/data"
-file_path = f"{data_dir}/gerono-cmd_vel.csv"
+current_dir = os.path.dirname(os.path.abspath(__file__))
+data_dir = os.path.join(current_dir, 'data')
+file_path = os.path.join(data_dir, 'gerono-cmd_vel.csv')
 df_cmd = analysis.read_csv(file_path)
 
 
 #the path to the imu data file
-file_path_imu = f"{data_dir}/gerono-imu2.csv"
+file_path_imu = os.path.join(data_dir, 'gerono-imu2.csv')
 df_imu = analysis.read_csv(file_path_imu)
 
 df_imu = interpolation.quaternions_to_euler(df_imu)

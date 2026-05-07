@@ -17,8 +17,10 @@ interpolation = InterpolationOfTime()
 recursive = RecursiveLeastSquares(s0=np.eye(1,1), P0=100*np.eye(1,1), R=0.0004*np.eye(1,1))
 compensator = Compensator()
 
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
 #get the path for the data directory where imu and cmd vel data is stored
-data_dir = os.path.join(sys.path[0], 'tests', 'data')
+data_dir = os.path.join(current_dir, '..', 'tests', 'data')
 #file path for the cmd vel data
 file_path = os.path.join(data_dir, 'gerono-cmd_vel.csv')
 #file path for the imu data
@@ -76,7 +78,6 @@ df_combined = df_combined[df_combined['theta_unwrapped'] >= -4]
 #reset the index of the combined dataframe
 df_combined.reset_index(drop=True, inplace=True)
 
-
 # now separate indices of cmd from imu by saving only rows where nominal_angular_velocity is not NaN
 df_cmd_synced = df_combined[df_combined['nominal_angular_velocity'].notna()]
 # reset the index of the cmd synced data
@@ -107,46 +108,29 @@ plt.legend()
 plt.grid()
 plt.show()
 
-
-#file path for lemniscate_trajectory.csv
-current_dir = os.path.dirname(os.path.abspath(__file__))
-trajectory_dir = os.path.join(current_dir, 'trajectories')
+trajectory_dir = os.path.join(current_dir, '..', 'trajectories')
 file_path = os.path.join(trajectory_dir, 'lemniscate_trajectory.csv')
 
 df_trajectory = file_reader.read_csv(file_path)
-#print("Original velocities:", df_trajectory['right_vel'].head(5), df_trajectory['left_vel'].head(5))
 
 df_modified = compensator.modify_velocities(slip[-1], df_trajectory)
-#print("Modified velocities:", df_modified['right_vel'].head(5), df_modified['left_vel'].head(5))
 
-#slip 0.1 df 
+#slip 0.1 df
 df_modified_0_1 = compensator.modify_velocities(0.1, df_trajectory)
 print("Modified velocities with slip 0.1:", df_modified_0_1['right_vel'].head(5), df_modified_0_1['left_vel'].head(5))
-#save the modified dataframe as a csv file
 df_modified_0_1.to_csv(os.path.join(trajectory_dir, 'lemniscate_trajectory_modified_0.1.csv'), index=False)
 
-
-
-#slip 0.15 df 
+#slip 0.15 df
 df_modified_0_15 = compensator.modify_velocities(0.15, df_trajectory)
 print("Modified velocities with slip 0.15:", df_modified_0_15['right_vel'].head(5), df_modified_0_15['left_vel'].head(5))
-#save the modified dataframe as a csv file
 df_modified_0_15.to_csv(os.path.join(trajectory_dir, 'lemniscate_trajectory_modified_0.15.csv'), index=False)
 
-
-#slip 0.2 df 
+#slip 0.2 df
 df_modified_0_2 = compensator.modify_velocities(0.2, df_trajectory)
 print("Modified velocities with slip 0.2:", df_modified_0_2['right_vel'].head(5), df_modified_0_2['left_vel'].head(5))
-#save the modified dataframe as a csv file
 df_modified_0_2.to_csv(os.path.join(trajectory_dir, 'lemniscate_trajectory_modified_0.2.csv'), index=False)
 
-#slip 0.26 df 
+#slip 0.26 df
 df_modified_0_26 = compensator.modify_velocities(0.26, df_trajectory)
 print("Modified velocities with slip 0.26:", df_modified_0_26['right_vel'].head(5), df_modified_0_26['left_vel'].head(5))
-#save the modified dataframe as a csv file
 df_modified_0_26.to_csv(os.path.join(trajectory_dir, 'lemniscate_trajectory_modified_0.26.csv'), index=False)
-
-
-
-
-
