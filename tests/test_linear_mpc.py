@@ -20,7 +20,7 @@ file_path = os.path.join(trajectory_dir, 'trajectories', 'lemniscate_trajectory.
 
 feedforward = Feedforward(file_reader.read_csv(file_path))
 
-mpc_controller = LinearMPC(dt=0.05, wheel_base=0.5, N_horizon=10, s_l=0.04, s_r=0.04)
+mpc_controller = LinearMPC(dt=0.05, wheel_base=0.5, N_horizon=10, s=0.04)
 
 
 # --- Logging ---

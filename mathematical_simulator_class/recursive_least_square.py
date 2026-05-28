@@ -45,7 +45,9 @@ class RecursiveLeastSquares:
             """
             First calculating the theta difference and the angular velocity 
             """
-            theta_diff= np.array([theta_noised - theta_previous_noised])
+            #theta_diff= np.array([theta_noised - theta_previous_noised])
+            theta_diff = np.array([np.arctan2(np.sin(theta_noised - theta_previous_noised),
+                                     np.cos(theta_noised - theta_previous_noised))])
             #Calculating the angular velocity in z axis
             angular_vel_z = (vel_right - vel_left) / self.L
             C = np.array([delta_t * angular_vel_z])
@@ -77,6 +79,26 @@ class RecursiveLeastSquares:
             # increase the time step
             self.previousTimeStep = self.previousTimeStep + 1
         
+    def predict_sim_with_forgetting_factor(self, theta_noised, theta_previous_noised, vel_right, vel_left, delta_t, lam):
+            theta_diff = np.array([np.arctan2(np.sin(theta_noised - theta_previous_noised),
+                                     np.cos(theta_noised - theta_previous_noised))])
+            angular_vel_z = (vel_right - vel_left) / self.L
+            C = np.array([delta_t * angular_vel_z])
+            L_matrix = self.R + np.matmul(C, np.matmul(self.estimationErrorCovarianceMatrices[self.previousTimeStep], C.T))
+            L_matrix_inverse = np.linalg.inv(L_matrix)
+            gain_matrix = np.matmul(self.estimationErrorCovarianceMatrices[self.previousTimeStep], np.matmul(C.T, L_matrix_inverse))
+            error = (C - theta_diff) - np.matmul(C, self.estimates[self.previousTimeStep])
+            estimate = self.estimates[self.previousTimeStep] + np.matmul(gain_matrix, error)
+            ImKc = np.eye(np.size(self.s0), np.size(self.s0)) - np.matmul(gain_matrix, C)
+            estimationErrorCovarianceMatrix = np.matmul(ImKc, self.estimationErrorCovarianceMatrices[self.previousTimeStep]) * (1 / lam)
+            self.estimates.append(estimate)
+            self.estimationErrorCovarianceMatrices.append(estimationErrorCovarianceMatrix)
+            self.gainMatrices.append(gain_matrix)
+            self.errors.append(error)
+            self.theta_diff.append(theta_diff)
+            self.angular_vel_z.append(angular_vel_z)
+            self.previousTimeStep = self.previousTimeStep + 1
+
     #writing method to estimate slip from experiment data
     def predict_exp(self, measurement_value, C_matrix):
         L_matrix = self.R + np.matmul(C_matrix, np.matmul(self.estimationErrorCovarianceMatrices[self.previousTimeStep], C_matrix.T))
@@ -91,4 +113,6 @@ class RecursiveLeastSquares:
         self.gainMatrices.append(gain_matrix)
         self.errors.append(error)
         self.previousTimeStep = self.previousTimeStep + 1
+
+    
 

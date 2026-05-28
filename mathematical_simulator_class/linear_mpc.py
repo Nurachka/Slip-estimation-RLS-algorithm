@@ -5,8 +5,8 @@ import cvxpy as cp
 class LinearMPC:
     def __init__(self, dt, wheel_base, N_horizon=10,
                  Q=None, R=None, Q_N=None,
-                 vr_max=1.0, vl_max=1.0,
-                 s_r=0.0, s_l=0.0):
+                 vr_max=0.5, vl_max=0.5,
+                 s=0.0):
         '''Initialize the LinearMPC class with the given parameters.
         Parameters:
         dt : float
@@ -25,20 +25,17 @@ class LinearMPC:
             Maximum velocity of the right wheel (default is 1.0).
         vl_max : float, optional
             Maximum velocity of the left wheel (default is 1.0).
-        s_r : float, optional
-            Slip factor for the right wheel (default is 0.0).
-        s_l : float, optional
-            Slip factor for the left wheel (default is 0.0).
+        s : float, optional
+            Slip factor for both wheels (default is 0.0).
         '''
 
         self.dt  = dt
         self.l   = wheel_base
-        self.s_r = s_r
-        self.s_l = s_l
+        self.s   = s
         self.N = N_horizon
 
         self.Q = Q  if Q is not None else np.diag([1.0, 1.0, 1.0])  # State cost matrix
-        self.R = R  if R is not None else np.diag([10, 10])  # Control cost matrix
+        self.R = R  if R is not None else np.diag([50.0, 50.0])  # Control cost matrix
         self.Q_N = Q_N if Q_N is not None else self.Q*10  # Terminal state cost matrix
 
         #define cvxpy variables for the optimization problem
@@ -136,12 +133,11 @@ class LinearMPC:
         B : np.ndarray
             Control input matrix.
         '''
-        sr = self.s_r
-        sl = self.s_l
+        s = self.s
         l = self.l
         dt = self.dt
 
-        v_eff = ((1 - sr) * vel_right + (1 - sl) * vel_left) / 2
+        v_eff = (1 - s) * (vel_right + vel_left) / 2
 
         # continuous-time A and B matrices
         A_c = np.zeros((3, 3))
@@ -149,12 +145,12 @@ class LinearMPC:
         A_c[1, 2] = v_eff * np.cos(theta)
 
         B_c = np.zeros((3, 2))
-        B_c[0, 0] = (1 - sr) * np.cos(theta) / 2
-        B_c[0, 1] = (1 - sl) * np.cos(theta) / 2
-        B_c[1, 0] = (1 - sr) * np.sin(theta) / 2
-        B_c[1, 1] = (1 - sl) * np.sin(theta) / 2
-        B_c[2, 0] = (1 - sr) / (2 * l)
-        B_c[2, 1] = -(1 - sl) / (2 * l)
+        B_c[0, 0] = (1 - s) * np.cos(theta) / 2
+        B_c[0, 1] = (1 - s) * np.cos(theta) / 2
+        B_c[1, 0] = (1 - s) * np.sin(theta) / 2
+        B_c[1, 1] = (1 - s) * np.sin(theta) / 2
+        B_c[2, 0] = (1 - s) / (2 * l)
+        B_c[2, 1] = -(1 - s) / (2 * l)
 
         # discretize A and B using Euler method
         A_k = np.eye(3) + A_c * dt

@@ -9,7 +9,7 @@ class Robot:
     def __init__(self, initial_x=0.0, initial_y=0.0, initial_theta=0.0):
         self.wheel_base = WHEEL_BASE
         self.timestep = TIMESTEP
-        self.slip = 0.04
+        self.slip = 0.2
         self.noise_std_position = NOISE_STD_POSITION
         self.noise_std_orientation = NOISE_STD_ORIENTATION
         self.initial_x = initial_x

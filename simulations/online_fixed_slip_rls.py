@@ -72,3 +72,31 @@ plt.title('Estimated Slip Over Time')
 plt.legend()
 plt.grid()
 plt.show()
+
+#plot the target trajectory from calculated feedforward velocities
+x_ref_list = x_target_list
+y_ref_list = y_target_list
+plt.plot(x_ref_list, y_ref_list, label='Reference trajectory', linestyle=':')
+plt.plot(robot_comp.x_list, robot_comp.y_list, label='Compensated trajectory', linestyle='--')
+plt.xlabel('X Position (m)')
+plt.ylabel('Y Position (m)')
+plt.title('Reference vs Compensated Trajectory')
+plt.legend()
+plt.axis('equal')
+plt.grid()
+plt.show()
+
+comp_x_aligned = [robot_comp.initial_x] + robot_comp.x_list[:-1]
+comp_y_aligned = [robot_comp.initial_y] + robot_comp.y_list[:-1]
+error_comp = np.linalg.norm(np.column_stack((x_target_list, y_target_list)) - np.column_stack((comp_x_aligned, comp_y_aligned)), axis=1)
+plt.figure(figsize=(10, 4))
+plt.subplot(1, 2, 1)
+plt.plot(error_comp, label='Tracking error (compensated vs target)')
+plt.xlabel('Time Step')
+plt.ylabel('Error (m)')
+plt.title('Error Over Time')
+plt.legend()
+plt.grid()
+plt.show()
+
+print(f"Position error between compensated trajectory and target trajectory: min {error_comp.min():.3f} m, max {error_comp.max():.3f} m, mean {error_comp.mean():.3f} m")
