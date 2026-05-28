@@ -13,7 +13,6 @@ import numpy as np
 INITIAL_X     = 1.0
 INITIAL_Y     = 0.0
 INITIAL_THETA = 1.5786512774347865
-#SLIP_ONSET    = 200
 TRUE_SLIP     = 0.2
 DELTA_T       = 0.05
 
@@ -39,9 +38,11 @@ reference_states = np.array(reference_states)
 actual_robot   = Robot(initial_x=INITIAL_X, initial_y=INITIAL_Y, initial_theta=INITIAL_THETA)
 mpc_controller = LinearMPC(dt=DELTA_T, wheel_base=0.5, N_horizon=10, s=0.0)
 
-actual_states   = []
-comp_velocities = []
-error_states    = []
+actual_states          = []
+actual_states_no_noise = []
+comp_velocities        = []
+error_states           = []
+delta_velocities       = []
 
 # --- Single online loop ---
 for k in range(n_steps):
@@ -50,15 +51,20 @@ for k in range(n_steps):
     vel_right, vel_left = feedforward.vel_at_timestep(k)
 
     # Step actual robot — slip affects kinematics but MPC does not know about it
-    x, y, theta = actual_robot.forward_kinematics(vel_right, vel_left)
+    if k == 0:
+        x, y, theta = actual_robot.forward_kinematics(vel_right, vel_left)
+    else:
+        x, y, theta = actual_robot.forward_kinematics(vel_right+delta_vr, vel_left+delta_vl)
+    
     x_n     = x     + np.random.normal(0, NOISE_STD_POSITION)
     y_n     = y     + np.random.normal(0, NOISE_STD_POSITION)
     theta_n = theta + np.random.normal(0, NOISE_STD_ORIENTATION)
-    actual_states.append((x, y, theta))
+    actual_states.append((x_n, y_n, theta_n))
+    actual_states_no_noise.append((x, y, theta))
 
     # MPC with s=0.0 always — slip-unaware prediction model
     error_state = mpc_controller.compute_error_state(
-        np.array([x_n, y_n, theta_n]),
+        actual_states[k],
         reference_states[k]
     )
 
@@ -75,24 +81,22 @@ for k in range(n_steps):
 
     comp_velocities.append((vel_right + delta_vr, vel_left + delta_vl))
     error_states.append(error_state)
+    delta_velocities.append((delta_vr, delta_vl))
 
 actual_states   = np.array(actual_states)
+actual_states_no_noise = np.array(actual_states_no_noise)
 comp_velocities = np.array(comp_velocities)
 error_states    = np.array(error_states)
+delta_velocities = np.array(delta_velocities)
 
-# --- Compensated trajectory replay ---
-comp_robot = Robot(initial_x=INITIAL_X, initial_y=INITIAL_Y, initial_theta=INITIAL_THETA)
-comp_trajectory = []
-for vr, vl in comp_velocities:
-    x_c, y_c, theta_c = comp_robot.ideal_forward_kinematics(vr, vl)
-    comp_trajectory.append((x_c, y_c, theta_c))
-comp_trajectory = np.array(comp_trajectory)
+
+
 
 # --- Plot 1: Trajectory comparison ---
 plt.figure(figsize=(8, 8))
 plt.plot(reference_states[:, 0], reference_states[:, 1], linestyle=':',  label='Reference')
 plt.plot(actual_states[:, 0],    actual_states[:, 1],    linestyle='--', label='Actual (no MPC)')
-plt.plot(comp_trajectory[:, 0],  comp_trajectory[:, 1],  linestyle='-.', label='Compensated (MPC, s=0)')
+plt.plot(actual_states_no_noise[:, 0], actual_states_no_noise[:, 1], linestyle='-', label='Actual (no noise)')
 plt.xlabel('X (m)')
 plt.ylabel('Y (m)')
 plt.title('Trajectory Comparison — MPC with no slip model')
@@ -129,34 +133,22 @@ plt.grid()
 plt.tight_layout()
 plt.show()
 
-
-# --- Plot 4: Position tracking error ---
-comp_traj_aligned = np.vstack([[INITIAL_X, INITIAL_Y, INITIAL_THETA], comp_trajectory[:-1]])
-error_comp   = np.linalg.norm(reference_states[:, :2] - comp_traj_aligned[:, :2], axis=1)
-
+#plot the tracking error over time
+error_comp   = np.linalg.norm(reference_states[:, :2] - actual_states[:, :2], axis=1)
 plt.figure(figsize=(10, 4))
-plt.plot(error_comp,                   label='Compensated (MPC, s=0)')
+plt.plot(error_comp, label='Actual (no MPC)')
 plt.xlabel('Timestep')
-plt.ylabel('error (m)')
-plt.title('Tracking Error — MPC with no slip model')
+plt.ylabel('Position error (m)')
+plt.title('Position Tracking Error — MPC with no slip model')
 plt.legend()
 plt.grid()
 plt.tight_layout()
 plt.show()
 
-#plot error comp x,y over time
+#print min, max, mean of the tracking error
+print(f'Tracking error (no MPC) - Min: {error_comp.min():.4f} m, Max: {error_comp.max():.4f} m, Mean: {error_comp.mean():.4f} m')
 
-th_err_comp = reference_states[:, 2] - comp_traj_aligned[:, 2]
-#plot theta error over time
-plt.figure(figsize=(10, 4))
-plt.plot(th_err_comp, label='Theta error')
-plt.xlabel('Timestep')
-plt.ylabel('Error (rad)')
-plt.title('MPC with no slip model — Theta error over time')
-plt.legend()
-plt.grid()
-plt.tight_layout()
-plt.show()
-
-#print min, max and mean position error
-print(f"Position error (MPC with no slip model): min {error_comp[:].min():.3f} m, max {error_comp[:].max():.3f} m, mean {error_comp[:].mean():.3f} m")
+#print the error state and delta velocities from 350-370 timesteps 
+print("Error states and delta velocities from timesteps 350-370:")
+for i in range(350, 371):
+    print(f"Timestep {i}: Error state: {error_states[i]}, Delta velocities: {delta_velocities[i]}")

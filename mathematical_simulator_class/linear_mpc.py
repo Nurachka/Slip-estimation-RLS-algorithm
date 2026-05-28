@@ -6,6 +6,7 @@ class LinearMPC:
     def __init__(self, dt, wheel_base, N_horizon=10,
                  Q=None, R=None, Q_N=None,
                  vr_max=0.5, vl_max=0.5,
+                 delta_u_max=0.15,
                  s=0.0):
         '''Initialize the LinearMPC class with the given parameters.
         Parameters:
@@ -34,22 +35,24 @@ class LinearMPC:
         self.s   = s
         self.N = N_horizon
 
-        self.Q = Q  if Q is not None else np.diag([1.0, 1.0, 1.0])  # State cost matrix
-        self.R = R  if R is not None else np.diag([50.0, 50.0])  # Control cost matrix
-        self.Q_N = Q_N if Q_N is not None else self.Q*10  # Terminal state cost matrix
+        self.Q   = Q   if Q   is not None else np.diag([10.0, 10.0, 15.0])
+        self.R   = R   if R   is not None else np.diag([1.0, 1.0])
+        self.Q_N = Q_N if Q_N is not None else np.diag([10.0, 10.0, 15.0])
+
 
         #define cvxpy variables for the optimization problem
         self.E = cp.Variable((N_horizon + 1, 3))  # State error variables
         self.U = cp.Variable((N_horizon, 2))  # Control input variables
 
         #define cvxpy parameters for the optimization problem
-        self.E0 = cp.Parameter(3)  # Initial state error
+        self.E0     = cp.Parameter(3)                                        # Initial state error
+        self.U_prev = cp.Parameter(2)                                        # Control applied at previous step
         self.A = [cp.Parameter((3, 3)) for _ in range(N_horizon)]  # State transition matrices
         self.B = [cp.Parameter((3, 2)) for _ in range(N_horizon)]  # Control input matrices
 
-        self.problem = self._build_problem(vr_max, vl_max)
+        self.problem = self._build_problem(vr_max, vl_max, delta_u_max)
 
-    def _build_problem(self, vr_max, vl_max):
+    def _build_problem(self, vr_max, vl_max, delta_u_max):
         '''Build the MPC optimization problem using cvxpy.
         Parameters:
         vr_max : float
@@ -73,18 +76,26 @@ class LinearMPC:
             # System dynamics constraint
             constraints += [self.E[i + 1] == self.A[i] @ self.E[i] + self.B[i] @ self.U[i]]
 
+        cost += cp.quad_form(self.E[self.N], self.Q_N)  # terminal cost
 
-        # Control input constraints (applied once across all timesteps)
+        # Control input constraints
         constraints += [ self.U[:, 0] <= vr_max,
                          self.U[:, 0] >= -vr_max,
                          self.U[:, 1] <= vl_max,
                          self.U[:, 1] >= -vl_max ]
 
+        # Acceleration (rate-of-change) constraints
+        constraints += [ self.U[0] - self.U_prev <=  delta_u_max,
+                         self.U[0] - self.U_prev >= -delta_u_max ]
+        for i in range(self.N - 1):
+            constraints += [ self.U[i + 1] - self.U[i] <=  delta_u_max,
+                             self.U[i + 1] - self.U[i] >= -delta_u_max ]
+
         return cp.Problem(cp.Minimize(cost), constraints)
     
 
     
-    def solve(self, error_state, A_matrices, B_matrices):
+    def solve(self, error_state, A_matrices, B_matrices, u_prev=None):
         '''Solve the MPC optimization problem  with the given error state and system matrices.
         Parameters:
         error_state : np.ndarray
@@ -93,13 +104,17 @@ class LinearMPC:
             List of state transition matrices for each time step in the horizon.
         B_matrices : list of np.ndarray
             List of control input matrices for each time step in the horizon.
+        u_prev : np.ndarray, optional
+            Control input applied at the previous timestep [delta_vr, delta_vl].
+            Used to enforce acceleration limits. Defaults to zeros.
         Returns:
-        delta_vr: float 
+        delta_vr: float
             The computed velocity correction for the right wheel.
         delta_vl: float
             The computed velocity correction for the left wheel.
         '''
-        self.E0.value = error_state
+        self.E0.value     = error_state
+        self.U_prev.value = u_prev if u_prev is not None else np.zeros(2)
         for i in range(self.N):
             self.A[i].value = A_matrices[i]
             self.B[i].value = B_matrices[i]

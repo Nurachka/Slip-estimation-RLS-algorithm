@@ -55,20 +55,27 @@ slip_estimates  = []
 #   3. MPC uses s_hat in its linearised model    → computes velocity corrections
 #   4. Corrected velocities are stored for comp_robot replay below
 for k in range(n_steps):
-
     actual_robot.slip = TRUE_SLIP
     vel_right, vel_left = feedforward.vel_at_timestep(k)
 
     # Step actual robot with feedforward only (no MPC yet)
-    x, y, theta = actual_robot.forward_kinematics(vel_right, vel_left)
+    if k == 0:
+        x, y, theta = actual_robot.forward_kinematics(vel_right, vel_left)
+    else: 
+        x,y, theta = actual_robot.forward_kinematics(vel_right+delta_vr, vel_left+delta_vl)
     x_n     = x     + np.random.normal(0, NOISE_STD_POSITION)
     y_n     = y     + np.random.normal(0, NOISE_STD_POSITION)
     theta_n = theta + np.random.normal(0, NOISE_STD_ORIENTATION)
     actual_states.append((x_n, y_n, theta_n))
 
     # RLS update with the heading measurement just taken
-    rls.predict_sim(
+    if k == 0:
+        rls.predict_sim(
         theta_n, theta_prev, vel_right, vel_left, delta_t=DELTA_T
+    )
+    else: 
+        rls.predict_sim_with_forgetting_factor(
+        theta_n, theta_prev, vel_right+delta_vr, vel_left+delta_vl, delta_t=DELTA_T, lam=LAMBDA
     )
     theta_prev = theta_n
 
@@ -82,7 +89,7 @@ for k in range(n_steps):
     mpc_controller.s = s_hat
 
     error_state = mpc_controller.compute_error_state(
-        np.array([x_n, y_n, theta_n]),
+        actual_states[k],
         reference_states[k]
     )
 
@@ -106,20 +113,11 @@ comp_velocities = np.array(comp_velocities)
 error_states    = np.array(error_states)
 true_slip_list  = [TRUE_SLIP] * n_steps
 
-# --- Compensated trajectory replay ---
-comp_robot = Robot(initial_x=INITIAL_X, initial_y=INITIAL_Y, initial_theta=INITIAL_THETA)
-comp_trajectory = []
-for vr, vl in comp_velocities:
-    x_c, y_c, theta_c = comp_robot.ideal_forward_kinematics(vr, vl)
-    comp_trajectory.append((x_c, y_c, theta_c))
-comp_trajectory = np.array(comp_trajectory)
 
 # --- Plot 1: Trajectory comparison ---
 plt.figure(figsize=(8, 8))
 plt.plot(reference_states[:, 0], reference_states[:, 1], linestyle=':',  label='Reference')
 plt.plot(actual_states[:, 0],    actual_states[:, 1],    linestyle='--', label='Actual (no MPC)')
-plt.plot(comp_trajectory[:, 0],  comp_trajectory[:, 1],  linestyle='-.', label='Compensated (MPC + RLS)')
-plt.xlabel('X (m)')
 plt.ylabel('Y (m)')
 plt.title('Trajectory Comparison')
 plt.legend()
@@ -166,19 +164,17 @@ plt.grid()
 plt.tight_layout()
 plt.show()
 
-# --- Plot 5: Position tracking error ---
-comp_traj_aligned = np.vstack([[INITIAL_X, INITIAL_Y, INITIAL_THETA], comp_trajectory[:-1]])
-error_comp   = np.linalg.norm(reference_states[:, :2] - comp_traj_aligned[:, :2], axis=1)
-
+#plot tracking error over time
+error_comp   = np.linalg.norm(reference_states[:, :2] - actual_states[:, :2], axis=1)
 plt.figure(figsize=(10, 4))
-plt.plot(error_comp,                   label='Compensated (MPC + RLS)')
+plt.plot(error_comp, label='Position tracking error')
 plt.xlabel('Timestep')
 plt.ylabel('Position error (m)')
-plt.title('Position Tracking Error')
+plt.title('Position Tracking Error over Time')
 plt.legend()
 plt.grid()
 plt.tight_layout()
 plt.show()
 
-#print min, max and mean position error after slip onset
-print(f"Position error (MPC + RLS): min {error_comp[:].min():.3f} m, max {error_comp[:].max():.3f} m, mean {error_comp[:].mean():.3f} m")
+#print min, max, mean of the tracking error
+print(f'Tracking error with MPC + RLS slip estimation - Min: {error_comp.min():.4f} m, Max: {error_comp.max():.4f} m, Mean: {error_comp.mean():.4f} m')
