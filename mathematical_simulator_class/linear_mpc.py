@@ -6,7 +6,7 @@ class LinearMPC:
     def __init__(self, dt, wheel_base, N_horizon=10,
                  Q=None, R=None, Q_N=None,
                  vr_max=0.5, vl_max=0.5,
-                 delta_u_max=0.15,
+                 delta_u_max=0.05,
                  s=0.0):
         '''Initialize the LinearMPC class with the given parameters.
         Parameters:
@@ -35,9 +35,9 @@ class LinearMPC:
         self.s   = s
         self.N = N_horizon
 
-        self.Q   = Q   if Q   is not None else np.diag([10.0, 10.0, 15.0])
-        self.R   = R   if R   is not None else np.diag([1.0, 1.0])
-        self.Q_N = Q_N if Q_N is not None else np.diag([10.0, 10.0, 15.0])
+        self.Q   = Q   if Q   is not None else np.diag([10.0, 10.0, 2.0])
+        self.R   = R   if R   is not None else np.diag([0.1, 0.1])
+        self.Q_N = Q_N if Q_N is not None else np.diag([10.0, 10.0, 2.0])
 
 
         #define cvxpy variables for the optimization problem
