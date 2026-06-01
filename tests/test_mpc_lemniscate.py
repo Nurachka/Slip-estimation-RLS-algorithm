@@ -9,7 +9,7 @@ from mathematical_simulator_class.linear_mpc import LinearMPC
 # --- Parameters ---
 DT         = 0.05
 WHEEL_BASE = 0.5
-N          = 20
+N          = 10
 VR_MAX     = 0.5
 VL_MAX     = 0.5
 DELTA_U    = 0.05
@@ -28,7 +28,7 @@ n_steps   = len(df)
 
 # --- Step 2: Initialise MPC and actual robot ---
 mpc = LinearMPC(dt=DT, wheel_base=WHEEL_BASE, N_horizon=N,
-                vr_max=VR_MAX, vl_max=VL_MAX, delta_u_max=DELTA_U)
+                vr_max=VR_MAX, vl_max=VL_MAX, delta_u_max=DELTA_U, s=0.0)
 
 # 0.3 m offset in x and y from the reference start, same initial heading
 x_a, y_a, theta_a = x_ref[0] + 0.01, y_ref[0] + 0.01, theta_ref[0]

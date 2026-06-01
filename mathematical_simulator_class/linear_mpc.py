@@ -5,9 +5,7 @@ import cvxpy as cp
 class LinearMPC:
     def __init__(self, dt, wheel_base, N_horizon=10,
                  Q=None, R=None, Q_N=None,
-                 vr_max=0.5, vl_max=0.5,
-                 delta_u_max=0.05,
-                 s=0.0):
+                 vr_max=0.5, vl_max=0.5, s=0.0):
         '''Initialize the LinearMPC class with the given parameters.
         Parameters:
         dt : float
@@ -35,9 +33,9 @@ class LinearMPC:
         self.s   = s
         self.N = N_horizon
 
-        self.Q   = Q   if Q   is not None else np.diag([10.0, 10.0, 2.0])
-        self.R   = R   if R   is not None else np.diag([0.1, 0.1])
-        self.Q_N = Q_N if Q_N is not None else np.diag([10.0, 10.0, 2.0])
+        self.Q   = Q   if Q   is not None else np.diag([3.0, 3.0, 0.1])
+        self.R   = R   if R   is not None else np.diag([1.0, 1.0])
+        self.Q_N = Q_N if Q_N is not None else np.diag([0.0, 0.0, 0.0])  # No terminal cost by default
 
 
         #define cvxpy variables for the optimization problem
@@ -45,14 +43,13 @@ class LinearMPC:
         self.U = cp.Variable((N_horizon, 2))  # Control input variables
 
         #define cvxpy parameters for the optimization problem
-        self.E0     = cp.Parameter(3)                                        # Initial state error
-        self.U_prev = cp.Parameter(2)                                        # Control applied at previous step
+        self.E0 = cp.Parameter(3)                                        # Initial state error                                     # Control applied at previous step
         self.A = [cp.Parameter((3, 3)) for _ in range(N_horizon)]  # State transition matrices
         self.B = [cp.Parameter((3, 2)) for _ in range(N_horizon)]  # Control input matrices
 
-        self.problem = self._build_problem(vr_max, vl_max, delta_u_max)
+        self.problem = self._build_problem(vr_max, vl_max)
 
-    def _build_problem(self, vr_max, vl_max, delta_u_max):
+    def _build_problem(self, vr_max, vl_max):
         '''Build the MPC optimization problem using cvxpy.
         Parameters:
         vr_max : float
@@ -84,18 +81,11 @@ class LinearMPC:
                          self.U[:, 1] <= vl_max,
                          self.U[:, 1] >= -vl_max ]
 
-        # Acceleration (rate-of-change) constraints
-        constraints += [ self.U[0] - self.U_prev <=  delta_u_max,
-                         self.U[0] - self.U_prev >= -delta_u_max ]
-        for i in range(self.N - 1):
-            constraints += [ self.U[i + 1] - self.U[i] <=  delta_u_max,
-                             self.U[i + 1] - self.U[i] >= -delta_u_max ]
-
         return cp.Problem(cp.Minimize(cost), constraints)
     
 
     
-    def solve(self, error_state, A_matrices, B_matrices, u_prev=None):
+    def solve(self, error_state, A_matrices, B_matrices):
         '''Solve the MPC optimization problem  with the given error state and system matrices.
         Parameters:
         error_state : np.ndarray
@@ -104,9 +94,6 @@ class LinearMPC:
             List of state transition matrices for each time step in the horizon.
         B_matrices : list of np.ndarray
             List of control input matrices for each time step in the horizon.
-        u_prev : np.ndarray, optional
-            Control input applied at the previous timestep [delta_vr, delta_vl].
-            Used to enforce acceleration limits. Defaults to zeros.
         Returns:
         delta_vr: float
             The computed velocity correction for the right wheel.
@@ -114,7 +101,6 @@ class LinearMPC:
             The computed velocity correction for the left wheel.
         '''
         self.E0.value     = error_state
-        self.U_prev.value = u_prev if u_prev is not None else np.zeros(2)
         for i in range(self.N):
             self.A[i].value = A_matrices[i]
             self.B[i].value = B_matrices[i]
@@ -164,8 +150,8 @@ class LinearMPC:
         B_c[0, 1] = (1 - s) * np.cos(theta) / 2
         B_c[1, 0] = (1 - s) * np.sin(theta) / 2
         B_c[1, 1] = (1 - s) * np.sin(theta) / 2
-        B_c[2, 0] = (1 - s) / (2 * l)
-        B_c[2, 1] = -(1 - s) / (2 * l)
+        B_c[2, 0] = (1 - s) / (l)
+        B_c[2, 1] = -(1 - s) / (l)
 
         # discretize A and B using Euler method
         A_k = np.eye(3) + A_c * dt
