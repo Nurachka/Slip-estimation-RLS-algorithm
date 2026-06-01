@@ -33,8 +33,8 @@ class LinearMPC:
         self.s   = s
         self.N = N_horizon
 
-        self.Q   = Q   if Q   is not None else np.diag([3.0, 3.0, 0.1])
-        self.R   = R   if R   is not None else np.diag([1.0, 1.0])
+        self.Q   = Q   if Q   is not None else np.diag([50.0, 50.0, 0.3])
+        self.R   = R   if R   is not None else np.diag([0.1, 0.1])
         self.Q_N = Q_N if Q_N is not None else np.diag([0.0, 0.0, 0.0])  # No terminal cost by default
 
 

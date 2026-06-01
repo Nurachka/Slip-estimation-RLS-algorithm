@@ -1,6 +1,11 @@
 import sys
 import numpy as np
 import matplotlib.pyplot as plt
+
+np.random.seed(42)
+
+POS_NOISE_STD   = 0.001    # m
+THETA_NOISE_STD = 0.002  # rad (~0.25 deg)
 sys.path.append("..")
 from mathematical_simulator_class.linear_mpc import LinearMPC
 
@@ -12,6 +17,7 @@ VR_MAX     = 0.5
 VL_MAX     = 0.5
 V_REF      = 0.2     # constant forward speed (m/s)
 N_STEPS    = 200     # 10 seconds of simulation
+S_ACTUAL   = 0.01    # true slip in the plant (MPC assumes s=0)
 
 # --- Step 1: Generate reference trajectory (straight line at 30 degrees) ---
 ANGLE     = np.deg2rad(30)
@@ -29,7 +35,7 @@ mpc = LinearMPC(dt=DT, wheel_base=WHEEL_BASE, N_horizon=N,
                 vr_max=VR_MAX, vl_max=VL_MAX, s=0.0)
 
 # 0.05 m offset in y, same heading as reference
-x_a, y_a, theta_a = x_ref[0], y_ref[0] + 0.05, theta_ref[0]
+x_a, y_a, theta_a = x_ref[0], y_ref[0] + 0.1, theta_ref[0]
 
 actual_states      = []
 errors             = []
@@ -65,11 +71,11 @@ for k in range(N_STEPS):
     # Integrate actual robot kinematics
     vr      = vr_ref[k] + delta_vr
     vl      = vl_ref[k] + delta_vl
-    v_a     = (vr + vl) / 2.0
-    omega_a = (vr - vl) / WHEEL_BASE
-    x_a     += v_a * np.cos(theta_a) * DT
-    y_a     += v_a * np.sin(theta_a) * DT
-    theta_a += omega_a * DT
+    v_a     = (1 - S_ACTUAL) * (vr + vl) / 2.0
+    omega_a = (1 - S_ACTUAL) * (vr - vl) / WHEEL_BASE
+    x_a     += v_a * np.cos(theta_a) * DT 
+    y_a     += v_a * np.sin(theta_a) * DT 
+    theta_a += omega_a * DT            
 
 actual_states = np.array(actual_states)
 errors        = np.array(errors)
@@ -93,3 +99,39 @@ plt.ylabel('Position Error (m)')
 plt.title('Position Error Over Time')   
 plt.tight_layout()
 plt.show()
+
+#plot delta_vr and delta_vl over time
+plt.figure(figsize=(10, 4))
+plt.subplot(1, 2, 1)
+plt.plot(time, delta_vr_list, 'm-')
+plt.xlabel('Time (s)')
+plt.ylabel('Delta VR (m/s)')
+plt.title('Right Wheel Velocity Correction')
+plt.subplot(1, 2, 2)
+plt.plot(time, delta_vl_list, 'c-')
+plt.xlabel('Time (s)')
+plt.ylabel('Delta VL (m/s)')
+plt.title('Left Wheel Velocity Correction')
+plt.tight_layout()
+plt.show()
+
+#plot actual vs reference velocities
+plt.figure(figsize=(10, 4))
+plt.subplot(1, 2, 1)
+plt.plot(time, vr_ref, 'r--', label='VR Reference')
+plt.plot(time, np.array(delta_vr_list) + vr_ref[:N_STEPS], 'b-', label='VR Actual')
+plt.xlabel('Time (s)')
+plt.ylabel('Right Wheel Velocity (m/s)')
+plt.title('Right Wheel Velocity')
+plt.legend()
+plt.subplot(1, 2, 2)
+plt.plot(time, vl_ref, 'r--', label='VL Reference')
+plt.plot(time, np.array(delta_vl_list) + vl_ref[:N_STEPS], 'b-', label='VL Actual')
+plt.xlabel('Time (s)')
+plt.ylabel('Left Wheel Velocity (m/s)')
+plt.title('Left Wheel Velocity')
+plt.legend()
+plt.tight_layout()
+plt.show()
+
+print(f"Final position error: {errors[-1]:.4f} m")
