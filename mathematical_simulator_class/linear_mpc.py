@@ -5,7 +5,7 @@ import cvxpy as cp
 class LinearMPC:
     def __init__(self, dt, wheel_base, N_horizon=10,
                  Q=None, R=None, Q_N=None,
-                 vr_max=0.5, vl_max=0.5, s=0.0):
+                 vr_max=0.5, vl_max=0.5, s=0.0, du_max=0.05):
         '''Initialize the LinearMPC class with the given parameters.
         Parameters:
         dt : float
@@ -21,11 +21,14 @@ class LinearMPC:
         Q_N : np.ndarray, optional
             Terminal state cost matrix (default is None).
         vr_max : float, optional
-            Maximum velocity of the right wheel (default is 1.0).
+            Maximum velocity of the right wheel (default is 0.2).
         vl_max : float, optional
-            Maximum velocity of the left wheel (default is 1.0).
+            Maximum velocity of the left wheel (default is 0.2).
         s : float, optional
             Slip factor for both wheels (default is 0.0).
+        du_max : float or None, optional
+            Maximum allowed change in each wheel's delta-velocity per step
+            (slew-rate / acceleration constraint). None disables the constraint.
         '''
 
         self.dt  = dt
@@ -34,22 +37,28 @@ class LinearMPC:
         self.N = N_horizon
 
         self.Q   = Q   if Q   is not None else np.diag([50.0, 50.0, 0.3])
-        self.R   = R   if R   is not None else np.diag([0.1, 0.1])
-        self.Q_N = Q_N if Q_N is not None else np.diag([0.0, 0.0, 0.0])  # No terminal cost by default
-
+        self.R   = R   if R   is not None else np.diag([1.0, 1.0])
+        self.Q_N = Q_N if Q_N is not None else np.diag([50.0, 50.0, 0.3])
 
         #define cvxpy variables for the optimization problem
-        self.E = cp.Variable((N_horizon + 1, 3))  # State error variables
-        self.U = cp.Variable((N_horizon, 2))  # Control input variables
+        self.E = cp.Variable((N_horizon + 1, 3))
+        self.U = cp.Variable((N_horizon, 2))
 
         #define cvxpy parameters for the optimization problem
-        self.E0 = cp.Parameter(3)                                        # Initial state error                                     # Control applied at previous step
-        self.A = [cp.Parameter((3, 3)) for _ in range(N_horizon)]  # State transition matrices
-        self.B = [cp.Parameter((3, 2)) for _ in range(N_horizon)]  # Control input matrices
+        self.E0 = cp.Parameter(3)
+        self.A = [cp.Parameter((3, 3)) for _ in range(N_horizon)]
+        self.B = [cp.Parameter((3, 2)) for _ in range(N_horizon)]
+        self.VR_ref = cp.Parameter(N_horizon, value=np.zeros(N_horizon))
+        self.VL_ref = cp.Parameter(N_horizon, value=np.zeros(N_horizon))
+        self.VR_ref_prev = cp.Parameter(value=0.0)
+        self.VL_ref_prev = cp.Parameter(value=0.0)
+        self._vr_ref_prev = None
+        self._vl_ref_prev = None
+        self.U_prev = cp.Parameter(2, value=np.zeros(2))
 
-        self.problem = self._build_problem(vr_max, vl_max)
+        self.problem = self._build_problem(vr_max, vl_max, du_max)
 
-    def _build_problem(self, vr_max, vl_max):
+    def _build_problem(self, vr_max, vl_max, du_max):
         '''Build the MPC optimization problem using cvxpy.
         Parameters:
         vr_max : float
@@ -63,29 +72,40 @@ class LinearMPC:
             The formulated MPC optimization problem.
         '''
         cost = 0
-        constraints = [self.E[0] == self.E0] # Initial state error constraint
+        constraints = [self.E[0] == self.E0]
 
         for i in range(self.N):
-            # Running cost: state error cost + control input cost
             cost += cp.quad_form(self.E[i], self.Q)
             cost += cp.quad_form(self.U[i], self.R)
-
-            # System dynamics constraint
             constraints += [self.E[i + 1] == self.A[i] @ self.E[i] + self.B[i] @ self.U[i]]
 
-        cost += cp.quad_form(self.E[self.N], self.Q_N)  # terminal cost
+        cost += cp.quad_form(self.E[self.N], self.Q_N)
 
-        # Control input constraints
-        constraints += [ self.U[:, 0] <= vr_max,
-                         self.U[:, 0] >= -vr_max,
-                         self.U[:, 1] <= vl_max,
-                         self.U[:, 1] >= -vl_max ]
+        constraints += [ self.U[:, 0] + self.VR_ref <= vr_max,
+                         self.U[:, 0] + self.VR_ref >= -vr_max,
+                         self.U[:, 1] + self.VL_ref <= vl_max,
+                         self.U[:, 1] + self.VL_ref >= -vl_max ]
+
+        if du_max is not None:
+            constraints += [
+                self.U[0, 0] + self.VR_ref[0] - self.U_prev[0] - self.VR_ref_prev <= du_max,
+                self.U[0, 0] + self.VR_ref[0] - self.U_prev[0] - self.VR_ref_prev >= -du_max,
+                self.U[0, 1] + self.VL_ref[0] - self.U_prev[1] - self.VL_ref_prev <= du_max,
+                self.U[0, 1] + self.VL_ref[0] - self.U_prev[1] - self.VL_ref_prev >= -du_max,
+            ]
+            for k in range(1, self.N):
+                constraints += [
+                    self.U[k, 0] + self.VR_ref[k] - self.U[k-1, 0] - self.VR_ref[k-1] <= du_max,
+                    self.U[k, 0] + self.VR_ref[k] - self.U[k-1, 0] - self.VR_ref[k-1] >= -du_max,
+                    self.U[k, 1] + self.VL_ref[k] - self.U[k-1, 1] - self.VL_ref[k-1] <= du_max,
+                    self.U[k, 1] + self.VL_ref[k] - self.U[k-1, 1] - self.VL_ref[k-1] >= -du_max,
+                ]
 
         return cp.Problem(cp.Minimize(cost), constraints)
-    
 
-    
-    def solve(self, error_state, A_matrices, B_matrices):
+
+
+    def solve(self, error_state, A_matrices, B_matrices, vr_ref_horizon, vl_ref_horizon, u_prev=None):
         '''Solve the MPC optimization problem  with the given error state and system matrices.
         Parameters:
         error_state : np.ndarray
@@ -94,29 +114,43 @@ class LinearMPC:
             List of state transition matrices for each time step in the horizon.
         B_matrices : list of np.ndarray
             List of control input matrices for each time step in the horizon.
+        vr_ref_horizon : list of float
+            Reference right wheel velocities over the prediction horizon.
+        vl_ref_horizon : list of float
+            Reference left wheel velocities over the prediction horizon.
         Returns:
         delta_vr: float
             The computed velocity correction for the right wheel.
         delta_vl: float
             The computed velocity correction for the left wheel.
         '''
-        self.E0.value     = error_state
+        self.E0.value = error_state
+        self.U_prev.value = u_prev if u_prev is not None else np.zeros(2)
+        self.VR_ref.value = np.array(vr_ref_horizon)
+        self.VL_ref.value = np.array(vl_ref_horizon)
+        if self._vr_ref_prev is None:
+            self._vr_ref_prev = vr_ref_horizon[0]
+            self._vl_ref_prev = vl_ref_horizon[0]
+        self.VR_ref_prev.value = self._vr_ref_prev
+        self.VL_ref_prev.value = self._vl_ref_prev
+
         for i in range(self.N):
             self.A[i].value = A_matrices[i]
             self.B[i].value = B_matrices[i]
-        
-        # Solve the optimization problem
+
         self.problem.solve(solver=cp.OSQP, warm_start=True, eps_abs=1e-4, eps_rel=1e-4)
 
         if self.problem.status not in [cp.OPTIMAL, cp.OPTIMAL_INACCURATE]:
             print(f'MPC optimization problem not solved to optimality. Status: {self.problem.status}')
-            return 0.0, 0.0  # Return zero corrections if problem is not solved
-        
-        # Return the first control input correction from the optimized sequence
+            return 0.0, 0.0
+
         delta_vr = self.U.value[0, 0]
         delta_vl = self.U.value[0, 1]
+        self.U_prev.value = np.array([delta_vr, delta_vl])
+        self._vr_ref_prev = vr_ref_horizon[0]
+        self._vl_ref_prev = vl_ref_horizon[0]
         return delta_vr, delta_vl
-    
+
 
 
     def define_AB_matrices(self, theta, vel_right, vel_left):
@@ -158,7 +192,7 @@ class LinearMPC:
         B_k = B_c * dt
 
         return A_k, B_k
-    
+
     def compute_error_state(self, actual_state, reference_state):
         '''Compute the error state between the actual and reference states.
         Parameters:
@@ -175,4 +209,4 @@ class LinearMPC:
         return error_state
 
 
-    
+

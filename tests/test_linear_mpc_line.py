@@ -56,6 +56,7 @@ for k in range(N_STEPS):
 
     # Build A_list, B_list over the prediction horizon
     A_list, B_list = [], []
+    vr_ref_list, vl_ref_list = [], []
     for i in range(N):
         future_idx = min(k + i, N_STEPS - 1)
         A_i, B_i   = mpc.define_AB_matrices(
@@ -63,8 +64,10 @@ for k in range(N_STEPS):
         )
         A_list.append(A_i)
         B_list.append(B_i)
+        vr_ref_list.append(vr_ref[future_idx])
+        vl_ref_list.append(vl_ref[future_idx])
 
-    delta_vr, delta_vl = mpc.solve(error_state, A_list, B_list)
+    delta_vr, delta_vl = mpc.solve(error_state, A_list, B_list, vr_ref_list, vl_ref_list)
     delta_vr_list.append(delta_vr)
     delta_vl_list.append(delta_vl)
 
