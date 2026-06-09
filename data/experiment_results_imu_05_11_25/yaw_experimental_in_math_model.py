@@ -1,19 +1,18 @@
 import re
-import matplotlib.pyplot as plt
-
 import sys
 import os
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
 sys.path.append("..")
 from mathematical_simulator_class.robot import Robot
 from mathematical_simulator_class.file_reader import Analysis
 from mathematical_simulator_class.feedforward import Feedforward
 from mathematical_simulator_class.recursive_least_square import RecursiveLeastSquares
-import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
 
-# === Change this to your log file name ===
-log_file = "experiment_inside_05.11.25"
+# Log file to process — change to any of the experiment log files in this directory.
+LOG_FILE = "experiment_inside_05.11.25"
+log_file = LOG_FILE
 
 # Regex patterns
 pattern_yaw = re.compile(r"Yaw:\s*([-+]?\d*\.\d+|\d+)")
