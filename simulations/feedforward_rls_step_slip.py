@@ -1,3 +1,17 @@
+# Feedforward + RLS slip compensation on a lemniscate with a step change in slip.
+#
+# Simulates a robot following a lemniscate trajectory where slip jumps from 0.0 to 0.2
+# at timestep 200. Orientation noise is added to the RLS estimator input.
+# Compares four scenarios:
+#   1. Uncompensated baseline (true slip applied, no RLS)
+#   2. RLS with no forgetting factor (lambda = 1.0 effectively)
+#   3. RLS with fixed forgetting factor lambda=0.96
+#   4. RLS with variable lambda: 0.95 during the transition window (steps 150–250), 0.96 otherwise
+#
+# Outputs: trajectory comparison, slip estimates + forgetting factor overlay, tracking error
+# over time, and RLS estimation error covariance (4 figures). Also prints per-scenario
+# min/max/mean tracking error.
+
 import sys
 import os
 sys.path.append("..")

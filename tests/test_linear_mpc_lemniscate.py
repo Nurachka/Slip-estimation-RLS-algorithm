@@ -1,3 +1,14 @@
+# Lemniscate trajectory tracking with LinearMPC under slip and sensor noise.
+#
+# Simulates a robot following a lemniscate (figure-8) trajectory.
+# Runs three scenarios, all with constant slip (s=0.1) and Gaussian position/orientation noise:
+#   1. No MPC — feedforward only, slip uncompensated
+#   2. MPC slip-unaware — controller does not know the true slip, noise applied to measurements
+#   3. MPC slip-aware — controller is informed of true slip, noise applied to measurements
+#
+# Outputs: trajectory, position error, delta wheel velocities, actual vs reference velocities,
+# and wheel accelerations (5 figures). Also prints final and mean position errors.
+
 import sys
 import os
 import numpy as np

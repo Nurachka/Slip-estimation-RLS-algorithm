@@ -1,3 +1,15 @@
+# Straight-line trajectory tracking with LinearMPC under slip conditions.
+#
+# Simulates a robot following a straight line at 30 degrees for 20 seconds.
+# Runs five scenarios:
+#   1. No slip, no compensation (clean baseline)
+#   2. Constant slip (s=0.25), MPC unaware
+#   3. Constant slip (s=0.25), MPC aware (informed of true slip)
+#   4. Step slip: 0.05 before t=10s, 0.15 after — MPC unaware
+#   5. Step slip: 0.05 → 0.15 — MPC aware
+#
+# Outputs: trajectory plot, position error over time, and wheel velocity corrections (delta VR/VL).
+
 import sys
 import numpy as np
 import matplotlib.pyplot as plt

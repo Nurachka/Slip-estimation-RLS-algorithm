@@ -32,7 +32,7 @@ trajectory_dir = os.path.join(current_dir, '..', 'trajectories')
 file_path = os.path.join(trajectory_dir, 'lemniscate_trajectory.csv')
 
 feedforward = Feedforward(file_reader.read_csv(file_path))
-estimator = RecursiveLeastSquares(s0=np.array([0.0]), P0=10*np.eye(1), R=0.00436*np.eye(1, 1))
+estimator = RecursiveLeastSquares(s0=np.array([0.0]), P0=10*np.eye(1), R=0.00436*np.eye(1))
 slip = []
 x_a, y_a, theta_a = 1.0, 0.0, 1.5786512774347865
 comp_trajectory = []

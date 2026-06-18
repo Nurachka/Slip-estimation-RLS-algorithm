@@ -19,14 +19,12 @@ class Feedforward:
             return vel_right, vel_left
     def x_y_at_timestep(self, timestamp):
         if timestamp < len(self.df):
-            # extract the row at the current time index
             x = self.df['x'].iloc[timestamp]
             y = self.df['y'].iloc[timestamp]
-        return x, y
+            return x, y
     def theta_at_timestep(self, timestamp):
         if timestamp < len(self.df):
-            # extract the row at the current time index
             theta = self.df['theta'].iloc[timestamp]
-        return theta
+            return theta
             
             

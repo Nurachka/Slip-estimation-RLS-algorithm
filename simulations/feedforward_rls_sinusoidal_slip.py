@@ -1,3 +1,14 @@
+# Feedforward + RLS slip compensation on a lemniscate with sinusoidally varying slip.
+#
+# Simulates a robot following a lemniscate trajectory where slip oscillates sinusoidally
+# between 0.01 and 0.08 at 0.05 Hz (one full cycle every 400 timesteps at dt=0.05 s).
+# Compares five fixed forgetting factors (lambda = 1.0, 0.99, 0.97, 0.95, 0.80) against
+# an uncompensated baseline. USE_NOISE flag enables Gaussian orientation noise on the RLS input.
+#
+# Outputs: trajectory comparison, slip estimates vs true slip, slip estimation error,
+# trajectory tracking error, and RLS estimation error covariance (5 figures).
+# Also prints RMS slip estimation error and min/max/mean tracking error per scenario.
+
 import sys
 import os
 sys.path.append("..")
@@ -19,7 +30,7 @@ INITIAL_Y     = 0.0
 INITIAL_THETA = 1.5786512774347865
 
 LAMBDA_VALUES = [1.0, 0.99, 0.97, 0.95, 0.80]
-USE_NOISE     = True        # set True to add orientation noise to the RLS estimator
+USE_NOISE     = False       # set True to add orientation noise to the RLS estimator
 
 # --- Load trajectory ---
 file_reader    = Analysis()

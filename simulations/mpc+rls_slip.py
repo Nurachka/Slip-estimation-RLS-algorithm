@@ -39,7 +39,7 @@ reference_states = np.array(reference_states)
 
 # --- Initialise components ---
 actual_robot   = Robot(initial_x=INITIAL_X, initial_y=INITIAL_Y, initial_theta=INITIAL_THETA)
-rls            = RecursiveLeastSquares(s0=np.array([0.0]), P0=10.0 * np.eye(1), R=0.0004 * np.eye(1))
+rls            = RecursiveLeastSquares(s0=np.array([0.0]), P0=10.0 * np.eye(1), R=0.00436 * np.eye(1))
 mpc_controller = LinearMPC(dt=DELTA_T, wheel_base=0.5, N_horizon=10, s=0.0)
 
 theta_prev      = INITIAL_THETA
@@ -74,15 +74,13 @@ for k in range(n_steps):
         theta_n, theta_prev, vel_right, vel_left, delta_t=DELTA_T
     )
     else: 
-        rls.predict_sim_with_forgetting_factor(
-        theta_n, theta_prev, vel_right+delta_vr, vel_left+delta_vl, delta_t=DELTA_T, lam=LAMBDA
+        rls.predict_sim(
+        theta_n, theta_prev, vel_right+delta_vr, vel_left+delta_vl, delta_t=DELTA_T
     )
     theta_prev = theta_n
 
     # Slip estimate — hard-zeroed during warmup window
     s_hat = float(np.clip(rls.estimates[-1][0], -SLIP_CLIP, SLIP_CLIP))
-    # if k < WARMUP_STEPS:
-    #     s_hat = 0.0
     slip_estimates.append(s_hat)
 
     # Feed RLS estimate into MPC system model
@@ -93,7 +91,7 @@ for k in range(n_steps):
         reference_states[k]
     )
 
-    A_list, B_list = [], []
+    A_list, B_list, vr_ref_list, vl_ref_list = [], [], [], []
     for i in range(mpc_controller.N):
         future_idx = min(k + i, n_steps - 1)
         theta_ref_i           = feedforward.theta_at_timestep(future_idx)
@@ -101,8 +99,10 @@ for k in range(n_steps):
         A_i, B_i = mpc_controller.define_AB_matrices(theta_ref_i, vel_right_i, vel_left_i)
         A_list.append(A_i)
         B_list.append(B_i)
+        vr_ref_list.append(vel_right_i)
+        vl_ref_list.append(vel_left_i)
 
-    delta_vr, delta_vl = mpc_controller.solve(error_state, A_list, B_list)
+    delta_vr, delta_vl = mpc_controller.solve(error_state, A_list, B_list, vr_ref_list, vl_ref_list)
 
     comp_velocities.append((vel_right + delta_vr, vel_left + delta_vl))
     error_states.append(error_state)
