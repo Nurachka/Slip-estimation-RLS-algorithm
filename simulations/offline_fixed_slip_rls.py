@@ -131,7 +131,7 @@ print(f"Position error between compensated trajectory and target trajectory: min
 
 #plot slip estimates vs true slip value
 plt.plot(slip, label='Estimated Slip')
-plt.axhline(y=0.2, color='r', linestyle='--', label='True Slip Value')
+plt.axhline(y=0.1, color='r', linestyle='--', label='True Slip Value')
 plt.xlabel('Time Step')
 plt.ylabel('Slip (m)')
 plt.title('Estimated Slip Over Time')
