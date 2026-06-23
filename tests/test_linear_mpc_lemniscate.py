@@ -39,14 +39,14 @@ n_steps   = len(df)
 time      = df['time'].values
 
 
-def run_simulation(s_actual=0.0, s_mpc=0.0, seed=42, s_actual_fn=None, s_mpc_fn=None,
+def run_simulation(s_actual=0.0, s_mpc=0.0, seed=42, s_mpc_fn=None,
                    use_mpc=True, add_noise=False):
     np.random.seed(seed)
 
     mpc = LinearMPC(dt=DT, wheel_base=WHEEL_BASE, N_horizon=N,
                     vr_max=VR_MAX, vl_max=VL_MAX, s=s_mpc, du_max=None)
 
-    x_a, y_a, theta_a = x_ref[0] + 0.1, y_ref[0] + 0.1, theta_ref[0]
+    x_a, y_a, theta_a = x_ref[0], y_ref[0], theta_ref[0]
 
     actual_states = []
     errors        = []
@@ -65,12 +65,12 @@ def run_simulation(s_actual=0.0, s_mpc=0.0, seed=42, s_actual_fn=None, s_mpc_fn=
 
         error_state = mpc.compute_error_state(
             np.array([x_meas, y_meas, theta_meas]),
-            np.array([x_ref[k], y_ref[k], theta_ref[k]])
+            np.array([x_ref[min(k + 1, n_steps - 1)], y_ref[min(k + 1, n_steps - 1)], theta_ref[min(k + 1, n_steps - 1)]])
         )
         errors.append(np.linalg.norm(
             mpc.compute_error_state(
-                np.array([x_a, y_a, theta_a]),
-                np.array([x_ref[k], y_ref[k], theta_ref[k]])
+                np.array([x_meas, y_meas, theta_meas]),
+                np.array([x_ref[min(k + 1, n_steps - 1)], y_ref[min(k + 1, n_steps - 1)], theta_ref[min(k + 1, n_steps - 1)]])
             )[:2]
         ))
 
@@ -89,7 +89,7 @@ def run_simulation(s_actual=0.0, s_mpc=0.0, seed=42, s_actual_fn=None, s_mpc_fn=
                 B_list.append(B_i)
                 vr_ref_list.append(vr_ref[future_idx])
                 vl_ref_list.append(vl_ref[future_idx])
-            delta_vr, delta_vl = mpc.solve(error_state, A_list, B_list, vr_ref_list, vl_ref_list, u_prev=None)
+            delta_vr, delta_vl = mpc.solve(error_state, A_list, B_list, vr_ref_list, vl_ref_list)
         else:
             delta_vr, delta_vl = 0.0, 0.0
 
@@ -98,7 +98,7 @@ def run_simulation(s_actual=0.0, s_mpc=0.0, seed=42, s_actual_fn=None, s_mpc_fn=
 
         vr      = vr_ref[k] + delta_vr
         vl      = vl_ref[k] + delta_vl
-        s       = s_actual_fn(k) if s_actual_fn is not None else s_actual
+        s       = s_actual 
         v_a     = (1 - s) * (vr + vl) / 2.0
         omega_a = (1 - s) * (vr - vl) / WHEEL_BASE
         x_a     += v_a * np.cos(theta_a) * DT
@@ -155,28 +155,6 @@ for errors, label, color in zip([errors_no_mpc, errors_mpc_unaware, errors_mpc_n
 plt.xlabel('Time (s)')
 plt.ylabel('Position Error (m)')
 plt.title('Position Error Over Time')
-plt.legend()
-plt.grid(True)
-plt.tight_layout()
-plt.show()
-
-# --- Figure 3: Delta VR and VL ---
-plt.figure(figsize=(10, 4))
-plt.subplot(1, 2, 1)
-for dvr, label, color in zip([dvr_no_mpc, dvr_mpc_unaware, dvr_mpc_noise], labels, colors):
-    plt.plot(time, dvr, color=color, label=label)
-plt.xlabel('Time (s)')
-plt.ylabel('Delta VR (m/s)')
-plt.title('Right Wheel Velocity Correction')
-plt.legend()
-plt.grid(True)
-
-plt.subplot(1, 2, 2)
-for dvl, label, color in zip([dvl_no_mpc, dvl_mpc_unaware, dvl_mpc_noise], labels, colors):
-    plt.plot(time, dvl, color=color, label=label)
-plt.xlabel('Time (s)')
-plt.ylabel('Delta VL (m/s)')
-plt.title('Left Wheel Velocity Correction')
 plt.legend()
 plt.grid(True)
 plt.tight_layout()

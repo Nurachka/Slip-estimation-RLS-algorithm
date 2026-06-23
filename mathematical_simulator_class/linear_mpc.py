@@ -4,7 +4,7 @@ import cvxpy as cp
 
 class LinearMPC:
     def __init__(self, dt, wheel_base, N_horizon=10,
-                 Q=None, R=None, Q_N=None,
+                 Q=None, R=None, Q_N=None, S=None,
                  vr_max=0.5, vl_max=0.5, s=0.0, du_max=0.05):
         '''Initialize the LinearMPC class with the given parameters.
         Parameters:
@@ -20,6 +20,9 @@ class LinearMPC:
             Control cost matrix (default is None).
         Q_N : np.ndarray, optional
             Terminal state cost matrix (default is None).
+        S : np.ndarray or None, optional
+            Input-change cost matrix penalizing ΔU[k] = v_commanded[k] - v_commanded[k-1].
+            None disables the cost term.
         vr_max : float, optional
             Maximum velocity of the right wheel (default is 0.2).
         vl_max : float, optional
@@ -39,6 +42,7 @@ class LinearMPC:
         self.Q   = Q   if Q   is not None else np.diag([50.0, 50.0, 0.3])
         self.R   = R   if R   is not None else np.diag([1.0, 1.0])
         self.Q_N = Q_N if Q_N is not None else np.diag([50.0, 50.0, 0.3])
+        self.S   = S   if S   is not None else np.diag([1.0,1.0])  # default no ΔU cost
 
         #define cvxpy variables for the optimization problem
         self.E = cp.Variable((N_horizon + 1, 3))
@@ -78,6 +82,18 @@ class LinearMPC:
             cost += cp.quad_form(self.E[i], self.Q)
             cost += cp.quad_form(self.U[i], self.R)
             constraints += [self.E[i + 1] == self.A[i] @ self.E[i] + self.B[i] @ self.U[i]]
+            if self.S is not None:
+                if i == 0:
+                    dU = cp.hstack([
+                        self.U[0, 0] + self.VR_ref[0] - self.U_prev[0] - self.VR_ref_prev,
+                        self.U[0, 1] + self.VL_ref[0] - self.U_prev[1] - self.VL_ref_prev
+                    ])
+                else:
+                    dU = cp.hstack([
+                        self.U[i, 0] + self.VR_ref[i] - self.U[i-1, 0] - self.VR_ref[i-1],
+                        self.U[i, 1] + self.VL_ref[i] - self.U[i-1, 1] - self.VL_ref[i-1]
+                    ])
+                cost += cp.quad_form(dU, self.S)
 
         cost += cp.quad_form(self.E[self.N], self.Q_N)
 
@@ -105,7 +121,7 @@ class LinearMPC:
 
 
 
-    def solve(self, error_state, A_matrices, B_matrices, vr_ref_horizon, vl_ref_horizon, u_prev=None):
+    def solve(self, error_state, A_matrices, B_matrices, vr_ref_horizon, vl_ref_horizon):
         '''Solve the MPC optimization problem  with the given error state and system matrices.
         Parameters:
         error_state : np.ndarray
@@ -125,7 +141,6 @@ class LinearMPC:
             The computed velocity correction for the left wheel.
         '''
         self.E0.value = error_state
-        self.U_prev.value = u_prev if u_prev is not None else np.zeros(2)
         self.VR_ref.value = np.array(vr_ref_horizon)
         self.VL_ref.value = np.array(vl_ref_horizon)
         if self._vr_ref_prev is None:
