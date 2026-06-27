@@ -12,6 +12,7 @@
 import sys
 import os
 sys.path.append("..")
+from mathematical_simulator_class.config import NOISE_STD_ORIENTATION
 from mathematical_simulator_class.robot import Robot
 from mathematical_simulator_class.file_reader import Analysis
 from mathematical_simulator_class.feedforward import Feedforward
@@ -29,8 +30,8 @@ INITIAL_X     = 1.0
 INITIAL_Y     = 0.0
 INITIAL_THETA = 1.5786512774347865
 
-LAMBDA_VALUES = [1.0, 0.99, 0.97, 0.95, 0.80]
-USE_NOISE     = False       # set True to add orientation noise to the RLS estimator
+LAMBDA_VALUES = [1.0, 0.99, 0.97, 0.95]
+USE_NOISE     = True       # set True to add orientation noise to the RLS estimator
 
 # --- Load trajectory ---
 file_reader    = Analysis()
@@ -55,7 +56,7 @@ def run_simulation(lam=None, use_compensation=True, use_noise=False):
 
     if use_compensation:
         estimator = RecursiveLeastSquares(
-            s0=np.array([0.0]), P0=10 * np.eye(1), R=0.00436 * np.eye(1, 1)
+            s0=np.array([0.0]), P0=10 * np.eye(1), R=2 * NOISE_STD_ORIENTATION**2 * np.eye(1)
         )
 
     theta_previous = INITIAL_THETA
@@ -77,7 +78,7 @@ def run_simulation(lam=None, use_compensation=True, use_noise=False):
 
         x, y, theta = robot.forward_kinematics(vel_right_comp, vel_left_comp)
         if use_noise:
-            _, _, theta_for_rls = robot.add_noise()
+            x_noised, y_noised, theta_for_rls = robot.add_noise()
         else:
             theta_for_rls = theta
 

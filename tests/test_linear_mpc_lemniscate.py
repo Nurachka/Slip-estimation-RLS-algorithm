@@ -1,4 +1,4 @@
-# Lemniscate trajectory tracking with LinearMPC under slip and sensor noise.
+# Lemniscate trajectory tracking with LinearMPC under fixed slip and sensor noise.
 #
 # Simulates a robot following a lemniscate (figure-8) trajectory.
 # Runs three scenarios, all with constant slip (s=0.1) and Gaussian position/orientation noise:

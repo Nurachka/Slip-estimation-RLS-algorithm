@@ -1,15 +1,18 @@
-# Lemniscate trajectory tracking with LinearMPC and online RLS slip estimation.
+# Lemniscate trajectory tracking with LinearMPC and online RLS slip estimation — sinusoidal slip.
 #
-# Robot runs with optional Gaussian sensor noise. RLS estimates surface slip online
-# from heading measurements; the (unclipped) estimate is fed into the MPC model each step.
+# Robot runs with optional Gaussian sensor noise. The true wheel slip varies sinusoidally over time
+# (same profile as feedforward_rls_sinusoidal_slip.py: oscillates 0.01-0.08 at 0.05 Hz, one full
+# cycle every 400 timesteps at dt=0.05 s). To follow a changing slip the RLS uses a forgetting
+# factor (lambda = 0.97) so it down-weights old measurements; the (unclipped) estimate is fed into
+# the MPC model each step.
 #
-# Compares three scenarios with true slip s=0.1:
+# Compares two scenarios under the same sinusoidal slip:
 #   1. Feedforward only (no MPC) — uncompensated baseline
-#   2. MPC slip-unaware — MPC active, s_mpc fixed at 0
-#   3. MPC + online RLS — MPC slip value updated each step from RLS estimate
+#   2. MPC + online RLS — MPC slip value updated each step from the RLS estimate
 #
-# Outputs: trajectory, position error, slip estimate over time, and wheel velocity
-# corrections (4 figures). Also prints final and mean position error per scenario.
+# Outputs: trajectory, position error, slip estimate vs true slip, heading, wheel velocity
+# corrections, and a slip-error/position-error phase portrait. Also prints position/heading error
+# and slip-estimation RMSE/MAE (full run and steady state) per scenario.
 
 import sys
 import os
@@ -27,9 +30,14 @@ WHEEL_BASE   = 0.5
 N            = 10
 VR_MAX       = 0.7
 VL_MAX       = 0.7
-S_ACTUAL     = 0.3
-STEADY_STATE_START    = 100
-CONVERGENCE_THRESHOLD = 0.005 # convergence: |s_hat - s_true| < 0.005 (absolute slip units)
+
+# Sinusoidal slip profile (same as feedforward_rls_sinusoidal_slip.py)
+SLIP_OFFSET  = 0.045         # center = (0.08 + 0.01) / 2
+SLIP_AMP     = 0.035         # half-amplitude = (0.08 - 0.01) / 2
+SLIP_FREQ_HZ = 0.05          # Hz — one full cycle every 400 timesteps at dt=0.05 s
+LAMBDA       = 0.97          # RLS forgetting factor (< 1 so the estimate can track the sinusoid)
+
+STEADY_STATE_START = 100
 INNOVATION        = []
 estimationerrorcovariancematrices = []
 
@@ -46,8 +54,11 @@ n_steps   = len(df)
 time      = df['time'].values
 
 
-def run_simulation(s_actual=0.0, use_mpc=True, use_rls=False, s_mpc=0.0,
-                   use_noise=False, seed=42):
+def slip_fn(k):
+    return SLIP_OFFSET + SLIP_AMP * np.sin(2 * np.pi * SLIP_FREQ_HZ * k * DT)
+
+
+def run_simulation(use_mpc=True, use_rls=False, s_mpc=0.0, use_noise=False, seed=42):
     np.random.seed(seed)
 
     mpc = LinearMPC(dt=DT, wheel_base=WHEEL_BASE, N_horizon=N,
@@ -73,8 +84,9 @@ def run_simulation(s_actual=0.0, use_mpc=True, use_rls=False, s_mpc=0.0,
         else:
             vr = vr_ref[k] + delta_vr
             vl = vl_ref[k] + delta_vl
-        v_a     = (1 - s_actual) * (vr + vl) / 2.0
-        omega_a = (1 - s_actual) * (vr - vl) / WHEEL_BASE
+        s_k     = slip_fn(k)
+        v_a     = (1 - s_k) * (vr + vl) / 2.0
+        omega_a = (1 - s_k) * (vr - vl) / WHEEL_BASE
         x_a     += v_a * np.cos(theta_a) * DT
         y_a     += v_a * np.sin(theta_a) * DT
         theta_a += omega_a * DT
@@ -93,7 +105,7 @@ def run_simulation(s_actual=0.0, use_mpc=True, use_rls=False, s_mpc=0.0,
         # --- RLS: uses vr/vl that just moved the robot ---
         if use_rls:
 
-            rls.predict_sim(theta_meas, theta_prev, vr, vl, DT)
+            rls.predict_sim_with_forgetting_factor(theta_meas, theta_prev, vr, vl, DT, lam=LAMBDA)
             s_hat = float(rls.estimates[-1][0])
             mpc.s = s_hat
             slip_estimates.append(s_hat)
@@ -135,9 +147,12 @@ def run_simulation(s_actual=0.0, use_mpc=True, use_rls=False, s_mpc=0.0,
 
 
 # --- Run scenarios ---
-states_ff,  dvr_ff,  dvl_ff,  _,         _            = run_simulation(s_actual=S_ACTUAL, use_mpc=False, use_noise=True)
-states_mpc, dvr_mpc, dvl_mpc, _,         _            = run_simulation(s_actual=S_ACTUAL, use_mpc=True,  use_rls=False, s_mpc=0.0, use_noise=True)
-states_rls, dvr_rls, dvl_rls, slips_rls, theta_meas_rls = run_simulation(s_actual=S_ACTUAL, use_mpc=True,  use_rls=True, use_noise=True)
+states_ff,  dvr_ff,  dvl_ff,  _,         _            = run_simulation(use_mpc=False, use_noise=True)
+states_mpc, dvr_mpc, dvl_mpc, _,         _            = run_simulation(use_mpc=True,  use_rls=False, s_mpc=0.0, use_noise=True)
+states_rls, dvr_rls, dvl_rls, slips_rls, theta_meas_rls = run_simulation(use_mpc=True,  use_rls=True, use_noise=True)
+
+# --- True slip over the run (per timestep) ---
+true_slip = np.array([slip_fn(k) for k in range(n_steps)])
 
 # --- Figure 1: Trajectory ---
 plt.figure(figsize=(7, 7))
@@ -147,7 +162,7 @@ plt.plot(states_mpc[:, 0], states_mpc[:, 1], color='blue',   label='MPC slip-una
 plt.plot(states_rls[:, 0], states_rls[:, 1], color='green',  label='MPC + online RLS')
 plt.xlabel('X (m)')
 plt.ylabel('Y (m)')
-plt.title('Lemniscate Trajectory — MPC + Online RLS')
+plt.title('Lemniscate Trajectory — MPC + Online RLS (Sinusoidal Slip)')
 plt.legend()
 plt.axis('equal')
 plt.grid(True)
@@ -202,35 +217,32 @@ print(f'MPC + online RLS — heading mean |θ err|: {np.abs(heading_err_rls).mea
 print(f'MPC + online RLS — position RMSE: {np.sqrt(np.mean(error_rls**2)):.4f} m, heading RMSE: {np.sqrt(np.mean(heading_err_rls**2)):.4f} rad')
 print(f'MPC + online RLS — position std dev: {error_rls.std():.4f} m, heading std dev: {np.degrees(heading_err_rls.std()):.4f} deg')
 
+# Improvement of slip-aware RLS over slip-unaware MPC (positive = RLS better)
+pos_impr  = (error_mpc.mean() - error_rls.mean()) / error_mpc.mean() * 100
+head_impr = (np.abs(heading_err_mpc).mean() - np.abs(heading_err_rls).mean()) / np.abs(heading_err_mpc).mean() * 100
+print(f'\nMPC+RLS vs MPC slip-unaware — position mean improvement: {pos_impr:+.2f}%, heading mean improvement: {head_impr:+.2f}%')
 
 
-
-
-# RMSE and MAE of slip estimation
+# RMSE and MAE of slip estimation (against the time-varying true slip)
 
 slips_arr = np.array(slips_rls)
-rmse_full = np.sqrt(np.mean((slips_arr - S_ACTUAL) ** 2))
-mae_full  = np.mean(np.abs(slips_arr - S_ACTUAL))
+rmse_full = np.sqrt(np.mean((slips_arr - true_slip) ** 2))
+mae_full  = np.mean(np.abs(slips_arr - true_slip))
 slips_ss  = slips_arr[STEADY_STATE_START:]
-rmse_ss   = np.sqrt(np.mean((slips_ss - S_ACTUAL) ** 2))
-mae_ss    = np.mean(np.abs(slips_ss - S_ACTUAL))
-within = np.abs(slips_arr - S_ACTUAL) < CONVERGENCE_THRESHOLD
-convergence_step = next((i for i in range(len(within)) if np.all(within[i:])), None)
+true_ss   = true_slip[STEADY_STATE_START:]
+rmse_ss   = np.sqrt(np.mean((slips_ss - true_ss) ** 2))
+mae_ss    = np.mean(np.abs(slips_ss - true_ss))
 
 print(f'\nSlip estimation (full run)         — RMSE: {rmse_full:.4f}, MAE: {mae_full:.4f}')
 print(f'Slip estimation (steps {STEADY_STATE_START}→end) — RMSE: {rmse_ss:.4f}, MAE: {mae_ss:.4f}')
-if convergence_step is not None:
-    print(f'Convergence time (±{CONVERGENCE_THRESHOLD})       — {time[convergence_step]:.2f} s (step {convergence_step})')
-else:
-    print(f'Convergence time (±{CONVERGENCE_THRESHOLD})       — did not converge')
 
 # --- Figure 3: Slip estimation ---
 plt.figure(figsize=(8, 4))
-plt.axhline(S_ACTUAL, color='black', linestyle='--', linewidth=1.5, label=f'True slip ({S_ACTUAL})')
-plt.plot(time, slips_rls, color='green', label='RLS estimate')
+plt.plot(time, true_slip, 'k--', linewidth=1.5, label='True slip')
+plt.plot(time, slips_rls, color='green', label=f'RLS estimate (λ={LAMBDA})')
 plt.xlabel('Time (s)')
 plt.ylabel('Slip')
-plt.title('Online RLS Slip Estimation')
+plt.title('Online RLS Slip Estimation — Sinusoidal Slip')
 plt.legend()
 plt.grid(True)
 plt.tight_layout()
@@ -271,8 +283,17 @@ axes[1].grid(True)
 plt.tight_layout()
 plt.show()
 
-
-
+# --- Figure 6: Phase portrait — slip error vs position error (MPC + RLS only) ---
+plt.figure(figsize=(6, 5))
+sc = plt.scatter(slips_arr - true_slip, error_rls, c=time, cmap='viridis', s=10)
+plt.colorbar(sc, label='Time (s)')
+plt.axvline(0, color='black', linestyle='--', linewidth=1.0)
+plt.xlabel('Slip error (s_hat − s_true)')
+plt.ylabel('Position error (m)')
+plt.title('Phase Portrait: Slip Error vs Position Error (MPC + RLS)')
+plt.grid(True)
+plt.tight_layout()
+plt.show()
 
 # # --- Figure 5: Innovation (error) over time ---
 # plt.figure(figsize=(8, 4))

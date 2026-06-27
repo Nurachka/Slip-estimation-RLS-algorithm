@@ -6,7 +6,7 @@
 #   1. Uncompensated baseline (true slip applied, no RLS)
 #   2. RLS with no forgetting factor (lambda = 1.0 effectively)
 #   3. RLS with fixed forgetting factor lambda=0.96
-#   4. RLS with variable lambda: 0.95 during the transition window (steps 150–250), 0.96 otherwise
+#   4. RLS with variable lambda: 0.8 during the transition window (steps 150–250), 0.96 otherwise
 #
 # Outputs: trajectory comparison, slip estimates + forgetting factor overlay, tracking error
 # over time, and RLS estimation error covariance (4 figures). Also prints per-scenario
@@ -15,6 +15,7 @@
 import sys
 import os
 sys.path.append("..")
+from mathematical_simulator_class.config import NOISE_STD_ORIENTATION
 from mathematical_simulator_class.robot import Robot
 from mathematical_simulator_class.file_reader import Analysis
 from mathematical_simulator_class.feedforward import Feedforward
@@ -24,10 +25,9 @@ import numpy as np
 
 # --- Parameters ---
 LAMBDA_HIGH  = 0.96
-LAMBDA_LOW   = 0.95
+LAMBDA_LOW   = 0.8
 WINDOW_START = 150
 WINDOW_END   = 250
-WARMUP       = 50
 
 INITIAL_X     = 1.0
 INITIAL_Y     = 0.0
@@ -49,9 +49,10 @@ def run_simulation(slip_fn, lam_fn=None, use_compensation=True):
     Returns: (states, slip_estimates, covs, lambda_list)
     """
     robot = Robot(initial_x=INITIAL_X, initial_y=INITIAL_Y, initial_theta=INITIAL_THETA)
+    np.random.seed(0)  # identical noise realization across scenarios for a fair comparison
 
     if use_compensation:
-        estimator = RecursiveLeastSquares(s0=np.array([0.0]), P0=10*np.eye(1, 1), R=0.00436*np.eye(1, 1))
+        estimator = RecursiveLeastSquares(s0=np.array([0.0]), P0=50*np.eye(1, 1), R=2 * NOISE_STD_ORIENTATION**2 * np.eye(1, 1))
 
     theta_previous = INITIAL_THETA
     states         = []
@@ -65,18 +66,15 @@ def run_simulation(slip_fn, lam_fn=None, use_compensation=True):
 
         if use_compensation:
             s_hat = np.clip(float(estimator.estimates[-1][0]), -0.5, 0.5)
-            if timestep > WARMUP and s_hat > 0.0:
-                vel_right_comp = vel_right / (1 - s_hat)
-                vel_left_comp  = vel_left  / (1 - s_hat)
-            else:
-                vel_right_comp = vel_right
-                vel_left_comp  = vel_left
+            vel_right_comp = vel_right / (1 - s_hat)
+            vel_left_comp  = vel_left  / (1 - s_hat)
         else:
             vel_right_comp = vel_right
             vel_left_comp  = vel_left
 
+
         x, y, theta        = robot.forward_kinematics(vel_right_comp, vel_left_comp)
-        _, _, theta_noised = robot.add_noise()
+        x_noised, y_noised, theta_noised = robot.add_noise()
 
         if use_compensation:
             lam = lam_fn(timestep) if lam_fn is not None else None
@@ -87,7 +85,7 @@ def run_simulation(slip_fn, lam_fn=None, use_compensation=True):
             else:
                 estimator.predict_sim(theta_noised, theta_previous, vel_right_comp, vel_left_comp, 0.05)
             slip_estimates.append(float(estimator.estimates[-1][0]))
-            covs.append(estimator.estimationErrorCovarianceMatrices[timestep][0])
+            covs.append(estimator.estimationErrorCovarianceMatrices[timestep + 1][0])
             lambda_list.append(lam if lam is not None else 1.0)
 
         theta_previous = theta_noised
@@ -146,7 +144,7 @@ ax1.set_title('Estimated Slip and Forgetting Factor Over Time')
 ax2 = ax1.twinx()
 ax2.plot(lambda_list, color='tab:green', linestyle=':', linewidth=1.5, label='λ(t)')
 ax2.set_ylabel('λ')
-ax2.set_ylim(0.93, 1.01)
+ax2.set_ylim(0.78, 1.01)
 lines1, labels1 = ax1.get_legend_handles_labels()
 lines2, labels2 = ax2.get_legend_handles_labels()
 ax1.legend(lines1 + lines2, labels1 + labels2)
