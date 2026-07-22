@@ -1,20 +1,24 @@
 # Lemniscate trajectory tracking with LinearMPC + online RLS slip estimation,
-# under a hard wheel-acceleration constraint.
+# under a hard wheel-acceleration constraint only.
 #
 # Same setup as test_linear_mpc_with_rls.py (robot moves first, noisy measurement,
 # RLS estimates surface slip online from heading and feeds the unclipped estimate
 # into the MPC each step), with one addition: a per-step slew-rate constraint on the
-# commanded wheel velocities, du_max = ACC_MAX * DT, plus a heavier input-change cost
-# S_DELTA. This caps wheel acceleration at ±ACC_MAX m/s².
+# commanded wheel velocities, du_max = ACC_MAX * DT. This caps wheel acceleration at
+# ±ACC_MAX m/s² as a HARD constraint, with NO input-change cost at all (S = diag([0, 0]),
+# so the ΔU penalty contributes exactly zero). This isolates the hard constraint alone,
+# in contrast to test_linear_mpc_with_rls_acc_constraint.py which also adds the soft
+# S_DELTA cost.
 #
 # Scenarios (true slip s=0.1, Gaussian position/orientation noise):
 #   1. Feedforward only (no MPC) — uncompensated baseline
-#   2. MPC + online RLS, acceleration-limited    — slip-aware, du_max / S_DELTA
+#   2. MPC + online RLS, acceleration-limited    — slip-aware, hard du_max only
 #   3. MPC slip-unaware (s=0), acceleration-limited — same constraint, no slip model
 #
 # Isolates whether the online slip estimate helps when the controller is
-# rate-limited. Prints position/heading error stats, a slip-aware vs slip-unaware
-# % improvement line, slip-estimation accuracy, and an acceleration constraint check.
+# rate-limited by a hard constraint only. Prints position/heading error stats, a
+# slip-aware vs slip-unaware % improvement line, slip-estimation accuracy, and an
+# acceleration constraint check.
 # (The unconstrained MPC+RLS scenario is commented out below.)
 
 import sys
@@ -31,14 +35,14 @@ from mathematical_simulator_class.config import NOISE_STD_POSITION, NOISE_STD_OR
 DT           = 0.05
 WHEEL_BASE   = 0.5
 N            = 10
-VR_MAX       = 0.9
-VL_MAX       = 0.9
-S_ACTUAL     = 0.2
-ACC_MAX      = 2.0                 # maximum wheel acceleration (m/s²)
+VR_MAX       = 0.7
+VL_MAX       = 0.7
+S_ACTUAL     = 0.3
+ACC_MAX      = 1.0                 # maximum wheel acceleration (m/s²)
 DU_MAX       = ACC_MAX * DT        # equivalent per-step velocity change limit (m/s/step)
-S_DELTA      = np.diag([50.0, 50.0])  # input-change cost weight matrix (penalizes ΔU each step)
+S_ZERO       = np.diag([0.0, 0.0])  # zero input-change cost (pure hard constraint, no soft ΔU penalty)
 STEADY_STATE_START    = 100
-CONVERGENCE_THRESHOLD = 0.01      # convergence: |s_hat - s_true| < 0.005 (absolute slip units)
+CONVERGENCE_THRESHOLD = 0.005      # convergence: |s_hat - s_true| < 0.005 (absolute slip units)
 INNOVATION        = []
 estimationerrorcovariancematrices = []
 
@@ -147,25 +151,10 @@ states_ff,  vrc_ff,  vlc_ff,  _,         _          = run_simulation(s_actual=S_
 # states_unc, vrc_unc, vlc_unc, slips_unc, theta_unc  = run_simulation(s_actual=S_ACTUAL, use_mpc=True, use_rls=True,
 #                                                                      use_noise=True, du_max=None, S_cost=None)
 states_con, vrc_con, vlc_con, slips_con, theta_con  = run_simulation(s_actual=S_ACTUAL, use_mpc=True, use_rls=True,
-                                                                     use_noise=True, du_max=DU_MAX, S_cost=S_DELTA)
-# MPC slip-unaware (s=0), same acceleration constraint
+                                                                     use_noise=True, du_max=DU_MAX, S_cost=S_ZERO)
+# MPC slip-unaware (s=0), same hard acceleration constraint
 states_con_su, vrc_con_su, vlc_con_su, _, _         = run_simulation(s_actual=S_ACTUAL, use_mpc=True, use_rls=False, s_mpc=0.0,
-                                                                     use_noise=True, du_max=DU_MAX, S_cost=S_DELTA)
-
-# --- Save compensated trajectory (MPC+RLS, acc-limited) in lemniscate_trajectory.csv format ---
-experiments_dir = os.path.join(current_dir, '..', 'files_for_experiments')
-os.makedirs(experiments_dir, exist_ok=True)
-compensated_path = os.path.join(experiments_dir, f'lemniscate_compensated_mpc_rls_acc_slip{S_ACTUAL}.csv')
-compensated_df = pd.DataFrame({
-    'time':      time,
-    'x':         states_con[:, 0],
-    'y':         states_con[:, 1],
-    'theta':     states_con[:, 2],
-    'left_vel':  vlc_con,
-    'right_vel': vrc_con,
-})
-compensated_df.to_csv(compensated_path, index=False)
-print(f"Saved compensated trajectory to {compensated_path}")
+                                                                     use_noise=True, du_max=DU_MAX, S_cost=S_ZERO)
 
 # --- Position tracking error ---
 ref_xy    = np.column_stack((x_ref, y_ref))
@@ -189,28 +178,15 @@ def acceleration(v):
 ar_con, al_con         = acceleration(vrc_con),    acceleration(vlc_con)
 ar_con_su, al_con_su   = acceleration(vrc_con_su), acceleration(vlc_con_su)
 
-# --- Noised reference trajectory (reference + measurement noise) ---
-np.random.seed(42)
-x_ref_noised     = x_ref     + np.random.normal(0, NOISE_STD_POSITION,    size=x_ref.shape)
-y_ref_noised     = y_ref     + np.random.normal(0, NOISE_STD_POSITION,    size=y_ref.shape)
-theta_ref_noised = theta_ref + np.random.normal(0, NOISE_STD_ORIENTATION, size=theta_ref.shape)
-
-# --- Tracking error vs NOISED reference ---
-ref_xy_noised          = np.column_stack((x_ref_noised, y_ref_noised))
-error_con_noised       = np.linalg.norm(ref_xy_noised - states_con[:, :2],    axis=1)
-error_con_su_noised    = np.linalg.norm(ref_xy_noised - states_con_su[:, :2], axis=1)
-heading_err_con_noised    = wrap(states_con[:, 2]    - theta_ref_noised)
-heading_err_con_su_noised = wrap(states_con_su[:, 2] - theta_ref_noised)
-
 # --- Figure 1: Trajectory ---
 plt.figure(figsize=(7, 7))
-plt.plot(x_ref, y_ref, 'b--', linewidth=1.5)
-plt.plot(x_ref_noised, y_ref_noised, color='gray', alpha=0.5, linewidth=0.6)
-#purple no slip in mpc, mpc+rls in green
-plt.plot(states_con_su[:, 0], states_con_su[:, 1], color='purple')
-plt.plot(states_con[:, 0], states_con[:, 1], color='green')
+plt.plot(x_ref, y_ref, 'r--', label='Reference', linewidth=1.5)
+plt.plot(states_ff[:, 0],  states_ff[:, 1],  color='orange', label='Feedforward (no MPC)')
+plt.plot(states_con_su[:, 0], states_con_su[:, 1], color='purple', label=f'MPC slip-unaware, hard acc-limit ({ACC_MAX} m/s²)')
+plt.plot(states_con[:, 0], states_con[:, 1], color='green',  label=f'MPC+RLS, hard acc-limit ({ACC_MAX} m/s²)')
 plt.xlabel('X (m)')
 plt.ylabel('Y (m)')
+plt.title('Lemniscate Trajectory — MPC + RLS with Hard Acceleration Constraint')
 plt.legend()
 plt.axis('equal')
 plt.grid(True)
@@ -221,11 +197,11 @@ plt.show()
 plt.figure(figsize=(8, 4))
 #plt.plot(time, error_ff,  color='orange', label='Feedforward (no MPC)')
 # plt.plot(time, error_unc, color='blue',   label='MPC+RLS, unconstrained', alpha=0.7)
-#green = mpc+rls, acc-limited; purple = slip-unaware, acc-limited
-plt.plot(time, error_con_su, color='purple', alpha=0.7)
-plt.plot(time, error_con, color='green')
+plt.plot(time, error_con_su, color='purple', label='MPC slip-unaware, hard acc-limit', alpha=0.7)
+plt.plot(time, error_con, color='green',  label='MPC+RLS, hard acc-limit')
 plt.xlabel('Time (s)')
 plt.ylabel('Position error (m)')
+plt.title('Position Tracking Error')
 plt.legend()
 plt.grid(True)
 plt.tight_layout()
@@ -233,32 +209,11 @@ plt.show()
 
 # --- Figure 3: Heading tracking error ---
 plt.figure(figsize=(8, 4))
-plt.plot(time, heading_err_con_su, color='purple',alpha=0.7)
-plt.plot(time, heading_err_con,    color='green')
+plt.plot(time, heading_err_con_su, color='purple', label='MPC slip-unaware, hard acc-limit', alpha=0.7)
+plt.plot(time, heading_err_con,    color='green',  label='MPC+RLS, hard acc-limit')
 plt.xlabel('Time (s)')
 plt.ylabel('Heading error (rad)')
-plt.legend()
-plt.grid(True)
-plt.tight_layout()
-plt.show()
-
-# --- Figure 3a: Position tracking error vs noised reference ---
-plt.figure(figsize=(8, 4))
-plt.plot(time, error_con_su_noised, color='purple', alpha=0.7)
-plt.plot(time, error_con_noised,    color='green')
-plt.xlabel('Time (s)')
-plt.ylabel('Position error vs noised ref (m)')
-plt.legend()
-plt.grid(True)
-plt.tight_layout()
-plt.show()
-
-# --- Figure 3b: Heading tracking error vs noised reference ---
-plt.figure(figsize=(8, 4))
-plt.plot(time, heading_err_con_su_noised, color='purple', alpha=0.7)
-plt.plot(time, heading_err_con_noised,    color='green')
-plt.xlabel('Time (s)')
-plt.ylabel('Heading error vs noised ref (rad)')
+plt.title('Heading Tracking Error')
 plt.legend()
 plt.grid(True)
 plt.tight_layout()
@@ -268,87 +223,82 @@ plt.show()
 
 # --- Figure 4: Slip estimation ---
 plt.figure(figsize=(8, 4))
-plt.axhline(S_ACTUAL, color='black', linestyle='--', linewidth=1.5)
-plt.plot(time, slips_con, color='green')
+plt.axhline(S_ACTUAL, color='black', linestyle='--', linewidth=1.5, label=f'True slip ({S_ACTUAL})')
+plt.plot(time, slips_con, color='green', label='RLS estimate (hard acc-limit)')
 plt.xlabel('Time (s)')
 plt.ylabel('Slip')
+plt.title('Online RLS Slip Estimation')
 plt.legend()
 plt.grid(True)
 plt.tight_layout()
 plt.show()
 
-# --- Figure 5: Wheel acceleration — slip-unaware vs MPC+RLS (acc-limited) ---
+# --- Figure 5: Wheel acceleration — slip-aware vs slip-unaware (hard acc-limit) ---
 fig, axes = plt.subplots(1, 2, figsize=(12, 5))
-axes[0].plot(time, ar_con_su, color='purple', alpha=0.7)
-axes[0].plot(time, ar_con,    color='green')
-axes[0].axhline( ACC_MAX, color='black', linestyle='--', linewidth=1.0)
+axes[0].plot(time, ar_con_su, color='purple', label='Slip-unaware (hard acc-limit)', alpha=0.7)
+axes[0].plot(time, ar_con,    color='green',  label='MPC+RLS (hard acc-limit)')
+axes[0].axhline( ACC_MAX, color='black', linestyle='--', linewidth=1.0, label=f'±{ACC_MAX} m/s² limit')
 axes[0].axhline(-ACC_MAX, color='black', linestyle='--', linewidth=1.0)
 axes[0].set_xlabel('Time (s)')
 axes[0].set_ylabel('Acceleration (m/s²)')
 axes[0].set_title('Right Wheel Acceleration')
+axes[0].legend()
 axes[0].grid(True)
 
-axes[1].plot(time, al_con_su, color='purple', alpha=0.7)
-axes[1].plot(time, al_con,    color='green')
-axes[1].axhline( ACC_MAX, color='black', linestyle='--', linewidth=1.0)
+axes[1].plot(time, al_con_su, color='purple', label='Slip-unaware (hard acc-limit)', alpha=0.7)
+axes[1].plot(time, al_con,    color='green',  label='MPC+RLS (hard acc-limit)')
+axes[1].axhline( ACC_MAX, color='black', linestyle='--', linewidth=1.0, label=f'±{ACC_MAX} m/s² limit')
 axes[1].axhline(-ACC_MAX, color='black', linestyle='--', linewidth=1.0)
 axes[1].set_xlabel('Time (s)')
 axes[1].set_ylabel('Acceleration (m/s²)')
 axes[1].set_title('Left Wheel Acceleration')
+axes[1].legend()
 axes[1].grid(True)
+plt.suptitle('Wheel Acceleration — Slip-aware vs Slip-unaware (hard acc-limit)')
 plt.tight_layout()
 plt.show()
 
-# --- Figure 7: Commanded wheel velocities (reference vs acc-limited) ---
+# --- Figure 7: Commanded wheel velocities (reference vs hard acc-limit) ---
 fig, axes = plt.subplots(1, 2, figsize=(12, 4))
-axes[0].plot(time, vr_ref,     'r--',linewidth=1.5)
-axes[0].plot(time, vrc_con_su, color='purple',alpha=0.7)
-axes[0].plot(time, vrc_con,    color='green')
+axes[0].plot(time, vr_ref,     'r--',          label='Reference', linewidth=1.5)
+axes[0].plot(time, vrc_con_su, color='purple', label='Slip-unaware, hard acc-limit', alpha=0.7)
+axes[0].plot(time, vrc_con,    color='green',  label='MPC+RLS, hard acc-limit')
 axes[0].set_xlabel('Time (s)')
 axes[0].set_ylabel('Right Wheel Velocity (m/s)')
+axes[0].set_title('Right Wheel Velocity: Reference vs Commanded')
 axes[0].legend()
 axes[0].grid(True)
 
-axes[1].plot(time, vl_ref,     'r--',      linewidth=1.5)
-axes[1].plot(time, vlc_con_su, color='purple',  alpha=0.7)
-axes[1].plot(time, vlc_con,    color='green')
+axes[1].plot(time, vl_ref,     'r--',          label='Reference', linewidth=1.5)
+axes[1].plot(time, vlc_con_su, color='purple', label='Slip-unaware, hard acc-limit', alpha=0.7)
+axes[1].plot(time, vlc_con,    color='green',  label='MPC+RLS, hard acc-limit')
 axes[1].set_xlabel('Time (s)')
 axes[1].set_ylabel('Left Wheel Velocity (m/s)')
+axes[1].set_title('Left Wheel Velocity: Reference vs Commanded')
 axes[1].legend()
 axes[1].grid(True)
 plt.tight_layout()
 plt.show()
 
 # --- Metrics ---
-# print(f'Feedforward                  — position mean error: {error_ff.mean():.4f} m, max: {error_ff.max():.4f} m')
-# # print(f'MPC+RLS unconstrained  — position mean error: {error_unc.mean():.4f} m, max: {error_unc.max():.4f} m')
-# print(f'MPC+RLS    acc-limited       — position mean error: {error_con.mean():.4f} m, max: {error_con.max():.4f} m')
-# print(f'MPC slip-unaware acc-limited — position mean error: {error_con_su.mean():.4f} m, max: {error_con_su.max():.4f} m')
-# print()
-# # print(f'MPC+RLS unconstrained  — heading mean |θ err|: {np.abs(heading_err_unc).mean():.4f} rad, max: {np.abs(heading_err_unc).max():.4f} rad')
-# print(f'MPC+RLS    acc-limited       — heading mean |θ err|: {np.abs(heading_err_con).mean():.4f} rad, max: {np.abs(heading_err_con).max():.4f} rad')
-# print(f'MPC slip-unaware acc-limited — heading mean |θ err|: {np.abs(heading_err_con_su).mean():.4f} rad, max: {np.abs(heading_err_con_su).max():.4f} rad')
-# print()
-# print(f'MPC+RLS acc-limited    — position RMSE: {np.sqrt(np.mean(error_con**2)):.4f} m, heading RMSE: {np.sqrt(np.mean(heading_err_con**2)):.4f} rad')
-# print(f'MPC+RLS acc-limited    — position std dev: {error_con.std():.4f} m, heading std dev: {np.degrees(heading_err_con.std()):.4f} deg')
-
-# --- Metrics vs noised reference (Figures 3a & 3b) ---
-print(f'Fig 3a  MPC+RLS    acc-limited       — position mean error vs noised ref: {error_con_noised.mean():.4f} m, max: {error_con_noised.max():.4f} m')
-print(f'Fig 3a  MPC slip-unaware acc-limited — position mean error vs noised ref: {error_con_su_noised.mean():.4f} m, max: {error_con_su_noised.max():.4f} m')
+print(f'Feedforward                  — position mean error: {error_ff.mean():.4f} m, max: {error_ff.max():.4f} m')
+# print(f'MPC+RLS unconstrained  — position mean error: {error_unc.mean():.4f} m, max: {error_unc.max():.4f} m')
+print(f'MPC+RLS    hard acc-limit    — position mean error: {error_con.mean():.4f} m, max: {error_con.max():.4f} m')
+print(f'MPC slip-unaware hard acc    — position mean error: {error_con_su.mean():.4f} m, max: {error_con_su.max():.4f} m')
 print()
-print(f'Fig 3b  MPC+RLS    acc-limited       — heading mean |θ err| vs noised ref: {np.abs(heading_err_con_noised).mean():.4f} rad, max: {np.abs(heading_err_con_noised).max():.4f} rad')
-print(f'Fig 3b  MPC slip-unaware acc-limited — heading mean |θ err| vs noised ref: {np.abs(heading_err_con_su_noised).mean():.4f} rad, max: {np.abs(heading_err_con_su_noised).max():.4f} rad')
+# print(f'MPC+RLS unconstrained  — heading mean |θ err|: {np.abs(heading_err_unc).mean():.4f} rad, max: {np.abs(heading_err_unc).max():.4f} rad')
+print(f'MPC+RLS    hard acc-limit    — heading mean |θ err|: {np.abs(heading_err_con).mean():.4f} rad, max: {np.abs(heading_err_con).max():.4f} rad')
+print(f'MPC slip-unaware hard acc    — heading mean |θ err|: {np.abs(heading_err_con_su).mean():.4f} rad, max: {np.abs(heading_err_con_su).max():.4f} rad')
 print()
-pos_impr_noised  = (error_con_su_noised.mean() - error_con_noised.mean()) / error_con_su_noised.mean() * 100
-head_impr_noised = (np.abs(heading_err_con_su_noised).mean() - np.abs(heading_err_con_noised).mean()) / np.abs(heading_err_con_su_noised).mean() * 100
-print(f'MPC+RLS vs slip-unaware vs noised ref (Fig 3a/3b) — position mean improvement: {pos_impr_noised:+.2f}%, heading mean improvement: {head_impr_noised:+.2f}%')
+print(f'MPC+RLS hard acc-limit — position RMSE: {np.sqrt(np.mean(error_con**2)):.4f} m, heading RMSE: {np.sqrt(np.mean(heading_err_con**2)):.4f} rad')
+print(f'MPC+RLS hard acc-limit — position std dev: {error_con.std():.4f} m, heading std dev: {np.degrees(heading_err_con.std()):.4f} deg')
 
-# Improvement of slip-aware RLS over slip-unaware MPC (both acc-limited; positive = RLS better)
+# Improvement of slip-aware RLS over slip-unaware MPC (both hard acc-limited; positive = RLS better)
 pos_impr  = (error_con_su.mean() - error_con.mean()) / error_con_su.mean() * 100
 head_impr = (np.abs(heading_err_con_su).mean() - np.abs(heading_err_con).mean()) / np.abs(heading_err_con_su).mean() * 100
-print(f'\nMPC+RLS vs slip-unaware (both acc-limited) — position mean improvement: {pos_impr:+.2f}%, heading mean improvement: {head_impr:+.2f}%')
+print(f'\nMPC+RLS vs slip-unaware (both hard acc-limited) — position mean improvement: {pos_impr:+.2f}%, heading mean improvement: {head_impr:+.2f}%')
 
-# --- Slip estimation accuracy (acc-limited run) ---
+# --- Slip estimation accuracy (hard acc-limit run) ---
 slips_arr = np.array(slips_con)
 rmse_full = np.sqrt(np.mean((slips_arr - S_ACTUAL) ** 2))
 mae_full  = np.mean(np.abs(slips_arr - S_ACTUAL))
@@ -371,7 +321,7 @@ max_con    = max(np.abs(ar_con).max(),    np.abs(al_con).max())
 max_con_su = max(np.abs(ar_con_su).max(), np.abs(al_con_su).max())
 tol     = 1e-3  # OSQP solve tolerance
 print()
-print(f"Acceleration limit: ±{ACC_MAX} m/s²  (du_max = {DU_MAX} m/s/step)")
-print(f"Max |accel| MPC+RLS      (acc-limited) — R: {np.abs(ar_con).max():.4f}, L: {np.abs(al_con).max():.4f}  (overall {max_con:.4f} m/s²)")
-print(f"Max |accel| slip-unaware (acc-limited) — R: {np.abs(ar_con_su).max():.4f}, L: {np.abs(al_con_su).max():.4f}  (overall {max_con_su:.4f} m/s²)")
+print(f"Acceleration limit: ±{ACC_MAX} m/s²  (du_max = {DU_MAX} m/s/step, hard constraint only)")
+print(f"Max |accel| MPC+RLS      (hard acc-limit) — R: {np.abs(ar_con).max():.4f}, L: {np.abs(al_con).max():.4f}  (overall {max_con:.4f} m/s²)")
+print(f"Max |accel| slip-unaware (hard acc-limit) — R: {np.abs(ar_con_su).max():.4f}, L: {np.abs(al_con_su).max():.4f}  (overall {max_con_su:.4f} m/s²)")
 print(f"Constraint satisfied — MPC+RLS: {max_con <= ACC_MAX + tol}, slip-unaware: {max_con_su <= ACC_MAX + tol}")

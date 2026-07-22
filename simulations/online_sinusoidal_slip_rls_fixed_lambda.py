@@ -26,7 +26,7 @@ SLIP_OFFSET  = 0.15          # center = (0.2 + 0.1) / 2
 SLIP_AMP     = 0.05          # half-amplitude = (0.2 - 0.1) / 2
 SLIP_FREQ_HZ = 0.05          # Hz — one full cycle every 400 timesteps at dt=0.05 s
 DT           = TIMESTEP      # 0.05 s
-LAMBDA       = 0.96          # fixed RLS forgetting factor (< 1 so the estimate can track the sinusoid)
+LAMBDA       = 0.95          # fixed RLS forgetting factor (< 1 so the estimate can track the sinusoid)
 
 SEED         = 42            # fixed RNG seed so the sensor noise is identical every run
 STEADY_STATE_START = 100
@@ -83,7 +83,8 @@ def run_simulation(feedforward):
         slip.append(slip_previous)
 
     return (robot_no_comp, comp_trajectory, no_comp_trajectory, slip,
-            vel_right_list, vel_left_list, vel_right_comp_list, vel_left_comp_list)
+            vel_right_list, vel_left_list, vel_right_comp_list, vel_left_comp_list,
+            estimator)
 
 
 if __name__ == "__main__":
@@ -94,7 +95,8 @@ if __name__ == "__main__":
     feedforward    = Feedforward(file_reader.read_csv(file_path))
 
     robot_no_comp, comp_trajectory, no_comp_trajectory, slip, \
-        vel_right_list, vel_left_list, vel_right_comp_list, vel_left_comp_list = run_simulation(feedforward)
+        vel_right_list, vel_left_list, vel_right_comp_list, vel_left_comp_list, \
+        estimator = run_simulation(feedforward)
 
     x_target_list     = feedforward.df['x'].tolist()
     y_target_list     = feedforward.df['y'].tolist()
@@ -198,16 +200,48 @@ if __name__ == "__main__":
     print(f"Full run            — RMSE: {rmse_full:.4f}, MAE: {mae_full:.4f}")
     print(f"Steps {STEADY_STATE_START}→end        — RMSE: {rmse_ss:.4f}, MAE: {mae_ss:.4f}")
 
+    # --- RLS excitation diagnostic ---------------------------------------------
+    # On the lemniscate crossing the robot goes nearly straight, so the regressor
+    # C = dt*omega -> 0. Optimal RLS responds by collapsing the gain ||K|| -> 0,
+    # so the estimate COASTS instead of learning from near-zero-information steps.
+    # With a fixed forgetting factor (lam < 1), trace(P) also inflates by 1/lam
+    # whenever the gain is collapsed and no correction is applied — this plot lets
+    # you confirm the gain collapse and check whether P is winding up at the crossing.
+    gain_mag = np.array([np.linalg.norm(K) for K in estimator.gainMatrices])
+    trace_P  = np.array([np.trace(P) for P in estimator.estimationErrorCovarianceMatrices[1:]])
+    abs_omega = np.abs(np.array([w for w in estimator.angular_vel_z]))
+
+    fig, (axk, axp, axw) = plt.subplots(3, 1, figsize=(10, 8), sharex=True)
+    axk.plot(gain_mag, color='tab:blue', label='RLS gain magnitude ‖K‖')
+    axk.set_ylabel('‖K‖')
+    axk.set_title(f'RLS excitation diagnostic (λ={LAMBDA})')
+    axk.legend(); axk.grid()
+    axp.plot(trace_P, color='tab:red', label='trace(P)')
+    axp.set_ylabel('trace(P)')
+    axp.legend(); axp.grid()
+    axw.plot(abs_omega, color='tab:green', label='|ω| (excitation proxy)')
+    axw.set_xlabel('Time Step')
+    axw.set_ylabel('|ω| (rad/s)')
+    axw.legend(); axw.grid()
+    plt.tight_layout()
+    plt.show()
+
     plt.figure(figsize=(12, 5))
     plt.subplot(1, 2, 1)
-    plt.plot(error_comp, label='Position Error (compensated vs target)')
+    plt.plot(error_no_comp, color='tab:orange', linestyle='--',
+             label='Feedforward only (no compensation)')
+    plt.plot(error_comp, color='tab:blue',
+             label='Compensated (feedforward + RLS)')
     plt.xlabel('Time Step')
     plt.ylabel('Error (m)')
     plt.title('Position Error Over Time')
     plt.legend()
     plt.grid()
     plt.subplot(1, 2, 2)
-    plt.plot(np.degrees(heading_error), label='Heading Error (compensated vs target in degrees)')
+    plt.plot(np.degrees(heading_error_no_comp), color='tab:orange', linestyle='--',
+             label='Feedforward only (no compensation)')
+    plt.plot(np.degrees(heading_error), color='tab:blue',
+             label='Compensated (feedforward + RLS)')
     plt.xlabel('Time Step')
     plt.ylabel('Error (degrees)')
     plt.title('Heading Error Over Time')

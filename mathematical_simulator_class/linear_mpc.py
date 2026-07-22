@@ -40,7 +40,7 @@ class LinearMPC:
         self.N = N_horizon
 
         self.Q   = Q   if Q   is not None else np.diag([50.0, 50.0, 10.0])
-        self.R   = R   if R   is not None else np.diag([0.1, 0.1])
+        self.R   = R   if R   is not None else np.diag([0.5, 0.5])
         self.Q_N = Q_N if Q_N is not None else np.diag([50.0, 50.0, 10.0])
         self.S   = S   if S   is not None else np.diag([1.0,1.0])  # default no ΔU cost
 

@@ -161,7 +161,7 @@ error_mpc = np.linalg.norm(ref_xy - states_mpc[:, :2], axis=1)
 error_rls = np.linalg.norm(ref_xy - states_rls[:, :2], axis=1)
 
 plt.figure(figsize=(8, 4))
-plt.plot(time, error_ff,  color='orange', label='Feedforward (no MPC)')
+#plt.plot(time, error_ff,  color='orange', label='Feedforward (no MPC)')
 plt.plot(time, error_mpc, color='blue',   label='MPC slip-unaware (s=0)')
 plt.plot(time, error_rls, color='green',  label='MPC + online RLS')
 plt.xlabel('Time (s)')
@@ -183,7 +183,7 @@ heading_err_mpc = np.arctan2(np.sin(states_mpc[:, 2] - theta_ref), np.cos(states
 heading_err_rls = np.arctan2(np.sin(states_rls[:, 2] - theta_ref), np.cos(states_rls[:, 2] - theta_ref))
 
 plt.figure(figsize=(8, 4))
-plt.plot(time, heading_err_ff,  color='orange', label='Feedforward (no MPC)')
+#plt.plot(time, heading_err_ff,  color='orange', label='Feedforward (no MPC)')
 plt.plot(time, heading_err_mpc, color='blue',   label='MPC slip-unaware (s=0)')
 plt.plot(time, heading_err_rls, color='green',  label='MPC + online RLS')
 plt.axhline(0, color='black', linestyle='--', linewidth=1.0)
@@ -239,7 +239,7 @@ plt.show()
 # --- Figure 4: Theta heading nominal vs measured ---
 plt.figure(figsize=(8, 4))
 plt.plot(time, theta_ref,       'r--',           label='Reference (nominal)',       linewidth=1.5)
-plt.plot(time, states_ff[:, 2], color='orange',  label='Actual (feedforward)',      alpha=0.9)
+#plt.plot(time, states_ff[:, 2], color='orange',  label='Actual (feedforward)',      alpha=0.9)
 plt.plot(time, theta_meas_rls,  color='green',   label='Measured (with noise, RLS)', alpha=0.8)
 plt.xlabel('Time (s)')
 plt.ylabel('Heading θ (rad)')
@@ -272,6 +272,23 @@ plt.tight_layout()
 plt.show()
 
 
+# --- Figure 6: Reference vs compensated angular velocity ---
+# Differential-drive commanded angular velocity: omega = (vr - vl) / wheel_base
+omega_ref = (vr_ref - vl_ref) / WHEEL_BASE
+omega_mpc = ((vr_ref + dvr_mpc) - (vl_ref + dvl_mpc)) / WHEEL_BASE
+omega_rls = ((vr_ref + dvr_rls) - (vl_ref + dvl_rls)) / WHEEL_BASE
+
+plt.figure(figsize=(8, 4))
+plt.plot(time, omega_ref, 'r--',         label='Reference',             linewidth=1.5)
+plt.plot(time, omega_mpc, color='blue',  label='MPC slip-unaware (s=0)')
+plt.plot(time, omega_rls, color='green', label='MPC + online RLS')
+plt.xlabel('Time (s)')
+plt.ylabel('Angular velocity ω (rad/s)')
+plt.title('Angular Velocity: Reference vs Compensated')
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()
 
 
 # # --- Figure 5: Innovation (error) over time ---

@@ -37,15 +37,15 @@ WHEEL_BASE   = 0.5
 N            = 10
 VR_MAX       = 0.7
 VL_MAX       = 0.7
-S_LOW        = 0.1                 # true slip before the step
-S_HIGH       = 0.3                 # true slip after the step
+S_LOW        = 0.0                 # true slip before the step
+S_HIGH       = 0.2                 # true slip after the step
 SLIP_STEP    = 200                 # timestep at which slip jumps S_LOW -> S_HIGH
 LAMBDA       = 0.95                # constant RLS forgetting factor (lets estimate track the step)
 ACC_MAX      = 2.0                 # maximum wheel acceleration (m/s²)
 DU_MAX       = ACC_MAX * DT        # equivalent per-step velocity change limit (m/s/step)
 S_DELTA      = np.diag([50.0, 50.0])  # input-change cost weight matrix (penalizes ΔU each step)
 STEADY_STATE_START    = 300        # slip-estimation steady-state window starts after the step
-CONVERGENCE_THRESHOLD = 0.005      # convergence: |s_hat - s_true| < 0.005 (absolute slip units)
+CONVERGENCE_THRESHOLD = 0.01      # convergence: |s_hat - s_true| < 0.01 (absolute slip units)
 INNOVATION        = []
 estimationerrorcovariancematrices = []
 
@@ -191,15 +191,28 @@ def acceleration(v):
 ar_con, al_con         = acceleration(vrc_con),    acceleration(vlc_con)
 ar_con_su, al_con_su   = acceleration(vrc_con_su), acceleration(vlc_con_su)
 
+# --- Noised reference trajectory (reference + measurement noise) ---
+np.random.seed(42)
+x_ref_noised     = x_ref     + np.random.normal(0, NOISE_STD_POSITION,    size=x_ref.shape)
+y_ref_noised     = y_ref     + np.random.normal(0, NOISE_STD_POSITION,    size=y_ref.shape)
+theta_ref_noised = theta_ref + np.random.normal(0, NOISE_STD_ORIENTATION, size=theta_ref.shape)
+
+# --- Tracking error vs NOISED reference ---
+ref_xy_noised          = np.column_stack((x_ref_noised, y_ref_noised))
+error_con_noised       = np.linalg.norm(ref_xy_noised - states_con[:, :2],    axis=1)
+error_con_su_noised    = np.linalg.norm(ref_xy_noised - states_con_su[:, :2], axis=1)
+heading_err_con_noised    = wrap(states_con[:, 2]    - theta_ref_noised)
+heading_err_con_su_noised = wrap(states_con_su[:, 2] - theta_ref_noised)
+
 # --- Figure 1: Trajectory ---
 plt.figure(figsize=(7, 7))
-plt.plot(x_ref, y_ref, 'r--', label='Reference', linewidth=1.5)
-plt.plot(states_ff[:, 0],  states_ff[:, 1],  color='orange', label='Feedforward (no MPC)')
-plt.plot(states_con_su[:, 0], states_con_su[:, 1], color='purple', label=f'MPC slip-unaware, acc-limited ({ACC_MAX} m/s²)')
-plt.plot(states_con[:, 0], states_con[:, 1], color='green',  label=f'MPC+RLS, acc-limited ({ACC_MAX} m/s²)')
+plt.plot(x_ref, y_ref, 'b--', linewidth=1.5)
+plt.plot(x_ref_noised, y_ref_noised, color='gray', alpha=0.5, linewidth=0.6)
+#purple no slip in mpc, mpc+rls in green
+plt.plot(states_con_su[:, 0], states_con_su[:, 1], color='purple')
+plt.plot(states_con[:, 0], states_con[:, 1], color='green')
 plt.xlabel('X (m)')
 plt.ylabel('Y (m)')
-plt.title('Lemniscate Trajectory — MPC + RLS with Acceleration Constraint (step slip)')
 plt.legend()
 plt.axis('equal')
 plt.grid(True)
@@ -210,11 +223,11 @@ plt.show()
 plt.figure(figsize=(8, 4))
 #plt.plot(time, error_ff,  color='orange', label='Feedforward (no MPC)')
 # plt.plot(time, error_unc, color='blue',   label='MPC+RLS, unconstrained', alpha=0.7)
-plt.plot(time, error_con_su, color='purple', label='MPC slip-unaware, acc-limited', alpha=0.7)
-plt.plot(time, error_con, color='green',  label='MPC+RLS, acc-limited')
+#green = mpc+rls, acc-limited; purple = slip-unaware, acc-limited
+plt.plot(time, error_con_su, color='purple', alpha=0.7)
+plt.plot(time, error_con, color='green')
 plt.xlabel('Time (s)')
 plt.ylabel('Position error (m)')
-plt.title('Position Tracking Error')
 plt.legend()
 plt.grid(True)
 plt.tight_layout()
@@ -222,11 +235,32 @@ plt.show()
 
 # --- Figure 3: Heading tracking error ---
 plt.figure(figsize=(8, 4))
-plt.plot(time, np.degrees(heading_err_con_su), color='purple', label='MPC slip-unaware, acc-limited', alpha=0.7)
-plt.plot(time, np.degrees(heading_err_con),    color='green',  label='MPC+RLS, acc-limited')
+plt.plot(time, heading_err_con_su, color='purple', alpha=0.7)
+plt.plot(time, heading_err_con,    color='green')
 plt.xlabel('Time (s)')
-plt.ylabel('Heading error (deg)')
-plt.title('Heading Tracking Error')
+plt.ylabel('Heading error (rad)')
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+
+# --- Figure 3a: Position tracking error vs noised reference ---
+plt.figure(figsize=(8, 4))
+plt.plot(time, error_con_su_noised, color='purple', alpha=0.7)
+plt.plot(time, error_con_noised,    color='green')
+plt.xlabel('Time (s)')
+plt.ylabel('Position error vs noised ref (m)')
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+
+# --- Figure 3b: Heading tracking error vs noised reference ---
+plt.figure(figsize=(8, 4))
+plt.plot(time, heading_err_con_su_noised, color='purple', alpha=0.7)
+plt.plot(time, heading_err_con_noised,    color='green')
+plt.xlabel('Time (s)')
+plt.ylabel('Heading error vs noised ref (rad)')
 plt.legend()
 plt.grid(True)
 plt.tight_layout()
@@ -236,96 +270,80 @@ plt.show()
 
 # --- Figure 4: Slip estimation ---
 plt.figure(figsize=(8, 4))
-plt.plot(time, true_slip, 'k--', linewidth=1.5, label='True slip (step)')
-plt.plot(time, slips_con, color='green', label='RLS estimate (acc-limited)')
+plt.plot(time, true_slip, 'k--', linewidth=1.5)
+plt.plot(time, slips_con, color='green')
 plt.xlabel('Time (s)')
 plt.ylabel('Slip')
-plt.title('Online RLS Slip Estimation')
 plt.legend()
 plt.grid(True)
 plt.tight_layout()
 plt.show()
 
-# --- Figure 5: Slip-unaware acceleration (acc-limited) ---
+# --- Figure 5: Wheel acceleration — slip-unaware vs MPC+RLS (acc-limited) ---
 fig, axes = plt.subplots(1, 2, figsize=(12, 5))
-axes[0].plot(time, ar_con_su, color='purple', label='Slip-unaware (acc-limited)')
-axes[0].axhline( ACC_MAX, color='black', linestyle='--', linewidth=1.0, label=f'±{ACC_MAX} m/s² limit')
+axes[0].plot(time, ar_con_su, color='purple', alpha=0.7)
+axes[0].plot(time, ar_con,    color='green')
+axes[0].axhline( ACC_MAX, color='black', linestyle='--', linewidth=1.0)
 axes[0].axhline(-ACC_MAX, color='black', linestyle='--', linewidth=1.0)
 axes[0].set_xlabel('Time (s)')
 axes[0].set_ylabel('Acceleration (m/s²)')
 axes[0].set_title('Right Wheel Acceleration')
-axes[0].legend()
 axes[0].grid(True)
 
-axes[1].plot(time, al_con_su, color='purple', label='Slip-unaware (acc-limited)')
-axes[1].axhline( ACC_MAX, color='black', linestyle='--', linewidth=1.0, label=f'±{ACC_MAX} m/s² limit')
+axes[1].plot(time, al_con_su, color='purple', alpha=0.7)
+axes[1].plot(time, al_con,    color='green')
+axes[1].axhline( ACC_MAX, color='black', linestyle='--', linewidth=1.0)
 axes[1].axhline(-ACC_MAX, color='black', linestyle='--', linewidth=1.0)
 axes[1].set_xlabel('Time (s)')
 axes[1].set_ylabel('Acceleration (m/s²)')
 axes[1].set_title('Left Wheel Acceleration')
-axes[1].legend()
 axes[1].grid(True)
-plt.suptitle('Wheel Acceleration — Slip-unaware (acc-limited)')
-plt.tight_layout()
-plt.show()
-
-# --- Figure 6: MPC+RLS acceleration (acc-limited) ---
-fig, axes = plt.subplots(1, 2, figsize=(12, 5))
-axes[0].plot(time, ar_con, color='green', label='MPC+RLS (acc-limited)')
-axes[0].axhline( ACC_MAX, color='black', linestyle='--', linewidth=1.0, label=f'±{ACC_MAX} m/s² limit')
-axes[0].axhline(-ACC_MAX, color='black', linestyle='--', linewidth=1.0)
-axes[0].set_xlabel('Time (s)')
-axes[0].set_ylabel('Acceleration (m/s²)')
-axes[0].set_title('Right Wheel Acceleration')
-axes[0].legend()
-axes[0].grid(True)
-
-axes[1].plot(time, al_con, color='green', label='MPC+RLS (acc-limited)')
-axes[1].axhline( ACC_MAX, color='black', linestyle='--', linewidth=1.0, label=f'±{ACC_MAX} m/s² limit')
-axes[1].axhline(-ACC_MAX, color='black', linestyle='--', linewidth=1.0)
-axes[1].set_xlabel('Time (s)')
-axes[1].set_ylabel('Acceleration (m/s²)')
-axes[1].set_title('Left Wheel Acceleration')
-axes[1].legend()
-axes[1].grid(True)
-plt.suptitle('Wheel Acceleration — MPC+RLS (acc-limited)')
 plt.tight_layout()
 plt.show()
 
 # --- Figure 7: Commanded wheel velocities (reference vs acc-limited) ---
 fig, axes = plt.subplots(1, 2, figsize=(12, 4))
-axes[0].plot(time, vr_ref,     'r--',          label='Reference', linewidth=1.5)
-axes[0].plot(time, vrc_con_su, color='purple', label='Slip-unaware, acc-limited', alpha=0.7)
-axes[0].plot(time, vrc_con,    color='green',  label='MPC+RLS, acc-limited')
+axes[0].plot(time, vr_ref,     'r--',          linewidth=1.5)
+axes[0].plot(time, vrc_con_su, color='purple', alpha=0.7)
+axes[0].plot(time, vrc_con,    color='green')
 axes[0].set_xlabel('Time (s)')
 axes[0].set_ylabel('Right Wheel Velocity (m/s)')
-axes[0].set_title('Right Wheel Velocity: Reference vs Commanded')
 axes[0].legend()
 axes[0].grid(True)
 
-axes[1].plot(time, vl_ref,     'r--',          label='Reference', linewidth=1.5)
-axes[1].plot(time, vlc_con_su, color='purple', label='Slip-unaware, acc-limited', alpha=0.7)
-axes[1].plot(time, vlc_con,    color='green',  label='MPC+RLS, acc-limited')
+axes[1].plot(time, vl_ref,     'r--',          linewidth=1.5)
+axes[1].plot(time, vlc_con_su, color='purple', alpha=0.7)
+axes[1].plot(time, vlc_con,    color='green')
 axes[1].set_xlabel('Time (s)')
 axes[1].set_ylabel('Left Wheel Velocity (m/s)')
-axes[1].set_title('Left Wheel Velocity: Reference vs Commanded')
 axes[1].legend()
 axes[1].grid(True)
 plt.tight_layout()
 plt.show()
 
 # --- Metrics ---
-print(f'Feedforward                  — position mean error: {error_ff.mean():.4f} m, max: {error_ff.max():.4f} m')
-# print(f'MPC+RLS unconstrained  — position mean error: {error_unc.mean():.4f} m, max: {error_unc.max():.4f} m')
-print(f'MPC+RLS    acc-limited       — position mean error: {error_con.mean():.4f} m, max: {error_con.max():.4f} m')
-print(f'MPC slip-unaware acc-limited — position mean error: {error_con_su.mean():.4f} m, max: {error_con_su.max():.4f} m')
+# print(f'Feedforward                  — position mean error: {error_ff.mean():.4f} m, max: {error_ff.max():.4f} m')
+# # print(f'MPC+RLS unconstrained  — position mean error: {error_unc.mean():.4f} m, max: {error_unc.max():.4f} m')
+# print(f'MPC+RLS    acc-limited       — position mean error: {error_con.mean():.4f} m, max: {error_con.max():.4f} m')
+# print(f'MPC slip-unaware acc-limited — position mean error: {error_con_su.mean():.4f} m, max: {error_con_su.max():.4f} m')
+# print()
+# # print(f'MPC+RLS unconstrained  — heading mean |θ err|: {np.abs(heading_err_unc).mean():.4f} rad, max: {np.abs(heading_err_unc).max():.4f} rad')
+# print(f'MPC+RLS    acc-limited       — heading mean |θ err|: {np.abs(heading_err_con).mean():.4f} rad, max: {np.abs(heading_err_con).max():.4f} rad')
+# print(f'MPC slip-unaware acc-limited — heading mean |θ err|: {np.abs(heading_err_con_su).mean():.4f} rad, max: {np.abs(heading_err_con_su).max():.4f} rad')
+# print()
+# print(f'MPC+RLS acc-limited    — position RMSE: {np.sqrt(np.mean(error_con**2)):.4f} m, heading RMSE: {np.sqrt(np.mean(heading_err_con**2)):.4f} rad')
+# print(f'MPC+RLS acc-limited    — position std dev: {error_con.std():.4f} m, heading std dev: {np.degrees(heading_err_con.std()):.4f} deg')
+
+# --- Metrics vs noised reference (Figures 3a & 3b) ---
+print(f'Fig 3a  MPC+RLS    acc-limited       — position mean error vs noised ref: {error_con_noised.mean():.4f} m, max: {error_con_noised.max():.4f} m')
+print(f'Fig 3a  MPC slip-unaware acc-limited — position mean error vs noised ref: {error_con_su_noised.mean():.4f} m, max: {error_con_su_noised.max():.4f} m')
 print()
-# print(f'MPC+RLS unconstrained  — heading mean |θ err|: {np.abs(heading_err_unc).mean():.4f} rad, max: {np.abs(heading_err_unc).max():.4f} rad')
-print(f'MPC+RLS    acc-limited       — heading mean |θ err|: {np.abs(heading_err_con).mean():.4f} rad, max: {np.abs(heading_err_con).max():.4f} rad')
-print(f'MPC slip-unaware acc-limited — heading mean |θ err|: {np.abs(heading_err_con_su).mean():.4f} rad, max: {np.abs(heading_err_con_su).max():.4f} rad')
+print(f'Fig 3b  MPC+RLS    acc-limited       — heading mean |θ err| vs noised ref: {np.abs(heading_err_con_noised).mean():.4f} rad, max: {np.abs(heading_err_con_noised).max():.4f} rad')
+print(f'Fig 3b  MPC slip-unaware acc-limited — heading mean |θ err| vs noised ref: {np.abs(heading_err_con_su_noised).mean():.4f} rad, max: {np.abs(heading_err_con_su_noised).max():.4f} rad')
 print()
-print(f'MPC+RLS acc-limited    — position RMSE: {np.sqrt(np.mean(error_con**2)):.4f} m, heading RMSE: {np.sqrt(np.mean(heading_err_con**2)):.4f} rad')
-print(f'MPC+RLS acc-limited    — position std dev: {error_con.std():.4f} m, heading std dev: {np.degrees(heading_err_con.std()):.4f} deg')
+pos_impr_noised  = (error_con_su_noised.mean() - error_con_noised.mean()) / error_con_su_noised.mean() * 100
+head_impr_noised = (np.abs(heading_err_con_su_noised).mean() - np.abs(heading_err_con_noised).mean()) / np.abs(heading_err_con_su_noised).mean() * 100
+print(f'MPC+RLS vs slip-unaware vs noised ref (Fig 3a/3b) — position mean improvement: {pos_impr_noised:+.2f}%, heading mean improvement: {head_impr_noised:+.2f}%')
 
 # Improvement of slip-aware RLS over slip-unaware MPC (both acc-limited; positive = RLS better)
 pos_impr  = (error_con_su.mean() - error_con.mean()) / error_con_su.mean() * 100

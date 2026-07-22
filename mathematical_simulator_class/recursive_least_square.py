@@ -84,13 +84,19 @@ class RecursiveLeastSquares:
                                      np.cos(theta_noised - theta_previous_noised))])
             angular_vel_z = (vel_right - vel_left) / self.L
             C = np.array([delta_t * angular_vel_z])
-            L_matrix = self.R + np.matmul(C, np.matmul(self.estimationErrorCovarianceMatrices[self.previousTimeStep], C.T))
+            L_matrix = self.R + np.matmul(C, np.matmul((1 / lam) * self.estimationErrorCovarianceMatrices[self.previousTimeStep], C.T))
             L_matrix_inverse = np.linalg.inv(L_matrix)
-            gain_matrix = np.matmul(self.estimationErrorCovarianceMatrices[self.previousTimeStep], np.matmul(C.T, L_matrix_inverse))
+            #  gain_matrix = np.matmul(self.estimationErrorCovarianceMatrices[self.previousTimeStep], np.matmul(C.T, L_matrix_inverse))
+            gain_matrix = np.matmul((1 / lam) * self.estimationErrorCovarianceMatrices[self.previousTimeStep], np.matmul(C.T, L_matrix_inverse))
             error = (C - theta_diff) - np.matmul(C, self.estimates[self.previousTimeStep])
             estimate = self.estimates[self.previousTimeStep] + np.matmul(gain_matrix, error)
+
+            # ImKc = np.eye(np.size(self.s0), np.size(self.s0)) - np.matmul(gain_matrix, C)
+            # estimationErrorCovarianceMatrix = np.matmul(ImKc, self.estimationErrorCovarianceMatrices[self.previousTimeStep]) * (1 / lam)
+
+            #Calculating the new estimation error covariance matrix with the forgetting factor
             ImKc = np.eye(np.size(self.s0), np.size(self.s0)) - np.matmul(gain_matrix, C)
-            estimationErrorCovarianceMatrix = np.matmul(ImKc, self.estimationErrorCovarianceMatrices[self.previousTimeStep]) * (1 / lam)
+            estimationErrorCovarianceMatrix = np.matmul(ImKc, (1 / lam) * self.estimationErrorCovarianceMatrices[self.previousTimeStep])
             self.estimates.append(estimate)
             self.estimationErrorCovarianceMatrices.append(estimationErrorCovarianceMatrix)
             self.gainMatrices.append(gain_matrix)
